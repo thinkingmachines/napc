@@ -1,0 +1,10 @@
+.features[]
+| del(.properties[
+  "POP2015",
+  "RURBAN",
+  "bright",
+  "pois",
+  "population",
+  "primary",
+  "trunk"
+])
