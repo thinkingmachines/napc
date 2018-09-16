@@ -8,7 +8,7 @@ This is a web-based interactive map that will be embedded into NAPC’s Talambay
 
 ### Installing
 
-Run the code below inside the `public` folder: 
+Run the code below inside the `napc` folder: 
 
 ```
 python -m SimpleHTTPServer
