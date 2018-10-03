@@ -1,3 +1,4 @@
 node_modules/
 .DS_Store
 napc/.DS_Store
+napc/static/.DS_Store
