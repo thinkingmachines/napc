@@ -1,6 +1,68 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { OrdinalFrame } from 'semiotic'
+
+const barChartData = { '/food': [
+  { municipality: '6', score: 0.5 },
+  { municipality: '4', score: 0.8 },
+  { municipality: '3', score: 0.2 },
+  { municipality: '1', score: 0.9 }
+],
+'/water': [
+  { municipality: '6', score: 0.5 },
+  { municipality: '4', score: 0.6 },
+  { municipality: '3', score: 0.3 },
+  { municipality: '1', score: 0.1 }
+],
+'/shelter': [
+  { municipality: '6', score: 0.8 },
+  { municipality: '4', score: 0.2 },
+  { municipality: '3', score: 0.4 },
+  { municipality: '1', score: 0.6 }
+],
+'/work': [
+  { municipality: '6', score: 0.1 },
+  { municipality: '4', score: 0.9 },
+  { municipality: '3', score: 0.6 },
+  { municipality: '1', score: 0.2 }
+],
+'/health': [
+  { municipality: '6', score: 0.1 },
+  { municipality: '4', score: 0.4 },
+  { municipality: '3', score: 0.6 },
+  { municipality: '1', score: 0.2 }
+],
+'/education': [
+  { municipality: '6', score: 0.1 },
+  { municipality: '4', score: 0.4 },
+  { municipality: '3', score: 0.3 },
+  { municipality: '1', score: 0.2 }
+],
+'/protect': [
+  { municipality: '6', score: 0.1 },
+  { municipality: '4', score: 0.7 },
+  { municipality: '3', score: 0.1 },
+  { municipality: '1', score: 0.8 }
+],
+'/environment': [
+  { municipality: '6', score: 0.9 },
+  { municipality: '4', score: 0.1 },
+  { municipality: '3', score: 0.5 },
+  { municipality: '1', score: 0.9 }
+],
+'/peace': [
+  { municipality: '6', score: 0.5 },
+  { municipality: '4', score: 0.8 },
+  { municipality: '3', score: 0.2 },
+  { municipality: '1', score: 0.9 }
+],
+'/participation': [
+  { municipality: '6', score: 0.5 },
+  { municipality: '4', score: 0.8 },
+  { municipality: '3', score: 0.2 },
+  { municipality: '1', score: 0.9 }
+] }
 
 const colors = { '/food': '#86c440',
   '/water': '#438cca',
@@ -24,15 +86,11 @@ const titles = { '/food': 'Food and Land Reform',
   '/peace': 'Peace',
   '/participation': 'Participation' }
 
-const needstyle = (need) => ({
-  color: colors[need]
-})
-
 class SidebarPage extends Component {
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
-        console.log('Do something with need: ', need)
+      console.log('Do something with need: ', need)
     }
   }
   render () {
@@ -40,9 +98,23 @@ class SidebarPage extends Component {
       <div className={this.props.className}>
         <div className='overlay'>
           Basic Need:<br />
-          <span className='need-text' style={needstyle(this.props.location.pathname)} >{titles[this.props.location.pathname]}</span>
+          <span className='need-text' style={{ color: colors[this.props.location.pathname] }} >{titles[this.props.location.pathname]}</span>
           <div className='need-body'>
             Explanation here
+          </div>
+          <div className='chart'>
+            <OrdinalFrame
+              size={[100, 50]}
+              data={barChartData[this.props.location.pathname]}
+              oAccessor={'municipality'}
+              rAccessor={'score'}
+              type={'bar'}
+              oPadding={5}
+              style={{ fill: colors[this.props.location.pathname] }}
+            />
+            <svg height={20}>
+              <rect className='divider' style={{ height: '0.2vh', width: 100, fill: '#999999' }} />
+            </svg>
           </div>
         </div>
         <div className='sidebar'>
@@ -228,10 +300,14 @@ export default styled(SidebarPage)`
   }
 
   .need-body{
-    font-size: 1.2vw;
+    font-size: 1.5vh;
     flex-wrap: wrap;
     padding-right: 80vw;
     color: #999999;
   }
 
+  .chart{
+    padding-top: 1vh;
+    transition: ease-in 0.2s;
+  }
 `

@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import SidebarPage from './SidebarPage'
 
 const Map = () => (
-  <div></div>
+  <div />
 )
 
 class App extends Component {
