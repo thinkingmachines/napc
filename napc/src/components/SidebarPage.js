@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { OrdinalFrame } from 'semiotic'
+import { needs } from '../constants'
 
 const barChartData = { '/food': [
   { municipality: '6', score: 0.5 },
@@ -64,28 +65,6 @@ const barChartData = { '/food': [
   { municipality: '1', score: 0.9 }
 ] }
 
-const colors = { '/food': '#86c440',
-  '/water': '#438cca',
-  '/shelter': '#f5bb18',
-  '/work': '#a03054',
-  '/health': '#e74b36',
-  '/education': '#177c9f',
-  '/protect': '#f7903d',
-  '/environment': '#d4d639',
-  '/peace': '#10b9cd',
-  '/participation': '#a09288' }
-
-const titles = { '/food': 'Food and Land Reform',
-  '/water': 'Water and Sanitation',
-  '/shelter': 'Shelter',
-  '/work': 'Work',
-  '/health': 'Health',
-  '/education': 'Education',
-  '/protect': 'Social Protection',
-  '/environment': 'Healthy Environment',
-  '/peace': 'Peace',
-  '/participation': 'Participation' }
-
 class SidebarPage extends Component {
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
@@ -98,7 +77,7 @@ class SidebarPage extends Component {
       <div className={this.props.className}>
         <div className='overlay'>
           Basic Need:<br />
-          <span className='need-text' style={{ color: colors[this.props.location.pathname] }} >{titles[this.props.location.pathname]}</span>
+          <span className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >{needs[this.props.location.pathname]['titles']}</span>
           <div className='need-body'>
             Explanation here
           </div>
@@ -110,7 +89,7 @@ class SidebarPage extends Component {
               rAccessor={'score'}
               type={'bar'}
               oPadding={5}
-              style={{ fill: colors[this.props.location.pathname] }}
+              style={{ fill: needs[this.props.location.pathname]['color'] }}
             />
             <svg height={20}>
               <rect className='divider' style={{ height: '0.2vh', width: 100, fill: '#999999' }} />
@@ -141,55 +120,12 @@ class SidebarPage extends Component {
 
           <div className='need-icons'>
 
-            <NavLink activeClassName='active' to='/food'>
-              <img className='logo-select' src={require('../static/img/01-food-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/01-food-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/water'>
-              <img className='logo-select' src={require('../static/img/06-water-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/06-water-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/shelter'>
-              <img className='logo-select' src={require('../static/img/02-shelter-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/02-shelter-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/work'>
-              <img className='logo-select' src={require('../static/img/07-work-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/07-work-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/health'>
-              <img className='logo-select' src={require('../static/img/03-health-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/03-health-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/education'>
-              <img className='logo-select' src={require('../static/img/08-education-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/08-education-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/protect'>
-              <img className='logo-select' src={require('../static/img/04-protect-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/04-protect-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/environment'>
-              <img className='logo-select' src={require('../static/img/09-environment-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/09-environment-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/peace'>
-              <img className='logo-select' src={require('../static/img/05-peace-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/05-peace-unselect.png')} />
-            </NavLink>
-
-            <NavLink activeClassName='active' to='/participation'>
-              <img className='logo-select' src={require('../static/img/10-participation-select.png')} />
-              <img className='logo-unselect' src={require('../static/img/10-participation-unselect.png')} />
-            </NavLink>
+            {Object.keys(needs).map(path => (
+              <NavLink activeClassName='active' to={path} key={path}>
+                <img className='logo-select' src={needs[path]['select-logo-path']} />
+                <img className='logo-unselect' src={needs[path]['unselect-logo-path']} />
+              </NavLink>
+            ))}
 
           </div>
         </div>
