@@ -77,22 +77,24 @@ class SidebarPage extends Component {
       <div className={this.props.className}>
         <div className='overlay'>
           Basic Need:<br />
-          <span className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >{needs[this.props.location.pathname]['titles']}</span>
-          <div className='need-body'>
-            Explanation here
+          <div className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >{needs[this.props.location.pathname]['titles']}
+            <br />
+            <span className='need-body'>{needs[this.props.location.pathname]['explanation']}</span>
           </div>
+          <div className='horiz-dotted' />
           <div className='chart'>
             <OrdinalFrame
-              size={[100, 50]}
+              size={[150, 50]}
               data={barChartData[this.props.location.pathname]}
               oAccessor={'municipality'}
               rAccessor={'score'}
               type={'bar'}
               oPadding={5}
               style={{ fill: needs[this.props.location.pathname]['color'] }}
+              baseMarkProps={{ forceUpdate: true }}
             />
             <svg height={20}>
-              <rect className='divider' style={{ height: '0.2vh', width: 100, fill: '#999999' }} />
+              <rect className='divider' style={{ height: '0.2vh', width: 150, fill: '#999999' }} />
             </svg>
           </div>
         </div>
@@ -232,18 +234,26 @@ export default styled(SidebarPage)`
     font-weight: bold;
     font-size: 4vh;
     flex-wrap: wrap;
-    padding-right: 90vw;
+    padding-right: 70vw;
+    height: 15vh;
   }
 
   .need-body{
+    font-family: 'Akrobat';
     font-size: 1.5vh;
     flex-wrap: wrap;
-    padding-right: 80vw;
+    padding-right: 0;
     color: #999999;
   }
 
   .chart{
-    padding-top: 1vh;
-    transition: ease-in 0.2s;
+    padding-top: 5vh;
+    position: absolute;
+  }
+
+  .horiz-dotted {
+    border-bottom: 2px dashed #999999;
+    width: 15vh;
+
   }
 `
