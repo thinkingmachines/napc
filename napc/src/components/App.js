@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Map />
-        <Route exact path='/food' component={SidebarPage} />
+        <Route exact path='/' component={SidebarPage} />
         <Route exact path='/:need' component={SidebarPage} />
       </div>
     )
