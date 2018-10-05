@@ -74,12 +74,13 @@ class SidebarPage extends Component {
   }
   render () {
     return (
-      <div className={this.props.className}>
+      <div id='mainPage' className={this.props.className}>
         <div className='overlay'>
           Basic Need:<br />
-          <div className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >{needs[this.props.location.pathname]['titles']}
+          <div className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >
+            {needs[this.props.location.pathname]['titles']}
             <br />
-            <span className='need-body'>{needs[this.props.location.pathname]['explanation']}</span>
+            <span className='need-body'>{ needs[this.props.location.pathname]['explanation'] }</span>
           </div>
           <div className='horiz-dotted' />
           <div className='chart'>
@@ -99,19 +100,17 @@ class SidebarPage extends Component {
           </div>
         </div>
         <div className='sidebar'>
-          <div className='header-logo'>
-            <img className='logo' src={require('../static/img/napc-logo.png')} />
-          </div>
-          <div className='body'>
-            <div className='header'>
-              Ito ang <br />Kuwento ng Bayan
-            </div>
+          <div className='description'>
+            <img className='logo' src={'/static/img/napc-logo.png'} />
+            <div className='header'> Ito ang <br />Kuwento ng Bayan </div>
             <svg height={20}>
               <rect className='divider' />
             </svg>
             <div className='textbody'>
               A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
             </div>
+          </div>
+          <div className='need-icon-header'>
             <h3>
               Basic Needs
             </h3>
@@ -119,7 +118,6 @@ class SidebarPage extends Component {
               Select a category below:
             </div>
           </div>
-
           <div className='need-icons'>
 
             {Object.keys(needs).map(path => (
@@ -137,6 +135,11 @@ class SidebarPage extends Component {
 }
 
 export default styled(SidebarPage)`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+
   @font-face{
     font-family: 'Akrobat'
     src: url('static/akrobat/Akrobat-Black.otf')
@@ -144,59 +147,141 @@ export default styled(SidebarPage)`
   }
 
   .sidebar {
-    width: 40vw;
-    height: 100vh;
-    position: fixed;
     top: 0;
     right: 0;
     background:#f4f4f2;
-    padding: 5vh;
+    height: 90.5vh;
+    width: 40vw;
+    padding: 3vw;
     font-size: 2vh;
     font-family: 'Akrobat';
     color: #464646;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
+  .overlay{
+    font-family: 'Akrobat';
+    font-weight: bold;
+    height: 90.5vh;
+    font-size: 2vh;
+    margin-bottom: 1vh;
+    color: #464646;  
+    padding: 1vw; 
+    display: inline-block;
+    flex-grow: 20;
+  }
+
+  .description{
+    display: flex;
+    flex-direction: column;
+  }
+  @media all and (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100vw;
+
+    .sidebar {
+      padding: 5vw;
+      width: 86vw;
+      height: 25vh;
+    }
+    .overlay{
+      width: 100vw;
+      height: 66.5vh; 
+    }
+    .description{
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .description .divider {
+      width: 0.5vw;
+      height: 10vh;
+    }
+
+    .description svg {
+      width: 0.5vw;
+      height: 5vh;
+      flex-grow: 1
+      margin: 1vw;
+    }
+    .description .header{
+      display: inline-block;
+      flex-grow: 3
+      font-size: 4vw;
+      width: 10vw;
+      padding:0;
+    }
+
+    .description .textbody{
+      font-size: 2.5vw;
+      flex-grow: 5;
+      padding:0;
+      width: 30vw;
+      display: inline-block;
+    }
+
+    .description .logo{
+      font-size: 3vw;
+      flex-grow: 1
+      display: inline-block;
+    }
+
+    .need-icons{
+      padding-right: 0;
+    }
+
+  }
 
   .need-icons{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     padding-right: 6vw;
-    height: 1vh;
+    height: 20vh;
+    align-content: flex-start;
   }
 
   .divider{
     fill: #595959; 
     height: 0.5vw;
     width: 15vw;
-    position: relative;
-
-  .div-sider{
-    height:10vh;
-    padding: 1vh;
-  }
 
   }
   .logo{
     width: 10vw;
+    margin: 1vh;
   }
-  .header{
+
+  .header {
     font-family: 'Proxima Nova';
     font-weight: bold;
     font-size: 3vw;
-    padding-bottom: 1vw;
+    width: 30vw;
+    padding-bottom: 1vh;
+    margin-left: 0;
     color: #464646;
+  }
+
+  .need-icons a {
+    height: 5vh;
+    padding-bottom: 1vh;
   }
 
   .logo-unselect{
     padding-right: 2vh;
-    width: 5vw;
+    width: 5vh;
+    height: 5vh;
     display: inline;
   }
 
   .logo-select{
     padding-right: 2vh;
-    width: 5vw;
+    width: 5vh;
+    height: 5vh;
     display: none;
   }
 
@@ -210,7 +295,7 @@ export default styled(SidebarPage)`
 
   .textbody{
     padding-right: 15vh;
-    padding-bottom: 5vh;
+    padding-bottom: 1vh;
   }
 
 
@@ -220,21 +305,12 @@ export default styled(SidebarPage)`
     margin-bottom: 0;
   }
 
-  .overlay{
-    font-family: 'Akrobat';
-    font-weight: bold;
-    font-size: 2vh;
-    margin-bottom: 1vh;
-    color: #464646;   
-    padding: 1vw;
-  }
-
   .need-text{
     font-family: 'Proxima Nova';
     font-weight: bold;
     font-size: 4vh;
     flex-wrap: wrap;
-    padding-right: 70vw;
+    padding-right: 10vw;
     height: 15vh;
   }
 
@@ -254,6 +330,5 @@ export default styled(SidebarPage)`
   .horiz-dotted {
     border-bottom: 2px dashed #999999;
     width: 15vh;
-
   }
 `
