@@ -167,8 +167,8 @@ export default styled(SidebarPage)`
     height: 90.5vh;
     font-size: 2vh;
     margin-bottom: 1vh;
-    color: #464646;  
-    padding: 1vw; 
+    color: #464646;
+    padding: 1vw;
     display: inline-block;
     flex-grow: 20;
   }
@@ -190,7 +190,7 @@ export default styled(SidebarPage)`
     }
     .overlay{
       width: 100vw;
-      height: 66.5vh; 
+      height: 66.5vh;
     }
     .description{
       flex-direction: row;
@@ -246,7 +246,7 @@ export default styled(SidebarPage)`
   }
 
   .divider{
-    fill: #595959; 
+    fill: #595959;
     height: 0.5vw;
     width: 15vw;
 

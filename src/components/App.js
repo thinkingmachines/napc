@@ -2,15 +2,19 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 
 import SidebarPage from './SidebarPage'
-import Map from './Map'
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Map />
-        <Route exact path='/' component={SidebarPage} />
-        <Route exact path='/:need' component={SidebarPage} />
+        <Route exact
+          path='/'
+          render={props => <SidebarPage {...props} map={this.props.map} />}
+        />
+        <Route exact
+          path='/:need'
+          render={props => <SidebarPage {...props} map={this.props.map} />}
+        />
       </div>
     )
   }
