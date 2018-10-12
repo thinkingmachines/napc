@@ -5,9 +5,10 @@ module.exports = {
       '@neutrinojs/react',
       {
         html: {
-          title: 'napc'
+          title: 'napc',
+          appMountIds: ['map']
         }
       }
     ]
   ]
-};
+}
