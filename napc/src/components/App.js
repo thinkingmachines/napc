@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 
 import SidebarPage from './SidebarPage'
+import Map from './Map'
 
-const Map = () => (
-  <div />
-)
+// const Map = () => (
+//   <div />
+// )
 
 class App extends Component {
   render () {
