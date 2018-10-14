@@ -1,69 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import { OrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
 import '../static/css/SidebarPage.css'
-
-const barChartData = { '/food': [
-  { municipality: '6', score: 0.5 },
-  { municipality: '4', score: 0.8 },
-  { municipality: '3', score: 0.2 },
-  { municipality: '1', score: 0.9 }
-],
-'/water': [
-  { municipality: '6', score: 0.5 },
-  { municipality: '4', score: 0.6 },
-  { municipality: '3', score: 0.3 },
-  { municipality: '1', score: 0.1 }
-],
-'/shelter': [
-  { municipality: '6', score: 0.8 },
-  { municipality: '4', score: 0.2 },
-  { municipality: '3', score: 0.4 },
-  { municipality: '1', score: 0.6 }
-],
-'/work': [
-  { municipality: '6', score: 0.1 },
-  { municipality: '4', score: 0.9 },
-  { municipality: '3', score: 0.6 },
-  { municipality: '1', score: 0.2 }
-],
-'/health': [
-  { municipality: '6', score: 0.1 },
-  { municipality: '4', score: 0.4 },
-  { municipality: '3', score: 0.6 },
-  { municipality: '1', score: 0.2 }
-],
-'/education': [
-  { municipality: '6', score: 0.1 },
-  { municipality: '4', score: 0.4 },
-  { municipality: '3', score: 0.3 },
-  { municipality: '1', score: 0.2 }
-],
-'/protect': [
-  { municipality: '6', score: 0.1 },
-  { municipality: '4', score: 0.7 },
-  { municipality: '3', score: 0.1 },
-  { municipality: '1', score: 0.8 }
-],
-'/environment': [
-  { municipality: '6', score: 0.9 },
-  { municipality: '4', score: 0.1 },
-  { municipality: '3', score: 0.5 },
-  { municipality: '1', score: 0.9 }
-],
-'/peace': [
-  { municipality: '6', score: 0.5 },
-  { municipality: '4', score: 0.8 },
-  { municipality: '3', score: 0.2 },
-  { municipality: '1', score: 0.9 }
-],
-'/participation': [
-  { municipality: '6', score: 0.5 },
-  { municipality: '4', score: 0.8 },
-  { municipality: '3', score: 0.2 },
-  { municipality: '1', score: 0.9 }
-] }
 
 class SidebarPage extends Component {
   componentDidUpdate (prevProps) {

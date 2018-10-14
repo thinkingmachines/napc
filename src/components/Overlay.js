@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
 import { OrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
 import '../static/css/SidebarPage.css'

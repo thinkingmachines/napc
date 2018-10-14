@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom'
 import SidebarPage from './SidebarPage'
 import Overlay from './Overlay'
 
+import 'mapbox-gl/dist/mapbox-gl.css'
+
 class App extends Component {
   render () {
     return (
