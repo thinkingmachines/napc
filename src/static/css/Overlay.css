@@ -1,0 +1,76 @@
+#mainPage{
+    background:red;
+    top:0;
+    margin:0;
+    display:inline-block
+  }
+
+.overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  font-family: 'Akrobat';
+  font-weight: bold;
+  font-size: 2vh;
+  color: #464646;  
+  padding-left: 3vw; 
+  display: inline-block;
+  flex-grow: 20;
+}
+
+.information{
+  width:11vw;
+  background: white;
+  padding: 2vw;
+  opacity:  0.8;
+}
+
+.need-header{
+  margin:0;
+  margin-bottom:0.75vh;
+}
+
+.need-text{
+  font-family: 'Proxima Nova';
+  font-weight: bold;
+  font-size: 3.5vh;
+  flex-wrap: wrap;
+  padding-right: 10vw;
+  width:20vh;
+  height: 15vh;
+  margin:0;
+  line-height:90%
+}
+
+.need-body{
+  font-family: 'Akrobat';
+  font-size: 1.75vh;
+  font-style: none !important;
+  flex-wrap: wrap;
+  padding-right: 0;
+  color: #999999;
+  line-height:90%;
+  text-align:justify;
+  margin-top:0;
+}
+
+.need-body-p{
+  margin-top:1vh;
+}
+
+.horiz-dotted {
+  margin-top:1.5vh;
+  border-bottom: 2px dashed #999999;
+  width: 20vh;
+}
+
+.kpi{
+  font-size: 4.5vh;
+  margin-top:1.5vh;
+  margin-bottom:1vh;
+  font-family: 'Proxima Nova';
+  font-weight: bold;
+  font-size: 3.5vh;
+}
+
+

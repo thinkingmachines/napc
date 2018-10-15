@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { OrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
-import '../static/css/SidebarPage.css'
+import '../static/css/Overlay.css'
 
 const barChartData = { '/food': [
   { municipality: '6', score: 0.5 },
@@ -74,27 +74,32 @@ class Overlay extends Component {
   render () {
     return (
       <div className='overlay'>
-        Basic Need:<br />
-        <div className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >
-          {needs[this.props.location.pathname]['titles']}
-          <br />
-          <span className='need-body'>{ needs[this.props.location.pathname]['explanation'] }</span>
-        </div>
-        <div className='horiz-dotted' />
-        <div className='chart'>
-          <OrdinalFrame
-            size={[150, 50]}
-            data={barChartData[this.props.location.pathname]}
-            oAccessor={'municipality'}
-            rAccessor={'score'}
-            type={'bar'}
-            oPadding={5}
-            style={{ fill: needs[this.props.location.pathname]['color'] }}
-            baseMarkProps={{ forceUpdate: true }}
-          />
-          <svg height={20}>
-            <rect className='divider' style={{ height: '0.2vh', width: 150, fill: '#999999' }} />
-          </svg>
+        <div className='information'>
+          <p className='need-header'>Basic Need</p>
+          <p className='need-text' style={{ color: needs[this.props.location.pathname]['color'] }} >
+            {needs[this.props.location.pathname]['titles']}
+            <br />
+            <span className='need-body'><p className='need-body-p'>{ needs[this.props.location.pathname]['explanation'] }</p></span>
+          </p>
+          <div className='horiz-dotted' />
+          <p className='kpi' style={{ color: needs[this.props.location.pathname]['color'] }} >
+            {needs[this.props.location.pathname]['kpi']}
+          </p>
+          <div className='chart'>
+            <OrdinalFrame
+              size={[150, 50]}
+              data={barChartData[this.props.location.pathname]}
+              oAccessor={'municipality'}
+              rAccessor={'score'}
+              type={'bar'}
+              oPadding={5}
+              style={{ fill: needs[this.props.location.pathname]['color'] }}
+              baseMarkProps={{ forceUpdate: true }}
+            />
+            <svg height={20}>
+              <rect className='divider' style={{ height: '0.2vh', width: 150, fill: '#999999' }} />
+            </svg>
+          </div>
         </div>
       </div>
     )

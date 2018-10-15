@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "neutrino build",
-    "start": "neutrino start",
+    "build": "neutrino build --use @neutrinojs/react",
+    "start": "neutrino start --use @neutrinojs/react",
     "lint": "neutrino lint"
   },
   "dependencies": {

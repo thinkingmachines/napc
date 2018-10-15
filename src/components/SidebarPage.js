@@ -16,30 +16,26 @@ class SidebarPage extends Component {
         <div className='description'>
           <img className='logo' src={'/static/img/napc-logo.png'} />
           <div className='header'> Ito ang <br />Kuwento ng Bayan </div>
-          <svg height={20}>
-            <rect className='divider' />
-          </svg>
+          <div className='divider'></div>
           <div className='textbody'>
-            A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
+          A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
           </div>
         </div>
         <div className='need-icon-header'>
           <h3>
             Basic Needs
           </h3>
-          <div className='textbody'>
-            Select a category below:
+          <div className='textbody category'>
+            Select a Category Below
           </div>
         </div>
         <div className='need-icons'>
-
           {Object.keys(needs).map(path => (
             <NavLink activeClassName='active' to={path} key={path}>
               <img className='logo-select' src={needs[path]['select-logo-path']} />
               <img className='logo-unselect' src={needs[path]['unselect-logo-path']} />
             </NavLink>
           ))}
-
         </div>
       </div>
     )
