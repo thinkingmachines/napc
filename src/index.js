@@ -3,12 +3,11 @@ import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/App'
-import map from './map'
 
 const root = document.getElementById('root')
 const load = () => render((
   <AppContainer>
-    <BrowserRouter><App map={map} /></BrowserRouter>
+    <BrowserRouter><App /></BrowserRouter>
   </AppContainer>
 ), root)
 

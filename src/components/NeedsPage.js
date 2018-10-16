@@ -9,14 +9,16 @@ class NeedsPage extends Component {
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
-      console.log('Do something with need: ', need)
+      console.log('Do something with need:', need)
+      console.log(this.props.map)
     }
   }
   render () {
     const need = this.props.match.params.need
+    const map = this.props.map
     return (
       <Fragment>
-        <Overlay need={need} />
+        <Overlay need={need} map={map} />
         <Sidebar>
           <div className='description'>
             <img className='logo' src={'/static/img/napc-logo.png'} />
@@ -35,10 +37,10 @@ class NeedsPage extends Component {
             </div>
           </div>
           <div className='need-icons'>
-            {Object.keys(needs).map(path => (
-              <NavLink activeClassName='active' to={path} key={path}>
-                <img className='logo-select' src={needs[path]['select-logo-path']} />
-                <img className='logo-unselect' src={needs[path]['unselect-logo-path']} />
+            {Object.keys(needs).map(need => (
+              <NavLink activeClassName='active' to={'/' + need} key={need}>
+                <img className='logo-select' src={needs[need]['select-logo-path']} />
+                <img className='logo-unselect' src={needs[need]['unselect-logo-path']} />
               </NavLink>
             ))}
           </div>

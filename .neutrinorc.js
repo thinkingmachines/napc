@@ -8,9 +8,6 @@ module.exports = {
           title: 'napc',
           links: [
             '/static/css/style.css'
-          ],
-          appMountIds: [
-            'map'
           ]
         }
       }

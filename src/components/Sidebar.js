@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 class Sidebar extends Component {
   render () {
-    return <div class={this.props.className}>{this.props.children}</div>
+    return <div className={this.props.className}>{this.props.children}</div>
   }
 }
 
@@ -106,20 +106,22 @@ export default styled(Sidebar)`
     display: none;
   }
 
-  .sidebar .active .logo-unselect{
+  .active .logo-unselect{
     display: none;
   }
 
-  .sidebar .active .logo-select{
+  .active .logo-select{
     display: inline;
   }
 
 
   @media all and (max-width: 700px) {
-    /*display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    */width: 100vw;
+    position: relative;
+    bottom: 0;
+    right:0;
+    left:0;
+    width: 100%;
+    height:100%;
 
     h3{
       visibility:hidden;
@@ -128,14 +130,7 @@ export default styled(Sidebar)`
     .category{
       visibility:hidden;
     }
-    .sidebar {
-      position: relative;
-      bottom: 0;
-      right:0;
-      left:0;
-      width: 100%;
-      height:100%;
-    }
+
     .overlay{
       width: 100vw;
       /*height: 67vh; */

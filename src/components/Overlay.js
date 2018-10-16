@@ -67,15 +67,23 @@ const barChartData = {
 }
 
 class Overlay extends Component {
+  state = {
+    lngLat: null
+  }
+  componentDidMount () {
+    this.props.map.on('click', (e) => {
+      this.setState({ lngLat: e.lngLat })
+    })
+  }
   componentDidUpdate (prevProps) {
-    const { need } = this.props.match.params
-    if (prevProps.match.params.need !== need) {
-      console.log('Do something with need: ', need)
+    if (prevProps.need !== this.props.need) {
+      console.log('Do something with need: ', this.props.need)
     }
   }
   render () {
     return (
       <div className={this.props.className}>
+        {JSON.stringify(this.state.lngLat)}
         <div className='information'>
           <p className='need-header'>Basic Need</p>
           <p className='need-text'>
