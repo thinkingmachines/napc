@@ -16,7 +16,7 @@ class SidebarPage extends Component {
         <div className='description'>
           <img className='logo' src={'/static/img/napc-logo.png'} />
           <div className='header'> Ito ang <br />Kuwento ng Bayan </div>
-          <div className='divider'></div>
+          <div className='divider' />
           <div className='textbody'>
           A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
           </div>

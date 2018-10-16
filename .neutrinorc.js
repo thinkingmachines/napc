@@ -6,12 +6,11 @@ module.exports = {
       {
         html: {
           title: 'napc',
-          appMountIds: ['map'],
           links: [
-            {
-              href: 'css/style.css',
-              rel: 'stylesheet'
-            }
+            '/static/css/style.css'
+          ],
+          appMountIds: [
+            'map'
           ]
         }
       }

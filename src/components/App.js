@@ -4,8 +4,6 @@ import { Route } from 'react-router-dom'
 import SidebarPage from './SidebarPage'
 import Overlay from './Overlay'
 
-import '../static/css/style.css'
-
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 class App extends Component {
@@ -19,7 +17,6 @@ class App extends Component {
       </div>
     )
   }
-
 }
 
 export default App
