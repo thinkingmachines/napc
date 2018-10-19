@@ -38,7 +38,7 @@ class NeedsPage extends Component {
           </div>
           <div className='need-icons'>
             {Object.keys(needs).map(need => (
-              <NavLink activeClassName='active' to={'/' + need} key={need}>
+              <NavLink activeClassName='active' to={'/map/' + need} key={need}>
                 <img className='logo-select' src={needs[need]['select-logo-path']} />
                 <img className='logo-unselect' src={needs[need]['unselect-logo-path']} />
               </NavLink>

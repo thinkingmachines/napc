@@ -67,8 +67,11 @@ const barChartData = {
 }
 
 class Overlay extends Component {
-  state = {
-    lngLat: null
+  constructor () {
+    super()
+    this.state = {
+      lngLat: null
+    }
   }
   componentDidMount () {
     this.props.map.on('click', (e) => {
@@ -151,7 +154,7 @@ export default styled(Overlay)`
     height: 15vh;
     margin:0;
     line-height:90%
-    color: ${props => needs[props.need].color};
+    color: {needs[need].color};
   }
 
   .need-body{

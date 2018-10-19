@@ -6,6 +6,7 @@ module.exports = {
       {
         html: {
           title: 'napc',
+          baseHref: '/',
           links: [
             '/static/css/style.css'
           ]

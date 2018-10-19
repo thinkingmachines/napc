@@ -74,7 +74,7 @@ export const needs = {
 
   'peace': {
     'color': '#10b9cd',
-    'titles': 'Peace',
+    'titles': 'Peace and Order',
     'select-logo-path': '/static/img/05-peace-select.png',
     'unselect-logo-path': '/static/img/05-peace-unselect.png',
     'explanation': 'Peace explanation here',
