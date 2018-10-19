@@ -58,7 +58,7 @@
     .indicator {
       display: flex;
       align-items: center;
-      opacity: 0.5;
+      opacity: 0.3;
       cursor: pointer;
       font-size: 0.7em;
     }
@@ -101,300 +101,214 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/thinkdatasci/cjlowf4kl65i12roauwxtc3ez',
   center: [121, 14.58],
-  minZoom: 8,
+  minZoom: 3,
   zoom: 10
 })
 
+var min = 0
+var max = 100
+
+
 var indicators = [
-  {
+    {
     'need': 'Food and Land Reform',
-    'id': 'food1',
-    'label': 'Malnourished Children',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Food and Land Reform',
-    'id': 'food2',
+    'id': 'food',
     'label': 'Insecure Farmer Tenure',
+    'main_col': '#86c440',
     'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
+      'fill-color': ['case', 
+                      ['==', ['get', 'Food_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Food_Prop'], null], '#86c440', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Food_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Food_Prop'], 0, 0, 100, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Food_Prop'], 16.2921, 0, 83.3187, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },
+    {
     'need': 'Water and Sanitation',
-    'id': 'water1',
+    'id': 'water',
     'label': 'Drinking Water Access',
+    'main_col': '#438cca',
     'paint': {
-      'fill-color': '#10b8cd',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'wo_access_drinking_sources_prop'], 0, 0, 100, 1],
+      'fill-color': ['case', 
+                      ['==', ['get', 'Water_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Water_Prop'], null], '#438cca', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Water_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Water_Prop'], 0, 0, 98.924941, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Water_Prop'], 0.74839, 0, 83.8662, 1]
+                      },
       'fill-outline-color': 'white'}
     },
-  {
-    'need': 'Water and Sanitation',
-    'id': 'water2',
-    'label': 'Toilet Access',
-    'paint': {
-      'fill-color': '#10b8cd',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'wo_access_toilet_prop'], 0, 0, 100, 1],
-      'fill-outline-color': 'white'}
-    },
-  {
-    'need': 'Water and Sanitation',
-    'id': 'water3',
-    'label': 'Waterworks System Access',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
+    {
     'need': 'Shelter',
-    'id': 'shelter1',
-    'label': 'Makeshift Housing',
-    'paint': {
-      'fill-color': '#ff9138',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'salvaged_houses_prop'], 0, 0, 100, 1],
-      'fill-outline-color': 'white'}
-    },
-  {
-    'need': 'Shelter',
-    'id': 'shelter2',
+    'id': 'shelter',
     'label': 'Informal Settlers',
+    'main_col': '#f5bb18',
     'paint': {
-      'fill-color': '#ff9138',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'squat_prop'], 0, 0, 100, 1],
+      'fill-color': ['case', 
+                      ['==', ['get', 'Shelter_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Shelter_Prop'], null], '#f5bb18', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Shelter_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Shelter_Prop'], 0, 0, 51.645035, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Shelter_Prop'], 0.39201, 0, 12.36044, 1]
+                      },
       'fill-outline-color': 'white'}
     },
-  {
-    'need': 'Shelter',
-    'id': 'shelter3',
-    'label': 'Electricity Access',
-    'paint': {
-      'fill-color': '#ff9138',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'no_electricity_prop'], 0, 0, 100, 1],
-      'fill-outline-color': 'white'}
-    },
-  {
+    {
     'need': 'Health',
-    'id': 'health1',
-    'label': 'Health Care Center Attendance',
+    'id': 'health',
+    'label': 'Health Care Center Non-Attendance',
+    'main_col': '#e74b36',
     'paint': {
-      'fill-color': '#438bca',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'not_attended_hc_prop'], 0, 0, 100, 1],
+      'fill-color': ['case', 
+                      ['==', ['get', 'Health_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Health_Prop'], null], '#e74b36', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Health_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Health_Prop'], 1.143889, 0, 99.84029, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Health_Prop'], 22.4498, 0, 91.2211, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },  
+    {
+    'need': 'Education',
+    'id': 'education',
+    'label': 'Out of School',
+    'main_col': '#177c9f',
+    'paint': {
+      'fill-color': ['case', 
+                      ['==', ['get', 'Education_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Education_Prop'], null], '#177c9f', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Education_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Education_Prop'], 0, 0, 82.914259, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Education_Prop'], 2.0654, 0, 32.28129, 1]
+                      },
       'fill-outline-color': 'white'}
     },
-  {
-    'need': 'Health',
-    'id': 'health2',
-    'label': 'Programs and Services Received',
-    'paint': {
-      'fill-color': '#438bca',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'no_serv_received_soc_protection_prop'], 0, 0, 100, 1],
-      'fill-outline-color': 'white'}
-    },
-  {
-    'need': 'Health',
-    'id': 'health3',
-    'label': 'Health Center Access',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Health',
-    'id': 'health4',
-    'label': 'Hospital Access',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Education',
-    'id': 'educ1',
-    'label': 'Children Out of School (6-12 yo)',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Education',
-    'id': 'educ2',
-    'label': 'Children Out of School (13-16 yo)',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Education',
-    'id': 'educ3',
-    'label': 'Children Out of School (6-16 yo)',
-    'paint': {
-      'fill-color': '#e93434',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'not_schooling_prop'], 0, 0, 100, 1],
-      'fill-outline-color': 'white'}
-    },
-  {
-    'need': 'Education',
-    'id': 'educ4',
-    'label': 'Elementary School Access',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Education',
-    'id': 'educ5',
-    'label': 'High School Access',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
+    {
     'need': 'Work',
-    'id': 'work1',
+    'id': 'work',
     'label': 'Unemployment Rate',
+    'main_col': '#a03054',
     'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Work',
-    'id': 'work2',
-    'label': 'Farms, Forestry Workers, or Fisherfolks',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Work',
-    'id': 'work3',
-    'label': 'Laborers & Unskilled Workers',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Work',
-    'id': 'work4',
-    'label': 'Predicted Household Income',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Social Protection',
-    'id': 'sp1',
-    'label': 'SSS / GSIS availment',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Social Protection',
-    'id': 'sp2',
-    'label': 'PhilHealth, Pantawid, Cash Transfer support',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Peace and Order',
-    'id': 'po1',
-    'label': 'Crime Victims',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Peace and Order',
-    'id': 'po2',
-    'label': 'Armed Conflict',
-    'paint': {
-      'fill-color': '#f7bb09',
-      'fill-opacity': [ 'interpolate', ['linear'], ['get', 'affected_prop'], 0, 0, 100, 1],
+      'fill-color': ['case', 
+                      ['==', ['get', 'Work_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Work_Prop'], null], '#a03054', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Work_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Work_Prop'], 6.451613, 0, 72.229487, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Work_Prop'], 36.30473, 0, 62.17391, 1]
+                      },
       'fill-outline-color': 'white'}
     },
-  {
+    {
+    'need': 'Social Protection',
+    'id': 'sp',
+    'label': 'SSS Non-Availment',
+    'main_col': '#f7903d',
+    'paint': {
+      'fill-color': ['case', 
+                      ['==', ['get', 'SocialProtection_Prop'], null], '#ededed',
+                      ['!=', ['get', 'SocialProtection_Prop'], null], '#f7903d', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'SocialProtection_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'SocialProtection_Prop'], 91.66117, 0, 99.9569, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'SocialProtection_Prop'], 95.31721, 0, 99.66458, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },
+    {
+    'need': 'Peace',
+    'id': 'peace',
+    'label': 'Displacement',
+    'main_col': '#10b9cd',
+    'paint': {
+      'fill-color': ['case', 
+                      ['==', ['get', 'Peace_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Peace_Prop'], null], '#10b9cd', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Peace_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Peace_Prop'], 0, 0, 92.9334, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Peace_Prop'], 0.4685, 0, 48.83817, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },
+    {
     'need': 'Participation',
-    'id': 'participation1',
-    'label': 'Voter Registration Rate',
+    'id': 'participation',
+    'label': 'Barangay Assembly Non-Attendance',
+    'main_col': '#a09288',
     'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Participation',
-    'id': 'participation2',
-    'label': 'Voter Turnout Rate',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Participation',
-    'id': 'participation3',
-    'label': 'Barangay Assembly Attendance Rate',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Participation',
-    'id': 'participation4',
-    'label': 'Cooperative Members',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
+      'fill-color': ['case', 
+                      ['==', ['get', 'Participation_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Participation_Prop'], null], '#a09288', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Participation_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Participation_Prop'], 57.12506, 0, 99.79317, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Participation_Prop'], 84.72165, 0, 98.9982, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },
+    {
     'need': 'Healthy Environment',
-    'id': 'he1',
-    'label': 'Flood Risk',
+    'id': 'environment',
+    'label': 'Risk Score',
+    'main_col': '#d4d639',
     'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Healthy Environment',
-    'id': 'he2',
-    'label': 'Landslide Risk',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Healthy Environment',
-    'id': 'he3',
-    'label': 'Volcano Eruption Risk',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  },
-  {
-    'need': 'Healthy Environment',
-    'id': 'he4',
-    'label': 'Earthquake Risk',
-    'paint': {
-      'fill-color': '#b4b4b4'
-    }
-  }
+      'fill-color': ['case', 
+                      ['==', ['get', 'Environment_Prop'], null], '#ededed',
+                      ['!=', ['get', 'Environment_Prop'], null], '#d4d639', '#ededed'],
+      'fill-opacity': {
+                     'barangays': [ 'interpolate', ['linear'], ['get', 'Environment_Prop'], 0, 0, 100, 1], 
+                     'municities': [ 'interpolate', ['linear'], ['get', 'Environment_Prop'], 0, 0, 100, 1], 
+                     'provinces': [ 'interpolate', ['linear'], ['get', 'Environment_Prop'], 1.697114, 0, 38.12232, 1]
+                      },
+      'fill-outline-color': 'white'}
+    },
 ]
 
 map.on('load', function () {
 
-  // add dataset 
+  map.addSource('municities', {
+    'type': 'vector',
+    'url': 'mapbox://thinkdatasci.521iq43v'
+  })
+  map.addLayer({
+    'id': 'municities',
+    'source': 'municities',
+    'source-layer': 'final-mun-indicators-5hkam3',
+    'minzoom': 8,
+    'maxzoom': 10,
+    'type': 'fill',
+  }, 'admin')
+
   map.addSource('barangays', {
     'type': 'vector',
-    'url': 'mapbox://thinkdatasci.2h2dq70z'
+    'url': 'mapbox://thinkdatasci.6p3k95vf'
   })
-
-  // add layer
   map.addLayer({
     'id': 'barangays',
     'source': 'barangays',
-    'source-layer': 'indicators_geo-9jhdlv',
-    'type': 'fill'
+    'source-layer': 'final-bgy-indicators-d0c3va',
+    'minzoom': 10,
+    'type': 'fill',
+  }, 'admin')
+
+  map.addSource('provinces', {
+    'type': 'vector',
+    'url': 'mapbox://thinkdatasci.dw2nwjoi'
+  })
+  map.addLayer({
+    'id': 'provinces',
+    'source': 'provinces',
+    'source-layer': 'final-prov-indicators-d637x8',
+    'maxzoom': 8,
+    'type': 'fill',
   }, 'admin')
 
 })
@@ -419,22 +333,32 @@ function addControls () {
         .append('li')
         .classed('indicator', true)
         .text(function (d) { return d.label })
-        .style('color', function (d) { return d.paint['fill-color'] })
+        .style('color', function (d) { return d.main_col })
         .on('click', function (d) {
           selectIndicator(d.id)
         })
 
   function selectIndicator (id) {
+
     var indicator = indicators.find(function (d) { return d.id === id })
-    Object.keys(indicator.paint).forEach(function (property) {
-      //map.setPaintProperty('municities', property, indicator.paint[property])
-      map.setPaintProperty('barangays', property, indicator.paint[property])
-    })
+
+      map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
+      map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
+      map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
+
+      map.setPaintProperty('municities', 'fill-color', indicator.paint['fill-color'])
+      map.setPaintProperty('barangays', 'fill-color', indicator.paint['fill-color'])
+      map.setPaintProperty('provinces', 'fill-color', indicator.paint['fill-color'])
+
+      map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
+      map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
+      map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
+
     controlIndicators
       .classed('-selected', function (d) { return d.id === id })
   }
-
-  selectIndicator('water1')
+  console.log(map.getSource('provinces'))
+  selectIndicator('water')
 }
 
 
@@ -445,22 +369,82 @@ function showPopups () {
     closeOnClick: false
   });
 
-  map.on('mousemove', 'barangays', function(e){
+  map.on('mousemove', 'provinces', function(e){
     map.getCanvas().style.cursor = 'pointer';
-
     var brgy_data = e.features[0].properties
+    
     var coordinates = e.lngLat
     var description = 
-    '<div class = "tooltip-title">'+brgy_data.Bgy_Name+', '+brgy_data.Mun_Name+'</div>'+
-    '<div class = "tooltip-body">'+'Water and Sanitation (Drinking Sources): '+brgy_data.wo_access_drinking_sources_prop.toFixed(2)+
-    '<br>Water and Sanitation (Toilet): '+brgy_data.wo_access_toilet_prop.toFixed(2)+
-    '<br>Shelter (Roof and Outer Wall): '+brgy_data.salvaged_houses_prop.toFixed(2)+
-    '<br>Shelter (Tenure): '+brgy_data.squat_prop.toFixed(2)+
-    '<br>Shelter (Electricity): '+brgy_data.no_electricity_prop.toFixed(2)+
-    '<br>Health (Programs and Services Received): '+brgy_data.no_serv_received_soc_protection_prop.toFixed(2)+
-    '<br>Health (Attended Health Centers): '+brgy_data.not_attended_hc_prop.toFixed(2)+
-    '<br>Education (Attending vs. Not): '+brgy_data.not_schooling_prop.toFixed(2)+
-    '<br>Peace and Order (Displacement): '+brgy_data.affected_prop.toFixed(2)+'</div>';
+    '<div class = "tooltip-title">Province<br>'+brgy_data.Pro_Name+'</div>'+
+    '<div class = "tooltip-body">'+ 
+    '<br>Food: '+brgy_data.Food_Prop+
+    '<br>Water: '+brgy_data.Water_Prop+
+    '<br>Shelter: '+brgy_data.Shelter_Prop+
+    '<br>Health: '+brgy_data.Health_Prop+
+    '<br>Education: '+brgy_data.Education_Prop+
+    '<br>Work: '+brgy_data.Work_Prop+
+    '<br>Social Protection: '+brgy_data.SocialProtection_Prop+
+    '<br>Peace: '+brgy_data.Peace_Prop+
+    '<br>Participation: '+ brgy_data.Participation_Prop+
+    '<br>Environment: '+brgy_data.Environment_Prop+'</div>';
+
+    popup.setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(map);
+  });
+
+  map.on('mouseleave', 'provinces', function() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  });
+
+  map.on('mousemove', 'municities', function(e){
+    map.getCanvas().style.cursor = 'pointer';
+    var brgy_data = e.features[0].properties
+    
+    var coordinates = e.lngLat
+    var description = 
+    '<div class = "tooltip-title">Municipality/City<br>'+brgy_data.Mun_Name+'</div>'+
+    '<div class = "tooltip-body">'+ 
+    '<br>Food: '+brgy_data.Food_Prop+
+    '<br>Water: '+brgy_data.Water_Prop+
+    '<br>Shelter: '+brgy_data.Shelter_Prop+
+    '<br>Health: '+brgy_data.Health_Prop+
+    '<br>Education: '+brgy_data.Education_Prop+
+    '<br>Work: '+brgy_data.Work_Prop+
+    '<br>Social Protection: '+brgy_data.SocialProtection_Prop+
+    '<br>Peace: '+brgy_data.Peace_Prop+
+    '<br>Participation: '+ brgy_data.Participation_Prop+
+    '<br>Environment: '+brgy_data.Environment_Prop+'</div>';
+
+    popup.setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(map);
+  });
+
+  map.on('mouseleave', 'municities', function() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  });
+
+  map.on('mousemove', 'barangays', function(e){
+    map.getCanvas().style.cursor = 'pointer';
+    var brgy_data = e.features[0].properties
+    
+    var coordinates = e.lngLat
+    var description = 
+    '<div class = "tooltip-title">Barangay<br>'+brgy_data.Bgy_Name+'</div>'+
+    '<div class = "tooltip-body">'+ 
+    '<br>Food: '+brgy_data.Food_Prop+
+    '<br>Water: '+brgy_data.Water_Prop+
+    '<br>Shelter: '+brgy_data.Shelter_Prop+
+    '<br>Health: '+brgy_data.Health_Prop+
+    '<br>Education: '+brgy_data.Education_Prop+
+    '<br>Work: '+brgy_data.Work_Prop+
+    '<br>Social Protection: '+brgy_data.SocialProtection_Prop+
+    '<br>Peace: '+brgy_data.Peace_Prop+
+    '<br>Participation: '+ brgy_data.Participation_Prop+
+    '<br>Environment: '+brgy_data.Environment_Prop+'</div>';
 
     popup.setLngLat(coordinates)
       .setHTML(description)
@@ -475,7 +459,6 @@ function showPopups () {
 
 map.on('load', addControls)
 map.on('load', showPopups);
-
 map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
 }));
