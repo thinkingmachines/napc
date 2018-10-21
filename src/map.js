@@ -1,22 +1,6 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 import * as turf from '@turf/turf'
-
-const indicators = [
-  { need: 'Water and Sanitation',
-    id: 'water',
-    label: 'Drinking Water Access',
-    main_col: '#438cca',
-    paint: {
-      'fill-color': [ 'case',
-        [ '==', [ 'get', 'Water_Prop' ], null ], '#ededed',
-        [ '!=', [ 'get', 'Water_Prop' ], null ], '#438cca', '#ededed' ],
-      'fill-opacity': {
-        'barangays': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0, 0, 100, 1 ],
-        'municities': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0, 0, 98.924941, 1 ],
-        'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0.74839, 0, 83.8662, 1 ] },
-      'fill-outline-color': 'white' }
-  }
-]
+import { indicators } from './constants'
 
 export function initMap (map) {
   map.on('load', function () {
