@@ -67,12 +67,9 @@ const barChartData = {
 }
 
 class Overlay extends Component {
-  constructor () {
-    super()
-    this.state = {
-      lngLat: null
-    }
-  }
+  state = {
+    lngLat: null
+  } // for testing if clicking on the map updates the overlay
   componentDidMount () {
     this.props.map.on('click', (e) => {
       this.setState({ lngLat: e.lngLat })
@@ -86,7 +83,6 @@ class Overlay extends Component {
   render () {
     return (
       <div className={this.props.className}>
-        {JSON.stringify(this.state.lngLat)}
         <div className='information'>
           <p className='need-header'>Basic Need</p>
           <p className='need-text'>

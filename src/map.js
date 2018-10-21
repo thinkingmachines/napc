@@ -1,4 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
+import * as turf from '@turf/turf'
 
 const indicators = [
   { need: 'Water and Sanitation',
@@ -85,5 +86,18 @@ export function initMap (map) {
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
   }
 
+  function zoomOnClick () {
+    console.log('zoom on click')
+    map.on('click', 'provinces', function (e) {
+      var bbox = turf.bbox(e.features[0])
+      map.fitBounds(bbox, { padding: 30 })
+    })
+    map.on('click', 'municities', function (e) {
+      var bbox = turf.bbox(e.features[0])
+      map.fitBounds(bbox, { padding: 50 })
+    })
+  }
+
   map.on('load', showIndicator)
+  map.on('load', zoomOnClick)
 }
