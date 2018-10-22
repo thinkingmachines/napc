@@ -19,9 +19,9 @@ class MapPage extends Component {
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/thinkdatasci/cjlowf4kl65i12roauwxtc3ez',
-      center: [121, 14.58],
-      minZoom: 8,
-      zoom: 10
+      center: [121, 11.75],
+      minZoom: 3,
+      zoom: 5
     })
     initMap(map)
     this.setState({ map: map })
