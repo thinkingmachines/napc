@@ -13,9 +13,11 @@ class NeedsPage extends Component {
       console.log(this.props.map)
     }
   }
+
   render () {
     const need = this.props.match.params.need
     const map = this.props.map
+
     return (
       <Fragment>
         <Overlay need={need} map={map} />

@@ -42,21 +42,20 @@ export function initMap (map) {
     }, 'admin')
   })
 
-  // function selectIndicator (id) {
-  //   console.log('select indicator runs')
-  //   const indicator = indicators.find(function (d) { return d.id === id })
-  //   console.log(id)
-  //   console.log(indicator)
-  //   Object.keys(indicator.paint).forEach(function (property) {
-  //     console.log(property)
-  //     console.log(indicator.paint[property])
-  //     map.setPaintProperty('barangays', property, indicator.paint[property])
-  //   })
-  // }
-  // selectIndicator('water1')
+  function zoomOnClick () {
+    map.on('click', 'provinces', function (e) {
+      var bbox = turf.bbox(e.features[0])
+      map.fitBounds(bbox, { padding: 30 })
+    })
+    map.on('click', 'municities', function (e) {
+      var bbox = turf.bbox(e.features[0])
+      map.fitBounds(bbox, { padding: 50 })
+    })
+  }
 
   function showIndicator () {
     const indicator = indicators[0]
+
     map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
     map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
     map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
@@ -68,18 +67,6 @@ export function initMap (map) {
     map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
     map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
-  }
-
-  function zoomOnClick () {
-    console.log('zoom on click')
-    map.on('click', 'provinces', function (e) {
-      var bbox = turf.bbox(e.features[0])
-      map.fitBounds(bbox, { padding: 30 })
-    })
-    map.on('click', 'municities', function (e) {
-      var bbox = turf.bbox(e.features[0])
-      map.fitBounds(bbox, { padding: 50 })
-    })
   }
 
   map.on('load', showIndicator)

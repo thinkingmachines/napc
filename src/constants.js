@@ -105,5 +105,19 @@ export const indicators = [
         'municities': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0, 0, 98.924941, 1 ],
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0.74839, 0, 83.8662, 1 ] },
       'fill-outline-color': 'white' }
+  },
+  { need: 'Shelter',
+    id: 'shelter',
+    label: 'Informal Settlers',
+    main_col: '#f5bb18',
+    paint: {
+      'fill-color': [ 'case',
+        [ '==', [ 'get', 'Shelter_Prop' ], null ], '#ededed',
+        [ '!=', [ 'get', 'Shelter_Prop' ], null ], '#f5bb18', '#ededed' ],
+      'fill-opacity': {
+        'barangays': [ 'interpolate', [ 'linear' ], [ 'get', 'Shelter_Prop' ], 0, 0, 100, 1 ],
+        'municities': [ 'interpolate', [ 'linear' ], [ 'get', 'Shelter_Prop' ], 0, 0, 51.645035, 1 ],
+        'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Shelter_Prop' ], 0.39201, 0, 12.36044, 1 ] },
+      'fill-outline-color': 'white' }
   }
 ]
