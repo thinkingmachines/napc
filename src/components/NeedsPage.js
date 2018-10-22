@@ -1,22 +1,42 @@
 import React, { Component, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { needs } from '../constants'
+import { needs, indicators } from '../constants'
 import Overlay from './Overlay'
 import Sidebar from './Sidebar'
 
 class NeedsPage extends Component {
+  componentDidMount () {
+    const { need } = this.props.match.params
+    this.props.map.on('load', this.showIndicator.bind(this, need))
+  }
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
-      console.log('Do something with need:', need)
-      console.log(this.props.map)
+      this.showIndicator(need)
     }
   }
-
-  render () {
-    const need = this.props.match.params.need
+  showIndicator (need) {
+    const indicator = indicators[need]
     const map = this.props.map
+    // const indicator = indicators.find(function (d) { return d.id === need })
+    // console.log('showIndicator', need, indicator)
+
+    map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
+    map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
+    map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
+
+    map.setPaintProperty('municities', 'fill-color', indicator.paint['fill-color'])
+    map.setPaintProperty('barangays', 'fill-color', indicator.paint['fill-color'])
+    map.setPaintProperty('provinces', 'fill-color', indicator.paint['fill-color'])
+
+    map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
+    map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
+    map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
+  }
+  render () {
+    const { need } = this.props.match.params
+    const { map } = this.props
 
     return (
       <Fragment>

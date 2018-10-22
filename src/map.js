@@ -1,6 +1,6 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 import * as turf from '@turf/turf'
-import { indicators } from './constants'
+// import { indicators } from './constants'
 
 export function initMap (map) {
   map.on('load', function () {
@@ -53,22 +53,22 @@ export function initMap (map) {
     })
   }
 
-  function showIndicator () {
-    const indicator = indicators[7]
+  // function showIndicator () {
+  //   const indicator = indicators[7]
 
-    map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
-    map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
-    map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
+  //   map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
+  //   map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
+  //   map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
 
-    map.setPaintProperty('municities', 'fill-color', indicator.paint['fill-color'])
-    map.setPaintProperty('barangays', 'fill-color', indicator.paint['fill-color'])
-    map.setPaintProperty('provinces', 'fill-color', indicator.paint['fill-color'])
+  //   map.setPaintProperty('municities', 'fill-color', indicator.paint['fill-color'])
+  //   map.setPaintProperty('barangays', 'fill-color', indicator.paint['fill-color'])
+  //   map.setPaintProperty('provinces', 'fill-color', indicator.paint['fill-color'])
 
-    map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
-    map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
-    map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
-  }
+  //   map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
+  //   map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
+  //   map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
+  // }
 
-  map.on('load', showIndicator)
+  // map.on('load', showIndicator)
   map.on('load', zoomOnClick)
 }

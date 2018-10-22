@@ -91,9 +91,9 @@ export const needs = {
   }
 }
 
-export const indicators = [
-  { need: 'Food and Land Reform',
-    id: 'food',
+export const indicators = {
+  food: {
+    need: 'Food and Land Reform',
     label: 'Insecure Farmer Tenure',
     main_col: '#86c440',
     paint: {
@@ -106,8 +106,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Food_Prop' ], 16.2921, 0, 83.3187, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Water and Sanitation',
-    id: 'water',
+  water: {
+    need: 'Water and Sanitation',
     label: 'Drinking Water Access',
     main_col: '#438cca',
     paint: {
@@ -120,8 +120,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Water_Prop' ], 0.74839, 0, 83.8662, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Shelter',
-    id: 'shelter',
+  shelter: {
+    need: 'Shelter',
     label: 'Informal Settlers',
     main_col: '#f5bb18',
     paint: {
@@ -134,8 +134,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Shelter_Prop' ], 0.39201, 0, 12.36044, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Health',
-    id: 'health',
+  health: {
+    need: 'Health',
     label: 'Health Care Center Non-Attendance',
     main_col: '#e74b36',
     paint: {
@@ -148,8 +148,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Health_Prop' ], 22.4498, 0, 91.2211, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Education',
-    id: 'education',
+  education: {
+    need: 'Education',
     label: 'Out of School',
     main_col: '#177c9f',
     paint: {
@@ -162,8 +162,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Education_Prop' ], 2.0654, 0, 32.28129, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Work',
-    id: 'work',
+  work: {
+    need: 'Work',
     label: 'Unemployment Rate',
     main_col: '#a03054',
     paint: {
@@ -176,8 +176,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Work_Prop' ], 36.30473, 0, 62.17391, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Social Protection',
-    id: 'sp',
+  protect: {
+    need: 'Social Protection',
     label: 'SSS Non-Availment',
     main_col: '#f7903d',
     paint: {
@@ -190,8 +190,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'SocialProtection_Prop' ], 95.31721, 0, 99.66458, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Peace',
-    id: 'peace',
+  peace: {
+    need: 'Peace',
     label: 'Displacement',
     main_col: '#10b9cd',
     paint: {
@@ -204,8 +204,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Peace_Prop' ], 0.4685, 0, 48.83817, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Participation',
-    id: 'participation',
+  participation: {
+    need: 'Participation',
     label: 'Barangay Assembly Non-Attendance',
     main_col: '#a09288',
     paint: {
@@ -218,8 +218,8 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Participation_Prop' ], 84.72165, 0, 98.9982, 1 ] },
       'fill-outline-color': 'white' }
   },
-  { need: 'Healthy Environment',
-    id: 'environment',
+  environment: {
+    need: 'Healthy Environment',
     label: 'Risk Score',
     main_col: '#d4d639',
     paint: {
@@ -232,4 +232,4 @@ export const indicators = [
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Environment_Prop' ], 1.697114, 0, 38.12232, 1 ] },
       'fill-outline-color': 'white' }
   }
-]
+}
