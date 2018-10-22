@@ -54,7 +54,7 @@ export function initMap (map) {
   }
 
   function showIndicator () {
-    const indicator = indicators[0]
+    const indicator = indicators[7]
 
     map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
     map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
