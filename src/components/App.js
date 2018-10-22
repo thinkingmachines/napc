@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import MapPage from './MapPage'
 import AboutPage from './AboutPage'
@@ -11,6 +11,7 @@ class App extends Component {
         <Switch>
           <Route path='/about/:need' component={AboutPage} />
           <Route path='/map' component={MapPage} />
+          <Redirect from='/' to='/map/food' />
         </Switch>
       </div>
     )
