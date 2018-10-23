@@ -8,10 +8,16 @@ This is a web-based interactive map that will be embedded into NAPC’s Talambay
 
 ### Installing
 
-Run the code below inside the `napc` folder: 
+Install packages
 
 ```
-python -m SimpleHTTPServer
+npm install
+```
+
+Run site
+
+```
+npm start
 ```
 
 ## Deployment
