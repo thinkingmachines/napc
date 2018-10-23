@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "napc",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",

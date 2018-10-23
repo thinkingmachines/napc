@@ -5,9 +5,13 @@ module.exports = {
       '@neutrinojs/react',
       {
         html: {
-          title: 'napc'
+          title: 'napc',
+          baseHref: '/',
+          links: [
+            '/static/css/style.css'
+          ]
         }
       }
     ]
   ]
-};
+}

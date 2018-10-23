@@ -1,0 +1,33 @@
+{
+  "name": "napc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "neutrino build --use @neutrinojs/react",
+    "start": "neutrino start --use @neutrinojs/react",
+    "lint": "neutrino lint",
+    "standard": "standard",
+    "standard fix": "standard --fix"
+  },
+  "dependencies": {
+    "@lourd/react-google-sheet": "^0.4.0",
+    "d3": "^5.7.0",
+    "@turf/turf": "^5.1.6",
+    "mapbox-gl": "^0.50.0-beta.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-hot-loader": "^4.3.11",
+    "react-router-dom": "^4.3.1",
+    "semiotic": "^1.15.1",
+    "styled-components": "^3.4.9",
+    "unstated": "^2.1.1"
+  },
+  "devDependencies": {
+    "@neutrinojs/react": "^8.3.0",
+    "@neutrinojs/standardjs": "^8.3.0",
+    "neutrino": "8.3.0",
+    "standard": "^12.0.1"
+  }
+}
