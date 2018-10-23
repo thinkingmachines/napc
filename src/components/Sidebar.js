@@ -13,7 +13,7 @@ export default styled(Sidebar)`
   background:#f4f4f2;
   top:0;
   right:0;
-  height :97vh;
+  height :98vh;
   width:30vw;
   padding: 2.5vw;
   font-size: 2vh;
@@ -42,7 +42,7 @@ export default styled(Sidebar)`
     padding-bottom: 1vh;
     margin-left: 0;
     color: #464646;
-    line-height:99%;
+    line-height:3.6vw;
   }
 
   .divider{
@@ -51,7 +51,10 @@ export default styled(Sidebar)`
   }
 
   .textbody{
-    margin-right: 15vh;
+    font-family: 'Proxima Nova';
+    margin-right: 2vh;
+    font-weight: 2vh;
+    line-height: 3vh;
     padding-bottom: 1vh;
     padding-top: 2vh;
     position  : relative;
@@ -82,7 +85,7 @@ export default styled(Sidebar)`
     padding-top:1vw;
     padding-right: 3vw;
     height: 20vh;
-    width:45vh;
+    width:50vh;
   }
 
   .need-icons a {
@@ -93,16 +96,16 @@ export default styled(Sidebar)`
   .logo-unselect{
     padding-right: 2vh;
     padding-bottom: 5vh;
-    width: 7vh;
-    height: 7vh;
+    width: 8vh;
+    height: 8vh;
     display: inline-block;
   }
 
   .logo-select{
     padding-right: 2vh;
     padding-bottom: 5vh;
-    width: 7vh;
-    height: 7vh;
+    width: 8vh;
+    height: 8vh;
     display: none;
   }
 
@@ -114,6 +117,31 @@ export default styled(Sidebar)`
     display: inline;
   }
 
+  footer{
+    position:absolute !important;
+    bottom:0;
+    width:100%;
+    background:#525251;
+  }
+  
+  .footer-content-holder{
+    height:5vh;
+    display:flex;
+    width:50vh;
+    padding-left:90vh;
+  }  
+
+  .footer-text{
+    font-family:'Proxima Nova';
+    color: white;
+    text-align:center;
+    padding-right: 2vh;
+    font-size:1.5vh;
+  }
+  
+  .redirect-buttons{
+    text-decoration:none;
+  }
 
   @media all and (max-width: 700px) {
     position: relative;
@@ -133,7 +161,6 @@ export default styled(Sidebar)`
 
     .overlay{
       width: 100vw;
-      /*height: 67vh; */
     }
     .description{
       flex-direction: row;
@@ -202,7 +229,7 @@ export default styled(Sidebar)`
       height: 20vh;
       width:40vh;
       margin-top:-10vh;
-      margin-left:7vh;
+      margin-left:8vh;
     }
   }
 `

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import MapPage from './MapPage'
 import AboutPage from './AboutPage'
+import ContactUsPage from './ContactUsPage'
 
 class App extends Component {
   render () {
@@ -10,9 +11,18 @@ class App extends Component {
       <div className='App'>
         <Switch>
           <Route path='/about/:need' component={AboutPage} />
+          <Route exact path='/contact' component={ContactUsPage} />
           <Route path='/map' component={MapPage} />
           <Redirect from='/' to='/map/food' />
+          <Redirect from='/about' to='/about/food' />
         </Switch>
+        <footer>
+          <div className='footer-content-holder'>
+            <a className='footer-text redirect-buttons' href='/map/food'><p>Ito and Kwento ng Bayan 2018</p></a>
+            <a className='footer-text redirect-buttons' href='/contact'><p>Contact Us</p></a>
+            <a className='footer-text redirect-buttons' href='/about/food'><p>About Us</p></a>
+          </div>
+        </footer>
       </div>
     )
   }

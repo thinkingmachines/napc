@@ -82,7 +82,7 @@ export default styled(AboutPage)`
     font-weight: bold;
     font-size:2vh;
     padding-left:3vw;
-    padding-top:2vw;
+    padding-top:1.5vw;
     margin-bottom: 0;
   }
 
@@ -99,14 +99,14 @@ export default styled(AboutPage)`
     font-size:3vh;
     margin:0;
     color:#464646;
-    font-family: 'Proxima Nova'
+    font-family: 'Akrobat';
     display: inline-block;
   }
 
   .ind-select{
     font-size:3vh;
     margin:0;
-    font-family: 'Proxima Nova';
+    font-family: 'Akrobat';
     color: ${props => needs[props.match.params.need].color};
     display: none;
 
@@ -125,7 +125,6 @@ export default styled(AboutPage)`
     text-decoration:none;
     font-size:3vh;
     margin:0;
-    font-family: 'Proxima Nova';
   }
 
   .need-holder{
@@ -150,16 +149,15 @@ export default styled(AboutPage)`
     flex-flow: row wrap;
     height:5vh;
     width:60vw;
-    padding-top:2vw;
     padding-left:3vw;
   }
 
   .need-title{
+    font-family:'Proxima Nova';
     font-size:5vh;
-    margin:0;
-    color:#464646;
-    font-family: 'Proxima Nova';
     color: ${props => needs[props.match.params.need].color};
+    margin:0;
+    margin-top:2.5vw;
   }
 
   .dict-divider{
@@ -169,10 +167,11 @@ export default styled(AboutPage)`
   }
 
   .need-logo{
-    width:5vh;
-    height:5vh;
-    right:7vw;
+    width:7vh;
     position:absolute;
+    height:7vh;
+    right:15vh;
+    margin-top:1.5vw;
   }
 
   .need-body{
@@ -181,12 +180,15 @@ export default styled(AboutPage)`
     color:#464646;
     font-weight:0.5vh;
     padding:0;
+    width:60vw;
+    line-height:3.75vh;
   }
 
   .ind-title{
-    font-family: 'Proxima Nova';
+    font-family: 'Akrobat';
+    letter-spacing:0.05vh;
     font-size:3vh;
-    font-weight:bold;
+    font-weight:lighter;
     color:#464646;
     margin-bottom:0;
     margin-top:1vw;
@@ -201,7 +203,8 @@ export default styled(AboutPage)`
 
   .ind-body{
     font-family: 'Proxima Nova';
-    font-size:2.5vh;
+    font-size:2.25vh;
+    line-height: 3.75vh;
     color:#464646;
     margin-top:0.5vw;
     margin-bottom:2vw;
