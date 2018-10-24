@@ -7,58 +7,69 @@ class ContactUsPage extends Component {
   constructor () {
     super()
     this.state = {
-      contact_info: null
+      contactInfo: {}
     }
     this.componentDidMount = this.componentDidMount.bind(this)
   }
   componentDidMount () {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=400830878&single=true&output=csv').then(data => {
-      this.setState({ contact_info: data })
+      const [ desc, trunklines, fax, email, location, facebook, privacyNotice ] = data
       console.log(data)
+      this.setState({
+        contactInfo: {
+          desc: desc.Content,
+          trunklines: trunklines.Content,
+          fax: fax.Content,
+          email: email.Content,
+          location: location.Content,
+          facebook: facebook.Content,
+          privacyNotice: privacyNotice.Content
+        }
+      })
     })
   }
   render () {
     return (
       <div className={this.props.className}>
         <div className='sidebar'>
-          <img className='logo' src={'/static/img/napc-logo.png'} />
-          <h3>Contact Us</h3>
-          <p className='contact-desc'>{this.state.contact_info ? this.state.contact_info[0].Content : ''}</p>
+          <img className='logo' src='/static/img/napc-logo.png' />
+          <h3 className='body-text'>Contact Us</h3>
+          <p className=' body-text contact-desc'>{this.state.contactInfo.desc}</p>
           <br />
           <div className='info-holder'>
-            <p className='contact-text'><b className='contact-headers'>Trunklines: </b>{this.state.contact_info ? this.state.contact_info[1].Content : ''}</p>
-            <p className='contact-text'><b className='contact-headers'>Fax: </b>{this.state.contact_info ? this.state.contact_info[2].Content : ''}</p>
-            <p className='contact-text'><b className='contact-headers'>Email: </b>{this.state.contact_info ? this.state.contact_info[3].Content : ''}</p>
+            <p className='body-text contact-text'><b className='contact-headers'>Trunklines: </b>{this.state.contactInfo.trunklines}</p>
+            <p className='body-text contact-text'><b className='contact-headers'>Fax: </b>{this.state.contactInfo.fax}</p>
+            <p className='body-text contact-text'><b className='contact-headers'>Email: </b>{this.state.contactInfo.email}</p>
           </div>
-          <img className='map' src={'/static/img/location.png'} />
-          <p className='contact-location'>{this.state.contact_info ? this.state.contact_info[4].Content : ''}</p>
+          <img className='map' src='/static/img/location.png' />
+          <p className='body-text contact-location'>{this.state.contactInfo.location}</p>
           <br />
-          <p className='contact-desc'><b className='contact-headers'>Social Media</b></p>
+          <p className='body-text contact-desc'><b className='contact-headers'>Social Media</b></p>
           <br />
           <div className='sns-holder'>
-            <a onClick={() => window.open('https://www.facebook.com/NAPC.PH/', '_blank')}><img className='socialmedia-buttons' src={'/static/img/fb-unselect.png'} /></a>
-            <a onClick={() => window.open('https://twitter.com/napc_ph?lang=en', '_blank')}><img className='socialmedia-buttons' src={'/static/img/twitter-unselect.png'} /></a>
-            <a onClick={() => window.open('https://twitter.com/napc_ph?lang=en', '_blank')}><img className='socialmedia-buttons' src={'/static/img/google-unselect.png'} /></a>
+            <a href='https://www.facebook.com/NAPC.PH/' target='_blank'><img className='socialmedia-buttons' src={'/static/img/fb-unselect.png'} /></a>
+            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/twitter-unselect.png'} /></a>
+            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/google-unselect.png'} /></a>
           </div>
         </div>
         <div className='form'>
-          <p className='form-header'>ACTION CENTER CONTACT FORM</p>
+          <p className='body-text form-header'>ACTION CENTER CONTACT FORM</p>
           <div className='divider' />
           <br />
           <div className='form-holder'>
-            <input type='text' className='form-inputs' placeholder='First Name' name='fname' />
-            <input type='text' className='form-inputs' placeholder='Last Name' name='lname' />
-            <input type='text' className='form-inputs' placeholder='Phone Number' name='phonenum' />
-            <input type='text' className='form-inputs' placeholder='Email' name='email' />
-            <select className='select-inputs' placeholder='Purpose'>
+            <input type='text' className='body-text inputs form-inputs' placeholder='First Name' name='fname' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Last Name' name='lname' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Phone Number' name='phonenum' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Email' name='email' />
+            <select className='body-text inputs select-inputs' placeholder='Purpose'>
               <option value='' disabled selected>Purpose</option>
               <option>Option1</option>
               <option>Option2</option>
             </select>
-            <textarea type='text' className='form-msg' placeholder='Write your request here' name='msg' />
+            <textarea type='text' className='body-text form-msg' placeholder='Write your request here' name='msg' />
             <br />
-            <a className='send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
-            <p className='privacy-text'>Privacy Notice: {this.state.contact_info ? this.state.contact_info[6].Content : ''}</p>
+            <a className='body-text send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
+            <p className='body-text privacy-text'>Privacy Notice: {this.state.contactInfo.privacyNotice}</p>
           </div>
         </div>
       </div>
@@ -67,6 +78,11 @@ class ContactUsPage extends Component {
 }
 
 export default styled(ContactUsPage)`
+
+  .body-text{
+    color:#464646;
+  }
+
   .sidebar{
     position:absolute;
     top:0;
@@ -87,7 +103,6 @@ export default styled(ContactUsPage)`
   }
 
   h3 {
-    color:#464646;
     font-family: 'Akrobat';
     font-weight: bold;
     font-size:4.5vh;
@@ -105,7 +120,6 @@ export default styled(ContactUsPage)`
   }
 
   .contact-desc{
-    color:#464646;
     font-family: 'Proxima Nova';
     font-size:2vh;
     font-weight: lighter;
@@ -129,7 +143,6 @@ export default styled(ContactUsPage)`
   }
 
   .contact-text{
-    color:#464646;
     font-family: 'Proxima Nova';
     font-size:2vh;
     font-weight: lighter;
@@ -139,7 +152,6 @@ export default styled(ContactUsPage)`
   }
 
   .contact-headers{
-    color:#464646;
     font-weight:bolder;
   }
 
@@ -157,7 +169,6 @@ export default styled(ContactUsPage)`
   }
 
   .contact-location{
-    color:#464646;
     margin-left:12vw;
     margin-top:6.5vw; 
     font-family: 'Proxima Nova';
@@ -168,7 +179,6 @@ export default styled(ContactUsPage)`
   }
 
   .form-header{
-    color:#464646;
     font-family: 'Akrobat';
     letter-spacing:0.15vh;
     font-weight: bold;
@@ -194,36 +204,27 @@ export default styled(ContactUsPage)`
     outline: none !important;
   }
 
-  .form-inputs{
+  .inputs{
     padding-top:2vw;
-    color:#464646;
     font-family: 'Proxima Nova';
     font-weight: lighter;
     font-size:2.5vh;
     background:#f7f7f5;
     border:0px;
     border-bottom: 1px solid #b7b7b7;
-    width:30vw;
     margin-left:1vw;
     padding-bottom:0.5vw;
   }
 
+  .form-inputs{
+    width:30vw;
+  }
+
   .select-inputs{
-    padding-top:2vw;
-    color:#464646;
-    font-family: 'Proxima Nova';
-    font-weight: lighter;
-    font-size:2.5vh;
-    background:#f7f7f5;
-    border:0px;
-    border-bottom: 1px solid #b7b7b7;
-    margin-left:1vw;
-    padding-bottom:0.5vw;
     width:61vw;
   }
 
   .form-msg{
-    color:#464646;
     font-family: 'Proxima Nova';
     font-weight: lighter;
     font-size:2.5vh;
@@ -241,7 +242,6 @@ export default styled(ContactUsPage)`
   }
 
   .send-button{
-    color:#464646;
     font-family: 'Proxima Nova';
     font-weight: bold;
     font-size:3vh;
@@ -267,31 +267,5 @@ export default styled(ContactUsPage)`
     font-size:2vh;
     margin-left:1vw;
     margin-top:1.5vw;
-  }
-
-  footer{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    background:#525251;
-  }
-  
-  .footer-content-holder{
-    height:5vh;
-    display:flex;
-    width:50vh;
-    padding-left:90vh;
-  }  
-
-  .footer-text{
-    font-family:'Proxima Nova';
-    color: white;
-    text-align:center;
-    padding-right: 2vh;
-    font-size:1.75vh;
-  }
-
-  .redirect-buttons{
-    text-decoration:none;
   }
 `

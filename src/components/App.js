@@ -20,7 +20,7 @@ class App extends Component {
           <div className='footer-content-holder'>
             <a className='footer-text redirect-buttons' href='/map/food'><p>Ito and Kwento ng Bayan 2018</p></a>
             <a className='footer-text redirect-buttons' href='/contact'><p>Contact Us</p></a>
-            <a className='footer-text redirect-buttons' href='/about/food'><p>About Us</p></a>
+            <a className='footer-text redirect-buttons' href='/about/food'><p>About The Data</p></a>
           </div>
         </footer>
       </div>

@@ -8,13 +8,15 @@ body {
   width: 70vw;
   left: 0;
   top: 0;
+  z-index: -1;
 }
 
 footer{
-  position:absolute !important;
+  position:absolute;
   bottom:0;
   width:100%;
   background:#525251;
+  z-index: 1;
 }
 
 .footer-content-holder{

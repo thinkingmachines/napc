@@ -34,8 +34,8 @@ class AboutPage extends Component {
           <div className='need-holder'>
             {Object.keys(needs).map(need => (
               <NavLink activeClassName='active' to={'/about/' + need} key={need}>
-                <p className='ind-unselect'>{needs[need].titles}</p>
-                <p className='ind-select'>{needs[need].titles}</p>
+                <p className='indicator ind-unselect'>{needs[need].titles}</p>
+                <p className='indicator ind-select'>{needs[need].titles}</p>
                 <div className='divider' />
               </NavLink>
             ))}
@@ -43,16 +43,16 @@ class AboutPage extends Component {
         </div>
         <div className='dict'>
           <div className='def-holder'>
-            <p className='need-title'>{needs[this.props.match.params.need].titles}</p>
+            <p className='need need-title'>{needs[this.props.match.params.need].titles}</p>
             <img className='need-logo' src={needs[this.props.match.params.need]['unselect-logo-path']} />
             <div className='dict-divider' />
-            <p className='need-body'>{needs[this.props.match.params.need].explanation}</p>
+            <p className='need need-body'>{needs[this.props.match.params.need].explanation}</p>
             <div>
               {Object.keys(this.state.dict ? this.state.dict : '').filter(need => this.state.dict[need].Need === needs[this.props.match.params.need].titles).map(need => (
                 <div>
                   <p className='ind-title'>{this.state.dict[need].Indicator}</p>
-                  <p className='ind-source'>From {this.state.dict[need].Source}</p>
-                  <p className='ind-body'>{this.state.dict[need].Definition}</p>
+                  <p className='need ind-source'>From {this.state.dict[need].Source}</p>
+                  <p className='need ind-body'>{this.state.dict[need].Definition}</p>
                 </div>
               ))}
             </div>
@@ -95,21 +95,20 @@ export default styled(AboutPage)`
     top:0;
   }
 
-  .ind-unselect{
+  .indicator{
     font-size:3vh;
     margin:0;
-    color:#464646;
     font-family: 'Akrobat';
+  }
+
+  .ind-unselect{
+    color:#464646;
     display: inline-block;
   }
 
   .ind-select{
-    font-size:3vh;
-    margin:0;
-    font-family: 'Akrobat';
     color: ${props => needs[props.match.params.need].color};
     display: none;
-
   }
 
   .active .ind-unselect{
@@ -152,8 +151,11 @@ export default styled(AboutPage)`
     padding-left:3vw;
   }
 
-  .need-title{
+  .need{
     font-family:'Proxima Nova';
+  }
+
+  .need-title{
     font-size:5vh;
     color: ${props => needs[props.match.params.need].color};
     margin:0;
@@ -175,7 +177,6 @@ export default styled(AboutPage)`
   }
 
   .need-body{
-    font-family: 'Proxima Nova';
     font-size:2.5vh;
     color:#464646;
     font-weight:0.5vh;
@@ -195,14 +196,12 @@ export default styled(AboutPage)`
   }
 
   .ind-source{
-    font-family: 'Proxima Nova';
     font-size:2.2vh;
     color:#464646;
     margin-top:0;
   }
 
   .ind-body{
-    font-family: 'Proxima Nova';
     font-size:2.25vh;
     line-height: 3.75vh;
     color:#464646;
