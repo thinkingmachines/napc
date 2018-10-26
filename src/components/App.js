@@ -11,8 +11,9 @@ class App extends Component {
       <div className='App'>
         <Switch>
           <Route path='/about/:need' component={AboutPage} />
-          <Route exact path='/contact' component={ContactUsPage} />
+          <Route path='/contact' component={ContactUsPage} />
           <Route path='/map' component={MapPage} />
+          <Route path='/map/:need/municipality' component={MapPage} />
           <Redirect from='/' to='/map/food' />
           <Redirect from='/about' to='/about/food' />
         </Switch>
