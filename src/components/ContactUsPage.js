@@ -14,7 +14,6 @@ class ContactUsPage extends Component {
   componentDidMount () {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=400830878&single=true&output=csv').then(data => {
       const [ desc, trunklines, fax, email, location, facebook, privacyNotice ] = data
-      console.log(data)
       this.setState({
         contactInfo: {
           desc: desc.Content,

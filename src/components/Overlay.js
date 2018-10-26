@@ -127,19 +127,16 @@ export default styled(Overlay)`
   padding-left: 3vw;
   display: inline-block;
   flex-grow: 20;
-
   .information{
     width:11vw;
     background: white;
     padding: 2vw;
     opacity:  0.8;
   }
-
   .need-header{
     margin:0;
     margin-bottom:0.75vh;
   }
-
   .need-text {
     font-family: 'Proxima Nova';
     font-weight: bold;
@@ -152,7 +149,6 @@ export default styled(Overlay)`
     line-height:90%
     color: {needs[need].color};
   }
-
   .need-body{
     font-family: 'Akrobat';
     font-size: 1.75vh;
@@ -164,17 +160,14 @@ export default styled(Overlay)`
     text-align:justify;
     margin-top:0;
   }
-
   .need-body-p{
     margin-top:1vh;
   }
-
   .horiz-dotted {
     margin-top:1.5vh;
     border-bottom: 2px dashed #999999;
     width: 20vh;
   }
-
   .kpi{
     font-size: 4.5vh;
     margin-top:1.5vh;

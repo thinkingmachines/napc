@@ -45,6 +45,7 @@ export function initMap (map) {
   function zoomOnClick () {
     map.on('click', 'provinces', function (e) {
       var bbox = turf.bbox(e.features[0])
+      console.log(bbox)
       map.fitBounds(bbox, { padding: 30 })
     })
     map.on('click', 'municities', function (e) {
