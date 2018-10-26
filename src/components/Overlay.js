@@ -24,7 +24,7 @@ class Overlay extends Component {
   componentDidMount () {
     this.props.map.on('click', (e) => {
       this.setState({ lngLat: e.lngLat })
-    })  
+    })
   }
   componentDidUpdate (prevProps) {
     if (prevProps.need !== this.props.need) {
@@ -32,6 +32,8 @@ class Overlay extends Component {
     }
   }
   render () {
+    console.log('overlay load')
+    console.log(barChartData)
     d3.csv('../static/data/final-prov-indicators.csv').then(data => {
       data.forEach(d => {
         Object.keys(barChartData).forEach(i => {
@@ -41,7 +43,7 @@ class Overlay extends Component {
     })
 
     Object.keys(barChartData).forEach(i => {
-      barChartData[i].sort(function( a,b ) {
+      barChartData[i].sort(function (a, b) {
         return a.score - b.score
       })
     })
@@ -61,8 +63,7 @@ class Overlay extends Component {
             {needs[this.props.need].kpi}
           </p>
           <div className='chart'>
-            { console.log(this.props.need) }
-            { console.log(barChartData) }
+            { console.log('chart', barChartData, this.props.need, barChartData[this.props.need]) }
             <OrdinalFrame
               size={[150, 50]}
               data={barChartData[this.props.need]}

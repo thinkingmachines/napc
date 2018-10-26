@@ -1,6 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 import * as turf from '@turf/turf'
-// import { indicators } from './constants'
 
 export function initMap (map) {
   map.on('load', function () {
@@ -12,8 +11,8 @@ export function initMap (map) {
       'id': 'municities',
       'source': 'municities',
       'source-layer': 'final-mun-indicators-5hkam3',
-      'minzoom': 8,
-      'maxzoom': 10,
+      'minzoom': 6.5,
+      'maxzoom': 8.6,
       'type': 'fill'
     }, 'admin')
 
@@ -25,7 +24,7 @@ export function initMap (map) {
       'id': 'barangays',
       'source': 'barangays',
       'source-layer': 'final-bgy-indicators-d0c3va',
-      'minzoom': 10,
+      'minzoom': 8.6,
       'type': 'fill'
     }, 'admin')
 
@@ -37,7 +36,7 @@ export function initMap (map) {
       'id': 'provinces',
       'source': 'provinces',
       'source-layer': 'final-prov-indicators-d637x8',
-      'maxzoom': 8,
+      'maxzoom': 6.5,
       'type': 'fill'
     }, 'admin')
   })
@@ -52,23 +51,6 @@ export function initMap (map) {
       map.fitBounds(bbox, { padding: 50 })
     })
   }
-
-  // function showIndicator () {
-  //   const indicator = indicators[7]
-
-  //   map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
-  //   map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
-  //   map.setPaintProperty('provinces', 'fill-outline-color', indicator.paint['fill-outline-color'])
-
-  //   map.setPaintProperty('municities', 'fill-color', indicator.paint['fill-color'])
-  //   map.setPaintProperty('barangays', 'fill-color', indicator.paint['fill-color'])
-  //   map.setPaintProperty('provinces', 'fill-color', indicator.paint['fill-color'])
-
-  //   map.setPaintProperty('municities', 'fill-opacity', indicator.paint['fill-opacity']['municities'])
-  //   map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
-  //   map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
-  // }
-
-  // map.on('load', showIndicator)
   map.on('load', zoomOnClick)
+  map.scrollZoom.disable()
 }
