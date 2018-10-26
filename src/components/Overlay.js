@@ -2,68 +2,19 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { OrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
+import * as d3 from 'd3'
 
 const barChartData = {
-  'food': [
-    { municipality: '6', score: 0.5 },
-    { municipality: '4', score: 0.8 },
-    { municipality: '3', score: 0.2 },
-    { municipality: '1', score: 0.9 }
-  ],
-  'water': [
-    { municipality: '6', score: 0.5 },
-    { municipality: '4', score: 0.6 },
-    { municipality: '3', score: 0.3 },
-    { municipality: '1', score: 0.1 }
-  ],
-  'shelter': [
-    { municipality: '6', score: 0.8 },
-    { municipality: '4', score: 0.2 },
-    { municipality: '3', score: 0.4 },
-    { municipality: '1', score: 0.6 }
-  ],
-  'work': [
-    { municipality: '6', score: 0.1 },
-    { municipality: '4', score: 0.9 },
-    { municipality: '3', score: 0.6 },
-    { municipality: '1', score: 0.2 }
-  ],
-  'health': [
-    { municipality: '6', score: 0.1 },
-    { municipality: '4', score: 0.4 },
-    { municipality: '3', score: 0.6 },
-    { municipality: '1', score: 0.2 }
-  ],
-  'education': [
-    { municipality: '6', score: 0.1 },
-    { municipality: '4', score: 0.4 },
-    { municipality: '3', score: 0.3 },
-    { municipality: '1', score: 0.2 }
-  ],
-  'protect': [
-    { municipality: '6', score: 0.1 },
-    { municipality: '4', score: 0.7 },
-    { municipality: '3', score: 0.1 },
-    { municipality: '1', score: 0.8 }
-  ],
-  'environment': [
-    { municipality: '6', score: 0.9 },
-    { municipality: '4', score: 0.1 },
-    { municipality: '3', score: 0.5 },
-    { municipality: '1', score: 0.9 }
-  ],
-  'peace': [
-    { municipality: '6', score: 0.5 },
-    { municipality: '4', score: 0.8 },
-    { municipality: '3', score: 0.2 },
-    { municipality: '1', score: 0.9 }
-  ],
-  'participation': [
-    { municipality: '6', score: 0.5 },
-    { municipality: '4', score: 0.8 },
-    { municipality: '3', score: 0.2 },
-    { municipality: '1', score: 0.9 }
-  ]
+  'food': [],
+  'water': [],
+  'shelter': [],
+  'work': [],
+  'health': [],
+  'education': [],
+  'protect': [],
+  'environment': [],
+  'peace': [],
+  'participation': []
 }
 
 class Overlay extends Component {
@@ -73,7 +24,7 @@ class Overlay extends Component {
   componentDidMount () {
     this.props.map.on('click', (e) => {
       this.setState({ lngLat: e.lngLat })
-    })
+    })  
   }
   componentDidUpdate (prevProps) {
     if (prevProps.need !== this.props.need) {
@@ -81,6 +32,20 @@ class Overlay extends Component {
     }
   }
   render () {
+    d3.csv('../static/data/final-prov-indicators.csv').then(data => {
+      data.forEach(d => {
+        Object.keys(barChartData).forEach(i => {
+          barChartData[i].push({ 'Pro_Code': d.Pro_Code, 'Pro_Name': d.Pro_Name, 'Reg_Name': d.Reg_Name, 'score': d[i] })
+        })
+      })
+    })
+
+    Object.keys(barChartData).forEach(i => {
+      barChartData[i].sort(function( a,b ) {
+        return a.score - b.score
+      })
+    })
+
     return (
       <div className={this.props.className}>
         <div className='information'>
@@ -96,10 +61,12 @@ class Overlay extends Component {
             {needs[this.props.need].kpi}
           </p>
           <div className='chart'>
+            { console.log(this.props.need) }
+            { console.log(barChartData) }
             <OrdinalFrame
               size={[150, 50]}
               data={barChartData[this.props.need]}
-              oAccessor={'municipality'}
+              oAccessor={'Pro_Code'}
               rAccessor={'score'}
               type={'bar'}
               oPadding={5}
