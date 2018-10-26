@@ -4,26 +4,37 @@ import { OrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
 import * as d3 from 'd3'
 
-const barChartData = {
-  'food': [],
-  'water': [],
-  'shelter': [],
-  'work': [],
-  'health': [],
-  'education': [],
-  'protect': [],
-  'environment': [],
-  'peace': [],
-  'participation': []
-}
-
 class Overlay extends Component {
-  state = {
-    lngLat: null
-  } // for testing if clicking on the map updates the overlay
+  constructor (props) {
+    super(props)
+    this.state = {
+      'food': [],
+      'water': [],
+      'shelter': [],
+      'work': [],
+      'health': [],
+      'education': [],
+      'protect': [],
+      'environment': [],
+      'peace': [],
+      'participation': []
+    }
+  }
   componentDidMount () {
-    this.props.map.on('click', (e) => {
-      this.setState({ lngLat: e.lngLat })
+    d3.csv('../static/data/final-prov-indicators.csv').then(data => {
+      data.forEach(d => {
+        Object.keys(this.state).forEach(k => {
+          this.setState({
+            [k]: this.state[k]
+              .concat({
+                'Pro_Code': d.Pro_Code, 'Pro_Name': d.Pro_Name, 'Reg_Name': d.Reg_Name, 'score': d[k]
+              })
+              .sort(function (a, b) {
+                return a.score - b.score
+              })
+          })
+        })
+      })
     })
   }
   componentDidUpdate (prevProps) {
@@ -33,21 +44,7 @@ class Overlay extends Component {
   }
   render () {
     console.log('overlay load')
-    console.log(barChartData)
-    d3.csv('../static/data/final-prov-indicators.csv').then(data => {
-      data.forEach(d => {
-        Object.keys(barChartData).forEach(i => {
-          barChartData[i].push({ 'Pro_Code': d.Pro_Code, 'Pro_Name': d.Pro_Name, 'Reg_Name': d.Reg_Name, 'score': d[i] })
-        })
-      })
-    })
-
-    Object.keys(barChartData).forEach(i => {
-      barChartData[i].sort(function (a, b) {
-        return a.score - b.score
-      })
-    })
-
+    console.log(this.state)
     return (
       <div className={this.props.className}>
         <div className='information'>
@@ -63,10 +60,9 @@ class Overlay extends Component {
             {needs[this.props.need].kpi}
           </p>
           <div className='chart'>
-            { console.log('chart', barChartData, this.props.need, barChartData[this.props.need]) }
             <OrdinalFrame
               size={[150, 50]}
-              data={barChartData[this.props.need]}
+              data={this.state[this.props.need]}
               oAccessor={'Pro_Code'}
               rAccessor={'score'}
               type={'bar'}
