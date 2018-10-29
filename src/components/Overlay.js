@@ -43,7 +43,6 @@ class Overlay extends Component {
     }
   }
   render () {
-    console.log('overlay load')
     console.log(this.state)
     return (
       <div className={this.props.className}>
