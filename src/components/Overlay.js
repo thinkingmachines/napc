@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { OrdinalFrame } from 'semiotic'
+import { ResponsiveOrdinalFrame } from 'semiotic'
 import { needs } from '../constants'
 import * as d3 from 'd3'
 
@@ -44,6 +44,7 @@ class Overlay extends Component {
   }
   render () {
     console.log(this.state)
+    console.log(this.state[this.props.need])
     return (
       <div className={this.props.className}>
         <div className='information'>
@@ -59,19 +60,23 @@ class Overlay extends Component {
             {needs[this.props.need].kpi}
           </p>
           <div className='chart'>
-            <OrdinalFrame
-              size={[150, 50]}
+            <ResponsiveOrdinalFrame
+              responsiveWidth
+              responsiveHeight
               data={this.state[this.props.need]}
               oAccessor={'Pro_Code'}
               rAccessor={'score'}
+              margin={{ top: 0, bottom: 0, left: 0, right: 5 }}
               type={'bar'}
               oPadding={5}
               style={{ fill: needs[this.props.need].color }}
               baseMarkProps={{ forceUpdate: true }}
+              pieceHoverAnnotation
+              tooltipContent={d => <div className='tooltip-content'>
+                <p>{d.Pro_Name}</p>
+                <p>{d.score}</p>
+              </div>}
             />
-            <svg height={20}>
-              <rect className='divider' style={{ height: '0.2vh', width: 150, fill: '#999999' }} />
-            </svg>
           </div>
         </div>
       </div>
@@ -89,13 +94,12 @@ export default styled(Overlay)`
   color: #464646;
   padding-left: 3vw;
   display: inline-block;
-  flex-grow: 20;
 
   .information{
     width:11vw;
     background: white;
-    padding: 2vw;
-    opacity:  0.8;
+    padding: 1.5vw;
+    opacity:  0.95;
   }
 
   .need-header{
@@ -107,24 +111,18 @@ export default styled(Overlay)`
     font-family: 'Proxima Nova';
     font-weight: bold;
     font-size: 3.5vh;
-    flex-wrap: wrap;
-    padding-right: 10vw;
-    width:20vh;
-    height: 15vh;
+    padding: 0 0 10vh 0;
+    width: 100%;
     margin:0;
-    line-height:90%
-    color: {needs[need].color};
+    color: ${props => needs[props.need].color};
   }
 
   .need-body{
     font-family: 'Akrobat';
     font-size: 1.75vh;
     font-style: none !important;
-    flex-wrap: wrap;
     padding-right: 0;
     color: #999999;
-    line-height:90%;
-    text-align:justify;
     margin-top:0;
   }
 
@@ -134,8 +132,8 @@ export default styled(Overlay)`
 
   .horiz-dotted {
     margin-top:1.5vh;
-    border-bottom: 2px dashed #999999;
-    width: 20vh;
+    border-bottom: 1px dashed #999999;
+    width: 100%;
   }
 
   .kpi{
@@ -146,5 +144,11 @@ export default styled(Overlay)`
     font-weight: bold;
     font-size: 3.5vh;
     color: ${props => needs[props.need].color};
+  }
+
+  .chart{
+    width: 100%;
+    height: 8vh;
+    border-bottom: 1.5px solid #999999;
   }
 `
