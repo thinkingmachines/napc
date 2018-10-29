@@ -49,3 +49,13 @@ footer{
   src: url('/static/fonts/ProximaNova-Regular.otf');
   font-style: black;
 }
+
+@font-face {
+  font-family: 'Proxima Nova Semibold';
+  src: url('/static/fonts/Proxima Nova Semibold.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova Thin';
+  src: url('/static/fonts/Proxima Nova Thin.otf');
+}
