@@ -94,54 +94,49 @@ export default styled(Overlay)`
   padding-left: 3vw;
   display: inline-block;
   flex-grow: 20;
-
   .information{
-    width:11vw;
+    width:50%;
     background: white;
     padding: 2vw;
     opacity:  0.8;
   }
-
   .need-header{
     margin:0;
     margin-bottom:0.75vh;
+    font-family: 'Akrobat';
+    font-size:2vh;
   }
-
   .need-text {
-    font-family: 'Proxima Nova';
+    font-family: 'Akrobat';
     font-weight: bold;
     font-size: 3.5vh;
     flex-wrap: wrap;
     padding-right: 10vw;
     width:20vh;
-    height: 15vh;
+    padding-bottom: 2vh;
     margin:0;
     line-height:90%
-    color: {needs[need].color};
+    color: ${props => needs[props.need].color};
   }
-
   .need-body{
-    font-family: 'Akrobat';
+    font-family: 'Proxima Nova';
     font-size: 1.75vh;
     font-style: none !important;
     flex-wrap: wrap;
+    line-height:2.625vh;
     padding-right: 0;
     color: #999999;
-    line-height:90%;
     text-align:justify;
     margin-top:0;
   }
-
   .need-body-p{
     margin-top:1vh;
   }
-
   .horiz-dotted {
     margin-top:1.5vh;
-    border-bottom: 2px dashed #999999;
+    border-bottom: 1px solid #999999;
     width: 20vh;
   }
-
   .kpi{
     font-size: 4.5vh;
     margin-top:1.5vh;
@@ -150,5 +145,17 @@ export default styled(Overlay)`
     font-weight: bold;
     font-size: 3.5vh;
     color: ${props => needs[props.need].color};
+  }
+
+  @media all and (max-width: 700px) {
+    .information{
+      width:50%;
+    }
+    .need-header{
+      font-size:1.75vh;
+    }
+    .need-text{
+      font-size:3vh;
+    }
   }
 `
