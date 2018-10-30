@@ -22,7 +22,7 @@ class AboutPage extends Component {
     }
   }
   componentDidMount () {
-    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vRDAcbjK29YmfQp0gUew1yibgewts35cJtLeGyGc-Hj7kBi4yGdd-C7jbK61uG8pSzQHAt6rhO_qgqa/pub?output=csv').then(data => {
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=534002250&single=true&output=csv').then(data => {
       this.setState({ dict: data })
     })
   }
@@ -47,12 +47,15 @@ class AboutPage extends Component {
             <img className='need-logo' src={needs[this.props.match.params.need]['unselect-logo-path']} />
             <div className='dict-divider' />
             <p className='need need-body'>{needs[this.props.match.params.need].explanation}</p>
-            <div>
-              {Object.keys(this.state.dict ? this.state.dict : '').filter(need => this.state.dict[need].Need === needs[this.props.match.params.need].titles).map(need => (
+            <div className='ind-holder'>
+              {Object.keys(this.state.dict ? this.state.dict : '').filter(need => this.state.dict[need].Included === 'Yes').filter(need => this.state.dict[need].Need === needs[this.props.match.params.need].titles).map(need => (
                 <div>
-                  <p className='ind-title'>{this.state.dict[need].Indicator}</p>
+                  <p className='ind-title'>{this.state.dict[need].Indicator_Title}</p>
                   <p className='need ind-source'>From {this.state.dict[need].Source}</p>
-                  <p className='need ind-body'>{this.state.dict[need].Definition}</p>
+                  <div className='need ind-body'>
+                    <p className='ind-body-header'><b>Definition: </b>{this.state.dict[need].Indicator_Description}</p>
+                    <p className='ind-body-header'><b>Methodology: </b>{this.state.dict[need].Definition}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -146,7 +149,7 @@ export default styled(AboutPage)`
     display: flex;
     justify-content: flex-start;
     flex-flow: row wrap;
-    height:5vh;
+    height:20%;
     width:60vw;
     padding-left:3vw;
   }
@@ -156,7 +159,7 @@ export default styled(AboutPage)`
   }
 
   .need-title{
-    font-size:5vh;
+    font-size:4vh;
     color: ${props => needs[props.match.params.need].color};
     margin:0;
     margin-top:2.5vw;
@@ -169,15 +172,15 @@ export default styled(AboutPage)`
   }
 
   .need-logo{
-    width:7vh;
+    width:6vh;
+    height:6vh;
     position:absolute;
-    height:7vh;
     right:15vh;
-    margin-top:1.5vw;
+    margin-top:1.75vw;
   }
 
   .need-body{
-    font-size:2.5vh;
+    font-size:2vh;
     color:#464646;
     font-weight:0.5vh;
     padding:0;
@@ -188,27 +191,89 @@ export default styled(AboutPage)`
   .ind-title{
     font-family: 'Akrobat';
     letter-spacing:0.05vh;
-    font-size:3vh;
+    font-size:2.5vh;
     font-weight:lighter;
     color:#464646;
     margin-bottom:0;
-    margin-top:1vw;
+    margin-top:0.5vh;
   }
 
   .ind-source{
-    font-size:2.2vh;
+    font-size:2vh;
     color:#464646;
     margin-top:0;
   }
 
+  .ind-body-header{
+    padding:0;
+    margin:0;
+  }
+
   .ind-body{
-    font-size:2.25vh;
+    font-size:2vh;
     line-height: 3.75vh;
     color:#464646;
     margin-top:0.5vw;
-    margin-bottom:2vw;
+    margin-bottom:1.25vw;
     font-weight:1px;
     border-left: 1px solid #b7b7b7;
     padding-left:3vh;
+  }
+
+  @media all and (max-width: 700px) {
+    .sidebar{
+      z-index:-1;
+    }
+
+    .indicator{
+      font-size:1.5vh;
+    }
+
+    .need-holder{
+      width:30%;
+      height:40vh;
+    }
+    .divider{
+      margin-bottom:0; 
+    }
+    h3 {
+      font-size:1.1vh;
+    }
+    .need-title{
+      font-size:2vh;
+      margin-top:3.5vw;
+    }
+    .need-logo{
+      width:2.75vh;
+      height:2.75vh;
+      right:2vh;
+      margin-top:2vw;
+    }
+    .def-holder{
+      width:65vw;
+    }
+    .dict-divider{
+      width:64vw;
+    }
+    .need-body{
+      font-size:1.1vh;
+      line-height:1.65vh;
+      width:64vw;
+    }
+    .ind-holder{
+      width:64vw;
+    }
+    .ind-title{
+      font-size:1.5vh;
+    }
+    .ind-source{
+      font-size:1.1vh;
+    }
+    .ind-body{
+      font-size:1.1vh;
+      line-height:1.65vh;
+      padding-left:1vh;
+      padding-right:1vh;
+    }
   }
 `

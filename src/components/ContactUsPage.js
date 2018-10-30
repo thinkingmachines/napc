@@ -13,7 +13,7 @@ class ContactUsPage extends Component {
   }
   componentDidMount () {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=400830878&single=true&output=csv').then(data => {
-      const [ desc, trunklines, fax, email, location, facebook, privacyNotice ] = data
+      const [ desc, trunklines, fax, email, location, privacyNotice ] = data
       this.setState({
         contactInfo: {
           desc: desc.Content,
@@ -21,7 +21,6 @@ class ContactUsPage extends Component {
           fax: fax.Content,
           email: email.Content,
           location: location.Content,
-          facebook: facebook.Content,
           privacyNotice: privacyNotice.Content
         }
       })
@@ -31,19 +30,21 @@ class ContactUsPage extends Component {
     return (
       <div className={this.props.className}>
         <div className='sidebar'>
-          <img className='logo' src='/static/img/napc-logo.png' />
-          <h3 className='body-text'>Contact Us</h3>
-          <p className=' body-text contact-desc'>{this.state.contactInfo.desc}</p>
+          <div className='contact-holder'>
+            <img className='logo' src='/static/img/napc-logo.png' />
+            <h3 className='body-text'>Contact Us</h3>
+            <p className='contact-text contact-desc'>{this.state.contactInfo.desc}</p>
+          </div>
           <br />
           <div className='info-holder'>
-            <p className='body-text contact-text'><b className='contact-headers'>Trunklines: </b>{this.state.contactInfo.trunklines}</p>
-            <p className='body-text contact-text'><b className='contact-headers'>Fax: </b>{this.state.contactInfo.fax}</p>
-            <p className='body-text contact-text'><b className='contact-headers'>Email: </b>{this.state.contactInfo.email}</p>
+            <p className='contact-text'><b className='contact-headers'>Trunklines: </b>{this.state.contactInfo.trunklines}</p>
+            <p className='contact-text'><b className='contact-headers'>Fax: </b>{this.state.contactInfo.fax}</p>
+            <p className='contact-text'><b className='contact-headers'>Email: </b>{this.state.contactInfo.email}</p>
           </div>
           <img className='map' src='/static/img/location.png' />
-          <p className='body-text contact-location'>{this.state.contactInfo.location}</p>
+          <p className='contact-text contact-location'>{this.state.contactInfo.location}</p>
           <br />
-          <p className='body-text contact-desc'><b className='contact-headers'>Social Media</b></p>
+          <p className='contact-text sns-header'><b className='contact-headers'>Social Media</b></p>
           <br />
           <div className='sns-holder'>
             <a href='https://www.facebook.com/NAPC.PH/' target='_blank'><img className='socialmedia-buttons' src={'/static/img/fb-unselect.png'} /></a>
@@ -65,7 +66,7 @@ class ContactUsPage extends Component {
               <option>Option1</option>
               <option>Option2</option>
             </select>
-            <textarea type='text' className='body-text form-msg' placeholder='Write your request here' name='msg' />
+            <textarea type='text' className='body-text inputs form-msg' placeholder='Write your request here' name='msg' />
             <br />
             <a className='body-text send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
             <p className='body-text privacy-text'>Privacy Notice: {this.state.contactInfo.privacyNotice}</p>
@@ -84,7 +85,6 @@ export default styled(ContactUsPage)`
 
   .sidebar{
     position:absolute;
-    top:0;
     left:0;
     font-family: 'Akrobat';
     font-weight: bold;
@@ -118,15 +118,6 @@ export default styled(ContactUsPage)`
     top:0;
   }
 
-  .contact-desc{
-    font-family: 'Proxima Nova';
-    font-size:2vh;
-    font-weight: lighter;
-    padding: 0vw 3vw 0 3vw;
-    margin-bottom: 0;
-    margin-top:1vh;
-  }
-
   .sns-holder{
     display:flex;
     margin-left:3vw !important;
@@ -147,7 +138,13 @@ export default styled(ContactUsPage)`
     font-weight: lighter;
     padding: 0vw 4vw 0 2vw;
     margin-bottom: 0;
-    margin-top:0;
+    margin-top:0.5vh;
+    color:#464646;
+    text-align:justify;
+  }
+
+  .contact-desc{
+    padding-left:3vw;
   }
 
   .contact-headers{
@@ -165,6 +162,7 @@ export default styled(ContactUsPage)`
     float:right;
     margin-top:-1vw;
     width:10vw;  
+    z-index:-1;
   }
 
   .contact-location{
@@ -216,11 +214,11 @@ export default styled(ContactUsPage)`
   }
 
   .form-inputs{
-    width:30vw;
+    width:48%;
   }
 
   .select-inputs{
-    width:61vw;
+    width:98%;
   }
 
   .form-msg{
@@ -229,7 +227,7 @@ export default styled(ContactUsPage)`
     font-size:2.5vh;
     background:#f7f7f5;
     border: 1px solid #b7b7b7;
-    width:57vw;
+    width:91%;
     height:25vh;
     margin-top:2vw;
     margin-left:1vw;
@@ -259,12 +257,116 @@ export default styled(ContactUsPage)`
   }
 
   .privacy-text{
-    color:#464646;
     opacity:0.8;
     font-family: 'Proxima Nova';
     font-weight:lighter;
     font-size:2vh;
     margin-left:1vw;
     margin-top:1.5vw;
+    line-height:3vh;
+  }
+
+  .sns-header{
+    padding-left:3vw;
+    margin-top:-7vh;
+  }
+
+  @media all and (max-width: 700px) {
+    .sidebar{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height:30%
+    }
+    .contact-holder{
+      display: flex;
+      justify-content: flex-start;
+      flex-flow: row wrap;
+      padding-top:2vw;
+    }
+    .logo{
+      width:8vw;
+      height:8vw;
+      padding-top:2.5vw;
+    }
+    .inputs{
+      font-size:1.5vh;
+    }
+
+    h3{
+      font-size:2vh;
+      height:2vh;
+      margin-top:1vh;
+      padding-left:3vw;
+    }
+    .form{
+      padding-top:2vw;
+      z-index:-1;
+      width:100%;
+      height:70%;
+    }
+    .form-header{
+      font-size:2vh;
+      padding-top:1.5vh;
+      padding-left:5vw;
+    }
+    .form-holder{
+      padding-left:4vw;
+    }
+    .form-msg{
+      width:92.5%;
+    }
+    .divider{
+      width: 28vh;
+      margin-left:5vw;
+    }
+    .send-button{
+      margin-left:80vw;
+      font-size:1.5vh;
+    }
+    .privacy-text{
+      text-align:justify;
+      font-size:1.25vh;
+      line-height:1.875vh;
+    }
+    .contact-text{
+      font-size:1.25vh;
+    }
+    .contact-desc{
+      width:80%;
+      margin-left:6vh;
+      margin-top:-2.5vh;
+    }
+    .contact-headers{
+      font-weight:bolder;
+      font-size:1.6vh;
+      padding-top:2vh;
+    }
+    .contact-location{
+      margin-left:70vw;
+      width:10vw;
+      font-size:1.1vh;
+      margin-top:-2.5vh;
+    }
+    .sns-header{
+      margin-top:-8vw;
+    }
+    .sns-holder{
+      margin-top:-3vw;
+      padding-bottom:0;
+      padding-top:0;
+    }
+    .map{
+      width:18vw;
+      margin-top:-18vw;
+      margin-bottom:2vw;
+    }
+    .socialmedia-buttons{
+      width:4vw;
+    }
+    .info-holder{
+      padding-top:0;
+      padding-bottom:0;
+    }
   }
 `
