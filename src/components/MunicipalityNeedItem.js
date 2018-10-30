@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { needs } from '../constants'
+import { indicator_descriptions } from '../constants'
 
 class MunicipalityStripPlot extends Component {
   constructor(props) {
@@ -29,18 +30,22 @@ class MunicipalityStripPlot extends Component {
 
   render () {
     return (
-      <div className='mun-sidebar-chart'>
-        <svg width="100%" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <line x1="10%" x2="90%" y1="calc(50% - 0.5)" y2="calc(50% - 0.5)" stroke="#CCC" stroke-width="1" />
-          <line x1="10%" x2="10%" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
-          <line x1="90%" x2="90%" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
-          <line x1="calc(50% - 0.5)" x2="calc(50% - 0.5)" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
-          {this.state.strip_data.map((strip_data, i) => (
-            <circle cx={ ((strip_data['value'] * 0.8 + 0.1) * 100) + "%" } cy="calc(50% - 0.5)" fill={needs[this.props.need].color} r="5" opacity="0.5"/>
-          ))}
-        </svg>
+      <div>
+        <div className='mun-sidebar-chart-desc'>
+          {this.props.desc}
+        </div>
+        <div className='mun-sidebar-chart'>
+          <svg width="100%" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <line x1="10%" x2="90%" y1="calc(50% - 0.5)" y2="calc(50% - 0.5)" stroke="#CCC" stroke-width="1" />
+            <line x1="10%" x2="10%" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
+            <line x1="90%" x2="90%" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
+            <line x1="calc(50% - 0.5)" x2="calc(50% - 0.5)" y1="5" y2="calc(100% - 5)" stroke="#CCC" stroke-width="1" />
+            {this.state.strip_data.map((strip_data, i) => (
+              <circle cx={ ((strip_data['value'] * 0.8 + 0.1) * 100) + "%" } cy="calc(50% - 0.5)" fill={needs[this.props.need].color} r="5" opacity="0.5"/>
+            ))}
+          </svg>
+        </div>
       </div>
-      
     )
   }
 }
@@ -53,6 +58,7 @@ class MunicipalityNeedItem extends Component {
     var x_val_marker_num = percentage >= 0 ? (percentage / 2 + 50) + "%" : (50 + percentage / 2) + "%";
     var x_val_marker = "calc(" + x_val_marker_num + " - 1.5px)";
     var line_width = (Math.abs(percentage) / 2) + "%" ;
+    var indicator_list = needs[this.props.need]['indicators'];
 
     return (
       <li className={ this.props.className } >
@@ -70,17 +76,9 @@ class MunicipalityNeedItem extends Component {
           <div className='mun-sidebar-main-desc'>
             3 out of 10 0-5 year old children in Dumangas are <b>malnourished</b>
           </div>
-          <div className='mun-sidebar-desc'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
-          <div className='mun-sidebar-chart-desc'>
-            Proportion of 0-5 year olds that are malnourished per barangay
-          </div>
-          <MunicipalityStripPlot need={this.props.need}/>
-          <div className='mun-sidebar-chart-desc'>
-            Proportion of farmers with insecure tenure
-          </div>
-          <MunicipalityStripPlot need={this.props.need}/>
+          {indicator_list.map((indicator, i) => (
+            <MunicipalityStripPlot need={this.props.need} desc={indicator_descriptions[indicator]} />
+          ))}
         </div>
       </li>
     )

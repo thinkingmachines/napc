@@ -24,7 +24,7 @@ export default styled(SidebarMunicipalityPage)`
   overflow: hidden;
 
   h3 {
-    font-family: 'Proxima Nova';
+    font-family: 'Proxima Nova Semibold';
     font-weight: bold;
     font-size: 0.7em;
     margin: 0;
