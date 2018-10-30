@@ -5,7 +5,7 @@ export const needs = {
     'titles': 'Food and Land Reform',
     'select-logo-path': '/static/img/01-food-select.png',
     'unselect-logo-path': '/static/img/01-food-unselect.png',
-    'explanation': 'Food explanation here',
+    'explanation': 'Proportion of farmers with insecure tenure',
     'kpi': '70%'
   },
 
@@ -14,7 +14,7 @@ export const needs = {
     'titles': 'Water and Sanitation',
     'select-logo-path': '/static/img/06-water-select.png',
     'unselect-logo-path': '/static/img/06-water-unselect.png',
-    'explanation': 'Water explanation here',
+    'explanation': 'Proportion of households without access to improved sources of drinking water',
     'kpi': '70%'
   },
 
@@ -23,7 +23,7 @@ export const needs = {
     'titles': 'Shelter',
     'select-logo-path': '/static/img/02-shelter-select.png',
     'unselect-logo-path': '/static/img/02-shelter-unselect.png',
-    'explanation': 'Shelter explanation here',
+    'explanation': 'Proportion of households who are informal settlers',
     'kpi': '70%'
   },
 
@@ -32,7 +32,7 @@ export const needs = {
     'titles': 'Work',
     'select-logo-path': '/static/img/07-work-select.png',
     'unselect-logo-path': '/static/img/07-work-unselect.png',
-    'explanation': 'Work explanation here',
+    'explanation': 'Unemployment Rate',
     'kpi': '70%'
   },
 
@@ -41,7 +41,7 @@ export const needs = {
     'titles': 'Health',
     'select-logo-path': '/static/img/03-health-select.png',
     'unselect-logo-path': '/static/img/03-health-unselect.png',
-    'explanation': 'Health explanation here',
+    'explanation': 'Proportion of individuals not attending a health care center',
     'kpi': '70%'
   },
 
@@ -50,7 +50,7 @@ export const needs = {
     'titles': 'Education',
     'select-logo-path': '/static/img/08-education-select.png',
     'unselect-logo-path': '/static/img/08-education-unselect.png',
-    'explanation': 'Education explanation here',
+    'explanation': 'Proportion of children 6-16 years old who are not attending school',
     'kpi': '70%'
   },
 
@@ -59,7 +59,7 @@ export const needs = {
     'titles': 'Social Protection',
     'select-logo-path': '/static/img/04-protect-select.png',
     'unselect-logo-path': '/static/img/04-protect-unselect.png',
-    'explanation': 'Protection explanation here',
+    'explanation': 'Number/Proportion of individuals with SSS / GSIS',
     'kpi': '70%'
   },
 
@@ -68,7 +68,7 @@ export const needs = {
     'titles': 'Healthy Environment',
     'select-logo-path': '/static/img/09-environment-select.png',
     'unselect-logo-path': '/static/img/09-environment-unselect.png',
-    'explanation': 'Environment explanation here',
+    'explanation': 'Combined risk score of various natural disasters',
     'kpi': '70%'
   },
 
@@ -77,7 +77,7 @@ export const needs = {
     'titles': 'Peace and Order',
     'select-logo-path': '/static/img/05-peace-select.png',
     'unselect-logo-path': '/static/img/05-peace-unselect.png',
-    'explanation': 'Peace explanation here',
+    'explanation': 'Displacement',
     'kpi': '70%'
   },
 
@@ -86,7 +86,7 @@ export const needs = {
     'titles': 'Participation',
     'select-logo-path': '/static/img/10-participation-select.png',
     'unselect-logo-path': '/static/img/10-participation-unselect.png',
-    'explanation': 'Participation explanation here',
+    'explanation': 'Attendance rate in the last barangay assembly',
     'kpi': '70%'
   }
 }
