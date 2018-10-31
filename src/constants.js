@@ -6,7 +6,8 @@ export const needs = {
     'select-logo-path': '/static/img/01-food-select.png',
     'unselect-logo-path': '/static/img/01-food-unselect.png',
     'explanation': 'Proportion of farmers with insecure tenure',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': []
   },
 
   'water': {
@@ -15,7 +16,8 @@ export const needs = {
     'select-logo-path': '/static/img/06-water-select.png',
     'unselect-logo-path': '/static/img/06-water-unselect.png',
     'explanation': 'Proportion of households without access to improved sources of drinking water',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['water_toilet', 'water_access']
   },
 
   'shelter': {
@@ -24,7 +26,8 @@ export const needs = {
     'select-logo-path': '/static/img/02-shelter-select.png',
     'unselect-logo-path': '/static/img/02-shelter-unselect.png',
     'explanation': 'Proportion of households who are informal settlers',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['shelter_electricity', 'shelter_informal_settlers_nhts', 'shelter_makeshift_nhts']
   },
 
   'work': {
@@ -33,7 +36,8 @@ export const needs = {
     'select-logo-path': '/static/img/07-work-select.png',
     'unselect-logo-path': '/static/img/07-work-unselect.png',
     'explanation': 'Unemployment Rate',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['work_unemployment', 'work_farms', 'work_unskilled']
   },
 
   'health': {
@@ -42,7 +46,8 @@ export const needs = {
     'select-logo-path': '/static/img/03-health-select.png',
     'unselect-logo-path': '/static/img/03-health-unselect.png',
     'explanation': 'Proportion of individuals not attending a health care center',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['health_center_attendance', 'health_programs']
   },
 
   'education': {
@@ -51,7 +56,8 @@ export const needs = {
     'select-logo-path': '/static/img/08-education-select.png',
     'unselect-logo-path': '/static/img/08-education-unselect.png',
     'explanation': 'Proportion of children 6-16 years old who are not attending school',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['educ_outofschool_all']
   },
 
   'protect': {
@@ -60,7 +66,8 @@ export const needs = {
     'select-logo-path': '/static/img/04-protect-select.png',
     'unselect-logo-path': '/static/img/04-protect-unselect.png',
     'explanation': 'Number/Proportion of individuals with SSS / GSIS',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['sp_philhealth']
   },
 
   'environment': {
@@ -69,7 +76,8 @@ export const needs = {
     'select-logo-path': '/static/img/09-environment-select.png',
     'unselect-logo-path': '/static/img/09-environment-unselect.png',
     'explanation': 'Combined risk score of various natural disasters',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': []
   },
 
   'peace': {
@@ -78,7 +86,8 @@ export const needs = {
     'select-logo-path': '/static/img/05-peace-select.png',
     'unselect-logo-path': '/static/img/05-peace-unselect.png',
     'explanation': 'Displacement',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': ['po_conflict']
   },
 
   'participation': {
@@ -87,7 +96,8 @@ export const needs = {
     'select-logo-path': '/static/img/10-participation-select.png',
     'unselect-logo-path': '/static/img/10-participation-unselect.png',
     'explanation': 'Attendance rate in the last barangay assembly',
-    'kpi': '70%'
+    'kpi': '70%',
+    'indicators': []
   }
 }
 
@@ -232,4 +242,43 @@ export const indicators = {
         'provinces': [ 'interpolate', [ 'linear' ], [ 'get', 'Environment_Prop' ], 1.697114, 0, 38.12232, 1 ] },
       'fill-outline-color': 'white' }
   }
+}
+
+export const indicator_descriptions = {
+  'food_malnourished': 'Proportion of children 0-5 years old who are malnourished (up to barangay level)',
+  'food_tenure': 'Proportion of farmers with insecure tenure (up to barangay level)',
+  'water_access': 'Proportion of households without access to improved sources of drinking water (up to barangay level)',
+  'water_toilet': 'Proportion of households without access to sanitary toilet facilities (up to barangay level)',
+  'water_system_access': 'Access of barangay to community waterworks system (CWS)',
+  'shelter_makeshift_nhts': 'Proportion of households living in makeshift housing (up to barangay level)',
+  'shelter_makeshift_cbms': 'Proportion of households living in makeshift housing (up to barangay level)',
+  'shelter_informal_settlers_nhts': 'Proportion of households who are informal settlers (up to barangay level)',
+  'shelter_informal_settlers_cbms': 'Proportion of households who are informal settlers',
+  'shelter_electricity': 'Proportion of households without access to electricity (up to barangay level)',
+  'health_center_attendance': 'Proportion of individuals not attending a health care center (up to barangay level)',
+  'health_programs': 'Proportion of households which did not receive PhilHealth support from government/LGU/NGO (up to barangay level)',
+  'health_child_mortality': 'Proportion of children 0 to 5 years old who died',
+  'health_maternal_death': 'Proportion of women who died due to pregnancy related causes',
+  'health_center_access': 'Access of barangay to puericulture center or barangay health center/station (PC/BHS)?',
+  'health_hospital_access': 'Access of barangay to hospital?',
+  'educ_outofschool_6': 'Proportion of children 6-12 years old who are not attending school (up to barangay level)',
+  'educ_outofschool_13': 'Proportion of children 13-16 years old who are not attending school (up to barangay level)',
+  'educ_outofschool_all': 'Proportion of children 6-16 years old who are not attending school (up to barangay level)',
+  'educ_elem_access': 'Access of barangay to elementary school?',
+  'educ_hs_access': 'Access of barangay to high school?',
+  'work_unemployment': 'Unemployment Rate (up to barangay level)',
+  'work_farms': 'Proportion of individuals who are farmers, forestry workers, or fisherfolks (up to barangay level)',
+  'work_unskilled': 'Proportion of individuals who are laborers and unskilled workers (up to barangay level)',
+  'sp_sss': 'Number/Proportion of individuals with SSS / GSIS (up to barangay level)',
+  'sp_philhealth': 'Number/Proportion of households which received PhilHealth, Pantawid, and other Cash Transfers from government/LGU/NGO (up to barangay level)',
+  'po_crime': 'Number/Proportion of persons who are victims of crimes (up to barangay level)',
+  'po_conflict': 'Number/Proportion of households affected by armed conflict (up to barangay level)',
+  'participation_registration': 'Registration rate among eligible voters (up to barangay level)',
+  'participation_turnout': 'Voter turnout rate in the last elections (up to barangay level)',
+  'participation_assembly_attendance': 'Attendance rate in the last barangay assembly',
+  'participation_coop': 'Proportion of population who are members of cooperatives (up to municipal level)',
+  'he_flood': 'Proportion of households living in areas with risk of flooding (up to municipal level)',
+  'he_landslide': 'Proportion of households living in areas with risk of landslide (up to municipal level',
+  'he_volcano': 'Risk of barangay to volcano eruption (up to barangay level)',
+  'he_earthquake': 'Risk of barangay to earthquake (up to barangay level)'
 }

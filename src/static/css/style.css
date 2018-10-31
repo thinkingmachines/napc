@@ -48,10 +48,12 @@ footer{
   font-style: black;
 }
 
-@media all and (max-width: 700px) {
-  #map {
-    height: 70%;
-    width: 100%;
-  }
+@font-face {
+  font-family: 'Proxima Nova Semibold';
+  src: url('/static/fonts/Proxima Nova Semibold.otf');
 }
 
+@font-face {
+  font-family: 'Proxima Nova Thin';
+  src: url('/static/fonts/Proxima Nova Thin.otf');
+}

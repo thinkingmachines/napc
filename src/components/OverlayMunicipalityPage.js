@@ -32,14 +32,18 @@ class OverlayMunicipalityPage extends Component {
       <div className={this.props.className}>
         <div className='municipality-information'>
           <div className='municipality-holder'>
-            <p className='municipality-header'>Ito ang Kwento ng</p>
-            <p className='mun-rank municipality-ranking'>85</p>
-            <p className='municipality-name'>
-              {this.state.provData.provName}
-            </p>
-            <p className='mun-rank municipality-total'>Out of 1600</p>
+            <div className='municipality-name-container'>
+              <div className='municipality-header'>Ito ang Kwento ng</div>
+              <div className='municipality-name'>
+                Dumangas {this.state.provData.provName}
+              </div>
+            </div>
+            <div className='municipality-ranking-container'>
+              <div className='mun-rank municipality-ranking'>85</div>
+              <div className='mun-rank municipality-total'>Out of 1600</div>
+            </div>
           </div>
-          <p className='municipality-desc'>Lorem ipsum</p>
+          <div className='municipality-desc'>Dumangas is a municipality located in the region of Western Visayas in the Philippines. Iloilo occupies a major southeast portion of the Visayan island of Panay</div>
         </div>
       </div>
     )
@@ -50,59 +54,43 @@ export default styled(OverlayMunicipalityPage)`
   bottom:5vh;
   left:0;
   margin:0;
-  display: absolute;
-  .municipality-information{
+   .municipality-information {
     width:66vw;
     height:20vh;
     background: white;
     padding:2vw;
-  }
-  .municipality-holder{
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: row wrap;
-  }
-  .municipality-header {
-    font-family: 'Proxima Nova';
-    width:50%;
-    font-size: 2vh;
-    font-weight:bold;
-    margin:0;
-  }
-  .municipality-name {
-    font-family: 'Akrobat';
-    font-weight: lighter;
-    font-size: 7.5vh;
-    flex-wrap: wrap;
-    margin:0;
-    margin-top:-7vh;
-    width:50%;
-    color: ${props => needs[props.need].color};
-  }
-  .mun-rank{
-    width:50%;
-    text-align:right;
-    margin:0;
-  }
-  .municipality-ranking{
-    font-family: 'Akrobat';
-    width:50%;
-    font-size: 8vh;
-    font-weight:bold;
-    margin-top:-1vh;
-  }
-  .municipality-total{
-    font-size:2vh;
     font-family:'Proxima Nova';
-    margin-top:-1vh;
+    font-weight: bold;
   }
-  .municipality-desc{
-    font-family: 'Proxima Nova';
-    font-size:2vh;
-    font-weight: lighter;
+   .municipality-name-container {
+    width: calc(100% - 120px);
+    display: inline-block;
+  }
+   .municipality-header {
+    font-size: 0.7em;
+  }
+   .municipality-name {
+    font-size: 1.7em;
+    color: ${props => needs[props.need].color};
+    font-family:'Akrobat';
+  }
+   .municipality-ranking-container {
+    width: 120px;
+    display: inline-block;
+    text-align: right;
+  }
+   .municipality-ranking {
+    font-size: 2.2em;
+    font-family:'Akrobat';
+  }
+   .municipality-total {
+    font-size: 0.7em
+  }
+   .municipality-desc{
+    font-size: 0.8em;
+    font-family:'Proxima Nova Thin';
     margin-bottom: 0;
-    margin-top:1vh;
-    line-height:3vh;
-    text-align:justify;
+    margin-top: 2vh;
+    text-align: justify;
   }
 `

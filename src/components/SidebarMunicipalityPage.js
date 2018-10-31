@@ -16,17 +16,29 @@ export default styled(SidebarMunicipalityPage)`
   height :98vh;
   width:30vw;
   padding: 2.5vw;
-  font-size: 2vh;
   font-family: 'Akrobat';
   color: #464646;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-
-  h3 {
-    font-family: 'Proxima Nova';
+  overflow: hidden;
+   h3 {
+    font-family: 'Proxima Nova Semibold';
     font-weight: bold;
-    font-size:2vh;
+    font-size: 0.7em;
     margin: 0;
+  }
+   div.mun-sidebar-label {
+    font-family: 'Proxima Nova';
+    font-size: 0.6em;
+    text-align: right;
+    width: 50px;
+    position: absolute;
+    top: 35px;
+    right: 8vh;
+  }
+   ul.mun-sidebar-list {
+    list-style: none;
+    padding: 0;
   }
 `

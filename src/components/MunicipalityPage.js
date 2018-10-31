@@ -1,9 +1,45 @@
 import React, { Component, Fragment } from 'react'
 
 import { indicators } from '../constants'
+import { needs } from '../constants'
+
+import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
 import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
+class MunicipalityNeeds extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openIndex: -1
+    };
+  }
+
+  toggleAccordion(index) {
+    this.setState(
+      {
+        openIndex: this.state.openIndex == index ? -1 : index
+      }
+    )
+  }
+
+  render () {
+    var needKeys = Object.keys(needs);
+
+    return (
+      <ul className='mun-sidebar-list'>
+        {needKeys.map((need, i) => (
+          <MunicipalityNeedItem
+            i={i}
+            percentage="50"
+            click_method={() => this.toggleAccordion(i)}
+            className={ this.state.openIndex == i ? 'mun-sidebar-item active' : 'mun-sidebar-item' }
+            need={need}/>
+        ))}
+      </ul>
+    )
+  }
+}
 class MunicipalityPage extends Component {
   componentDidMount () {
     const { need } = this.props.match.params
@@ -40,8 +76,12 @@ class MunicipalityPage extends Component {
     return (
       <Fragment>
         <OverlayMunicipalityPage need={need} map={map} />
-        <SidebarMunicipalityPage>
-          <h3>Data Dictionary</h3>
+        <SidebarMunicipalityPage need={need}>
+          <h3>Basic Needs</h3>
+
+          <div className='mun-sidebar-label'>National Average</div>
+
+          <MunicipalityNeeds />
         </SidebarMunicipalityPage>
       </Fragment>
     )
