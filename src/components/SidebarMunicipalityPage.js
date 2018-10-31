@@ -22,15 +22,13 @@ export default styled(SidebarMunicipalityPage)`
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
-
-  h3 {
+   h3 {
     font-family: 'Proxima Nova Semibold';
     font-weight: bold;
     font-size: 0.7em;
     margin: 0;
   }
-
-  div.mun-sidebar-label {
+   div.mun-sidebar-label {
     font-family: 'Proxima Nova';
     font-size: 0.6em;
     text-align: right;
@@ -39,8 +37,7 @@ export default styled(SidebarMunicipalityPage)`
     top: 35px;
     right: 8vh;
   }
-
-  ul.mun-sidebar-list {
+   ul.mun-sidebar-list {
     list-style: none;
     padding: 0;
   }

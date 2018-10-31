@@ -11,9 +11,8 @@ export default styled(Sidebar)`
   box-sizing: border-box;
   position:absolute;
   background:#f4f4f2;
-  top:0;
   right:0;
-  height :98vh;
+  height :97.25vh;
   width:30vw;
   padding: 2.5vw;
   font-size: 2vh;
@@ -84,8 +83,8 @@ export default styled(Sidebar)`
     flex-flow: row wrap;
     padding-top:1vw;
     padding-right: 3vw;
-    height: 20vh;
-    width:50vh;
+    height: 18vh;
+    width:43vh;
   }
 
   .need-icons a {
@@ -94,18 +93,16 @@ export default styled(Sidebar)`
   }
 
   .logo-unselect{
-    padding-right: 2vh;
-    padding-bottom: 5vh;
-    width: 8vh;
-    height: 8vh;
+    padding-right: 1.25vh;
+    width: 7.25vh;
+    height: 7.25vh;
     display: inline-block;
   }
 
   .logo-select{
-    padding-right: 2vh;
-    padding-bottom: 5vh;
-    width: 8vh;
-    height: 8vh;
+    padding-right: 1.25vh;
+    width: 7.25vh;
+    height: 7.25vh;
     display: none;
   }
 
@@ -144,12 +141,10 @@ export default styled(Sidebar)`
   }
 
   @media all and (max-width: 700px) {
-    position: relative;
-    bottom: 0;
-    right:0;
-    left:0;
+    position: absolute;
+    bottom: 5vh;
     width: 100%;
-    height:100%;
+    height:30%;
 
     h3{
       visibility:hidden;
@@ -159,68 +154,52 @@ export default styled(Sidebar)`
       visibility:hidden;
     }
 
-    .overlay{
-      width: 100vw;
-    }
     .description{
       flex-direction: row;
       align-items: center;
-      padding:2vh;
+      padding:1vh;
+      padding-top:2.5vh;
     }
 
     .description .divider {
-      border-left: 1px solid #595959;
+      border-left: 0.5px solid #595959;
       transform: rotate(90deg);
-      width: 9vh;
+      width: 12vh;
     }
 
-    .description svg {
-      width: 0.5vw;
-      height: 5vh;
-      flex-grow: 1;
-      margin: 1vw;
-    }
     .description .header{
       display: inline-block;
       line-height:90%;
-      font-size: 4vw;
-      width: 26vw;
-      padding:0;
-      margin-left:0.8vh;
+      font-size: 3.75vw;
+      width: 28vw;
+      padding:0 0 0 0.25vh;
     }
 
     .textbody{
       font-size: 2.5vw;
-      width: 60vw;
-      margin-right:5vh;
+      line-height:3.75vw;
+      width: 80vw;
       padding-top:1vh;
+      text-align:justify;
     }
 
     .description .logo{
-      font-size: 3vw;
-      width :8vh;
+      width :7.25vh;
       flex-grow: 1;
       display: inline-block;
     }
 
     .logo-unselect{
-      padding-right: 1vh;
-      padding-bottom: 5vh;
       width: 6vh;
       height: 6vh;
-      display: inline-block;
     }
 
     .logo-select{
-      padding-right: 1vh;
-      padding-bottom: 5vh;
       width: 6vh;
       height: 6vh;
-      display: none;
     }
 
     .need-icons{
-
       display: flex;
       justify-content: space-around;
       flex-flow: row wrap;
@@ -229,7 +208,7 @@ export default styled(Sidebar)`
       height: 20vh;
       width:40vh;
       margin-top:-10vh;
-      margin-left:8vh;
+      margin-left:7.25vh;
     }
   }
 `

@@ -40,7 +40,6 @@ class MunicipalityNeeds extends Component {
     )
   }
 }
-
 class MunicipalityPage extends Component {
   componentDidMount () {
     const { need } = this.props.match.params

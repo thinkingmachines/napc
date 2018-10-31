@@ -22,7 +22,7 @@ class OverlayMunicipalityPage extends Component {
         provData: {
           id: id,
           layer: layer.maxzoom,
-          provName: 'Dumangas' // this.titleCase(properties.Mun_Name)
+          provName: this.titleCase(properties.Mun_Name)
         }
       })
     })
@@ -54,8 +54,7 @@ export default styled(OverlayMunicipalityPage)`
   bottom:5vh;
   left:0;
   margin:0;
-
-  .municipality-information {
+   .municipality-information {
     width:66vw;
     height:20vh;
     background: white;
@@ -63,91 +62,35 @@ export default styled(OverlayMunicipalityPage)`
     font-family:'Proxima Nova';
     font-weight: bold;
   }
-
-  .municipality-name-container {
+   .municipality-name-container {
     width: calc(100% - 120px);
     display: inline-block;
   }
-
-  .municipality-header {
+   .municipality-header {
     font-size: 0.7em;
   }
-
-  .municipality-name {
+   .municipality-name {
     font-size: 1.7em;
     color: ${props => needs[props.need].color};
     font-family:'Akrobat';
   }
-
-  .municipality-ranking-container {
+   .municipality-ranking-container {
     width: 120px;
     display: inline-block;
     text-align: right;
   }
-
-  .municipality-ranking {
+   .municipality-ranking {
     font-size: 2.2em;
     font-family:'Akrobat';
   }
-
-  .municipality-total {
+   .municipality-total {
     font-size: 0.7em
   }
-
-  .municipality-desc{
+   .municipality-desc{
     font-size: 0.8em;
     font-family:'Proxima Nova Thin';
     margin-bottom: 0;
     margin-top: 2vh;
     text-align: justify;
   }
-
-  // .municipality-holder{
-  //   display: flex;
-  //   justify-content: flex-start;
-  //   flex-flow: row wrap;
-  // }
-  // .municipality-header {
-  //   font-family: 'Proxima Nova';
-  //   width:50%;
-  //   font-size: 2vh;
-  //   font-weight:bold;
-  //   margin:0;
-  // }
-  // .municipality-name {
-  //   font-family: 'Akrobat';
-  //   font-weight: lighter;
-  //   font-size: 7.5vh;
-  //   flex-wrap: wrap;
-  //   margin:0;
-  //   margin-top:-7vh;
-  //   width:50%;
-  //   color: ${props => needs[props.need].color};
-  // }
-  // .mun-rank{
-  //   width:50%;
-  //   text-align:right;
-  //   margin:0;
-  // }
-  // .municipality-ranking{
-  //   font-family: 'Akrobat';
-  //   width:50%;
-  //   font-size: 8vh;
-  //   font-weight:bold;
-  //   margin-top:-1vh;
-  // }
-  // .municipality-total{
-  //   font-size:2vh;
-  //   font-family:'Proxima Nova';
-  //   margin-top:-1vh;
-  // }
-  // .municipality-desc{
-  //   font-family: 'Proxima Nova';
-  //   font-size:2vh;
-  //   font-weight: lighter;
-  //   margin-bottom: 0;
-  //   margin-top:1vh;
-  //   line-height:3vh;
-  //   text-align:justify;
-  // }
 `

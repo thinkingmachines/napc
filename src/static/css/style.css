@@ -20,10 +20,8 @@ footer{
 }
 
 .footer-content-holder{
-  height:5vh;
   display:flex;
-  width:50vh;
-  padding-left:90vh;
+  justify-content: center;
 }  
 
 .footer-text{
