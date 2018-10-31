@@ -96,7 +96,7 @@ export default styled(Overlay)`
   display: inline-block;
 
   .information{
-    width:40%;
+    width: 10vw;
     background: white;
     padding: 1.5vw;
     opacity:  0.95;

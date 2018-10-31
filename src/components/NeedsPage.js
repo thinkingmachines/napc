@@ -6,9 +6,29 @@ import Overlay from './Overlay'
 import Sidebar from './Sidebar'
 
 class NeedsPage extends Component {
+  constructor () {
+    super()
+    this.state = {
+      provData: {},
+      Bayan: 'Bayan'
+    }
+  }
+  titleCase (str) {
+    return str.toLowerCase().split(' ').map(function (word) {
+      return word.replace(word[0], word[0].toUpperCase())
+    }).join(' ')
+  }
   componentDidMount () {
     const { need } = this.props.match.params
     this.props.map.on('load', this.showIndicator.bind(this, need))
+    this.props.map.on('click', 'provinces', (e) => {
+      const { id, layer, properties } = Array(e.features[0])[0]
+      this.setState({
+        id: id,
+        layer: layer.maxzoom,
+        Bayan: this.titleCase(properties.Pro_Name)
+      })
+    })
   }
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
@@ -19,8 +39,6 @@ class NeedsPage extends Component {
   showIndicator (need) {
     const indicator = indicators[need]
     const map = this.props.map
-    // const indicator = indicators.find(function (d) { return d.id === need })
-    // console.log('showIndicator', need, indicator)
 
     map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
     map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
@@ -37,14 +55,13 @@ class NeedsPage extends Component {
   render () {
     const { need } = this.props.match.params
     const { map } = this.props
-
     return (
       <Fragment>
         <Overlay need={need} map={map} />
         <Sidebar>
           <div className='description'>
             <img className='logo' src={'/static/img/napc-logo.png'} />
-            <div className='header'> Ito ang <br />Kuwento ng Bayan </div>
+            <div className='header'> Ito ang <br />Kuwento ng {this.state.Bayan} </div>
             <div className='divider' />
             <div className='textbody'>
             A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
