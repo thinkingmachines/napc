@@ -244,7 +244,7 @@ export const indicators = {
   }
 }
 
-export const indicator_descriptions = {
+export const indicatorDescriptions = {
   'food_malnourished': 'Proportion of children 0-5 years old who are malnourished (up to barangay level)',
   'food_tenure': 'Proportion of farmers with insecure tenure (up to barangay level)',
   'water_access': 'Proportion of households without access to improved sources of drinking water (up to barangay level)',

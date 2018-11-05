@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { needs } from '../constants'
-import { indicator_descriptions } from '../constants'
+import { indicatorDescriptions } from '../constants'
+import { NavLink } from 'react-router-dom'
 
 class MunicipalityStripPlot extends Component {
   constructor(props) {
@@ -63,7 +64,9 @@ class MunicipalityNeedItem extends Component {
     return (
       <li className={ this.props.className } >
         <div className='mun-sidebar-header' onClick={ this.props.click_method.bind(this) }>
-          <h4>{needs[this.props.need].titles}</h4>
+          <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality'}>
+            <h4>{needs[this.props.need].titles}</h4>
+          </NavLink> 
           <div className='mun-sidebar-header-chart'>
             <svg width="70" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <line x1="calc(50% - 0.5px)" x2="calc(50% - 0.5px)" y1="0" y2="100%" stroke="#CCC" stroke-width="1"/>
@@ -77,7 +80,7 @@ class MunicipalityNeedItem extends Component {
             3 out of 10 0-5 year old children in Dumangas are <b>malnourished</b>
           </div>
           {indicator_list.map((indicator, i) => (
-            <MunicipalityStripPlot need={this.props.need} desc={indicator_descriptions[indicator]} />
+            <MunicipalityStripPlot need={this.props.need} desc={indicatorDescriptions[indicator]} />
           ))}
         </div>
       </li>

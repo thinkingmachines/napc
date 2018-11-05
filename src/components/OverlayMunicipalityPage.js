@@ -35,7 +35,7 @@ class OverlayMunicipalityPage extends Component {
             <div className='municipality-name-container'>
               <div className='municipality-header'>Ito ang Kwento ng</div>
               <div className='municipality-name'>
-                Dumangas {this.state.provData.provName}
+                Dumangas
               </div>
             </div>
             <div className='municipality-ranking-container'>
