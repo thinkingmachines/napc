@@ -11,8 +11,6 @@ export function initMap (map) {
       'id': 'municities',
       'source': 'municities',
       'source-layer': 'final-mun-indicators-2uxci9',
-      'minzoom': 6.5,
-      'maxzoom': 8.6,
       'type': 'fill'
     }, 'admin')
 
@@ -24,7 +22,6 @@ export function initMap (map) {
       'id': 'barangays',
       'source': 'barangays',
       'source-layer': 'final-bgy-indicators-ahy1fq',
-      'minzoom': 8.6,
       'type': 'fill'
     }, 'admin')
 
@@ -36,9 +33,11 @@ export function initMap (map) {
       'id': 'provinces',
       'source': 'provinces',
       'source-layer': 'final-prov-indicators-3uffl2',
-      'maxzoom': 6.5,
       'type': 'fill'
     }, 'admin')
+    map.setLayoutProperty('provinces', 'visibility', 'visible')
+    map.setLayoutProperty('municities', 'visibility', 'none')
+    map.setLayoutProperty('barangays', 'visibility', 'none')
   })
 
   function zoomOnClick () {
@@ -46,12 +45,18 @@ export function initMap (map) {
       var bbox = turf.bbox(e.features[0])
       console.log(bbox)
       map.fitBounds(bbox, { padding: 30 })
+      console.log('hide province, show mun')
+      map.setLayoutProperty('provinces', 'visibility', 'none')
+      map.setLayoutProperty('municities', 'visibility', 'visible')
     })
     map.on('click', 'municities', function (e) {
       var bbox = turf.bbox(e.features[0])
       map.fitBounds(bbox, { padding: 50 })
+      console.log('hide municipality, show bgy')
+      map.setLayoutProperty('municities', 'visibility', 'none')
+      map.setLayoutProperty('barangays', 'visibility', 'visible')
     })
   }
   map.on('load', zoomOnClick)
-  // map.scrollZoom.disable()
+  map.scrollZoom.disable()
 }
