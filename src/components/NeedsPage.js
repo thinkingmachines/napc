@@ -52,6 +52,7 @@ class NeedsPage extends Component {
     map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
   }
+
   render () {
     const { need } = this.props.match.params
     const { map } = this.props

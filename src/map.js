@@ -43,20 +43,28 @@ export function initMap (map) {
   function zoomOnClick () {
     map.on('click', 'provinces', function (e) {
       var bbox = turf.bbox(e.features[0])
-      console.log(bbox)
-      map.fitBounds(bbox, { padding: 30 })
-      console.log('hide province, show mun')
+      map.fitBounds(bbox, { padding: 60 })
       map.setLayoutProperty('provinces', 'visibility', 'none')
       map.setLayoutProperty('municities', 'visibility', 'visible')
     })
     map.on('click', 'municities', function (e) {
       var bbox = turf.bbox(e.features[0])
-      map.fitBounds(bbox, { padding: 50 })
-      console.log('hide municipality, show bgy')
+      map.fitBounds(bbox, { padding: 80 })
       map.setLayoutProperty('municities', 'visibility', 'none')
       map.setLayoutProperty('barangays', 'visibility', 'visible')
     })
+    // map.on('zoom', function () {
+    //   if (map.getZoom() < 8) {
+    //     map.setLayoutProperty('municities', 'visibility', 'visible')
+    //     map.setLayoutProperty('barangays', 'visibility', 'none')
+    //   } else if (map.getZoom() < 2) {
+    //     map.setLayoutProperty('provinces', 'visibility', 'visible')
+    //     map.setLayoutProperty('municities', 'visibility', 'none')
+    //   } else {
+    //     console.log(map.getZoom())
+    //   }
+    // })
   }
   map.on('load', zoomOnClick)
-  map.scrollZoom.disable()
+  // map.scrollZoom.disable()
 }
