@@ -9,12 +9,12 @@ class SidebarMunicipalityPage extends Component {
 
 export default styled(SidebarMunicipalityPage)`
   box-sizing: border-box;
-  position:absolute;
-  background:#f4f4f2;
-  top:0;
-  right:0;
-  height :98vh;
-  width:30vw;
+  position: absolute;
+  background: #f4f4f2;
+  top: 0;
+  right: 0;
+  height: 98vh;
+  width: 30vw;
   padding: 2.5vw;
   font-family: 'Akrobat';
   color: #464646;
@@ -22,23 +22,29 @@ export default styled(SidebarMunicipalityPage)`
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
-   h3 {
+
+  h3 {
     font-family: 'Proxima Nova Semibold';
     font-weight: bold;
     font-size: 0.7em;
     margin: 0;
   }
-   div.mun-sidebar-label {
+
+  div.mun-sidebar-label-div {
+    text-align: right;
+  }
+  
+  div.mun-sidebar-label {
     font-family: 'Proxima Nova';
     font-size: 0.6em;
-    text-align: right;
-    width: 50px;
-    position: absolute;
-    top: 35px;
-    right: 8vh;
+    text-align: center;
+    width: 70px;
+    display: inline-block;
   }
-   ul.mun-sidebar-list {
+  
+  ul.mun-sidebar-list {
     list-style: none;
     padding: 0;
+    margin: 5px 0;
   }
 `

@@ -13,7 +13,7 @@ class App extends Component {
           <Route path='/about/:need' component={AboutPage} />
           <Route path='/contact' component={ContactUsPage} />
           <Route path='/map' component={MapPage} />
-          <Route path='/map/:need/municipality' component={MapPage} />
+          <Route path='/map/:need/municipality/' component={MapPage} />
           <Redirect from='/' to='/map/food' />
           <Redirect from='/about' to='/about/food' />
         </Switch>
