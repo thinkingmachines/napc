@@ -36,7 +36,7 @@ class MapPage extends Component {
   render () {
     return (
       <Fragment>
-        <button id='fit'>Zoom Out</button>
+        <button id='fit'>Back to the PH</button>
         <div id='map' />
         <Switch>
           <Route
