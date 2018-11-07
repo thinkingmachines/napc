@@ -2,20 +2,21 @@ import React, { Component, Fragment } from 'react'
 
 import { indicators } from '../constants'
 import { needs } from '../constants'
+import nationalAverages from '../ind-avg.json';
 
 import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
 import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
 class MunicipalityNeeds extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       openIndex: -1
     };
   }
 
-  toggleAccordion(index) {
+  toggleAccordion (index) {
     this.setState(
       {
         openIndex: this.state.openIndex == index ? -1 : index
@@ -31,8 +32,8 @@ class MunicipalityNeeds extends Component {
         {needKeys.map((need, i) => (
           <MunicipalityNeedItem
             i={i}
-            percentage="50"
-            click_method={() => this.toggleAccordion(i)}
+            score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
+            clickMethod={() => this.toggleAccordion(i)}
             className={ this.state.openIndex == i ? 'mun-sidebar-item active' : 'mun-sidebar-item' }
             need={need}/>
         ))}
@@ -41,16 +42,19 @@ class MunicipalityNeeds extends Component {
   }
 }
 class MunicipalityPage extends Component {
+
   componentDidMount () {
     const { need } = this.props.match.params
     this.props.map.on('load', this.showIndicator.bind(this, need))
   }
+
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
       this.showIndicator(need)
     }
   }
+
   showIndicator (need) {
     const indicator = indicators[need]
     const map = this.props.map
@@ -79,7 +83,9 @@ class MunicipalityPage extends Component {
         <SidebarMunicipalityPage need={need}>
           <h3>Basic Needs</h3>
 
-          <div className='mun-sidebar-label'>National Average</div>
+          <div className='mun-sidebar-label-div'>
+            <div className='mun-sidebar-label'>National Average</div>
+          </div>
 
           <MunicipalityNeeds />
         </SidebarMunicipalityPage>
