@@ -22,29 +22,22 @@ class Overlay extends Component {
   }
   componentDidMount () {
     d3.csv('../static/data/final-prov-indicators.csv').then(data => {
+      const state = {}
       data.forEach(d => {
         Object.keys(this.state).forEach(k => {
-          this.setState({
-            [k]: this.state[k]
-              .concat({
-                'Pro_Code': d.Pro_Code, 'Pro_Name': d.Pro_Name, 'Reg_Name': d.Reg_Name, 'score': d[k]
-              })
-              .sort(function (a, b) {
-                return a.score - b.score
-              })
-          })
+          state[k] = (state[k] || this.state[k])
+            .concat({
+              'Pro_Code': d.Pro_Code, 'Pro_Name': d.Pro_Name, 'Reg_Name': d.Reg_Name, 'score': d[k]
+            })
+            .sort(function (a, b) {
+              return a.score - b.score
+            })
         })
       })
+      this.setState(state)
     })
   }
-  componentDidUpdate (prevProps) {
-    if (prevProps.need !== this.props.need) {
-      console.log('Do something with need: ', this.props.need)
-    }
-  }
   render () {
-    console.log(this.state)
-    console.log(this.state[this.props.need])
     return (
       <div className={this.props.className}>
         <div className='information'>
