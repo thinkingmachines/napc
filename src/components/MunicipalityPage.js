@@ -1,48 +1,50 @@
 import React, { Component, Fragment } from 'react'
 
-import { indicators } from '../constants'
-import { needs } from '../constants'
-import nationalAverages from '../ind-avg.json';
+import { indicators, needs } from '../constants'
+import nationalAverages from '../ind-avg.json'
 
 import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
 import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
+var tempMun = 'PH157001000'
+
 class MunicipalityNeeds extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      openIndex: -1
-    };
+      openIndex: -1,
+      barangayIndicators: {}
+    }
   }
 
   toggleAccordion (index) {
-    this.setState(
-      {
-        openIndex: this.state.openIndex == index ? -1 : index
-      }
-    )
+    this.setState({
+      openIndex: this.state.openIndex === index ? -1 : index
+    })
   }
 
   render () {
-    var needKeys = Object.keys(needs);
+    var needKeys = Object.keys(needs)
 
     return (
       <ul className='mun-sidebar-list'>
         {needKeys.map((need, i) => (
           <MunicipalityNeedItem
+            key={need}
             i={i}
             score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
             clickMethod={() => this.toggleAccordion(i)}
-            className={ this.state.openIndex == i ? 'mun-sidebar-item active' : 'mun-sidebar-item' }
-            need={need}/>
+            className={this.state.openIndex === i ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
+            need={need}
+            municipality={tempMun} />
         ))}
       </ul>
     )
   }
 }
-class MunicipalityPage extends Component {
 
+class MunicipalityPage extends Component {
   componentDidMount () {
     const { need } = this.props.match.params
     this.props.map.on('load', this.showIndicator.bind(this, need))
