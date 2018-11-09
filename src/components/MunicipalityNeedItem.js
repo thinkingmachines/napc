@@ -22,11 +22,12 @@ class MunicipalityStripPlot extends Component {
     var indicator = this.props.indicator
 
     for (var code in barangayIndicators) {
-      var barangayCode = code
+      var barangayName = barangayIndicators[code]['name']
       var barangayValue = barangayIndicators[code][indicator]
 
       tempData.push({
-        barangay: barangayCode,
+        barangay: code,
+        name: barangayName,
         value: barangayValue
       })
 
@@ -87,7 +88,7 @@ class MunicipalityStripPlot extends Component {
                   y='5'
                   textAnchor='middle'
                   alignmentBaseline='hanging' >
-                  {chartData['barangay']}
+                  {chartData['name']}
                 </text>
               </g>
             ))}
@@ -106,7 +107,7 @@ class MunicipalityScoreChart extends Component {
     var scorePos = this.props.scorePos
     var xValLine = scorePos >= 50 ? '50%' : scorePos + '%'
     var xValMarkerNum = scorePos + '%'
-    var xValMarker = 'calc(' + xValMarkerNum + ' - 1.5px)'
+    var xValMarker = scorePos >= 50 ? scorePos == 50 ? 'calc(' + xValMarkerNum + ' - 1px)' : 'calc(' + xValMarkerNum + ' - 2px)' : xValMarkerNum
     var lineWidth = Math.abs(scorePos - 50) + '%'
 
     return (

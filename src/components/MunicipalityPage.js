@@ -109,7 +109,7 @@ class MunicipalityPage extends Component {
             <div className='mun-sidebar-label'>National Average</div>
           </div>
 
-          <MunicipalityNeeds />
+          <MunicipalityNeeds map={map} />
         </SidebarMunicipalityPage>
       </Fragment>
     )
