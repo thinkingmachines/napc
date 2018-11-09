@@ -22,7 +22,6 @@ class MunicipalityNeeds extends Component {
 
   componentDidMount () {
     this._asyncLoading = d3.json('../static/data/ind-bgy/' + tempMun + '.json').then(data => {
-      console.log(data)
       this.setState({
         barangayIndicators: data
       })

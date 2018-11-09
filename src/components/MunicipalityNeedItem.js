@@ -156,7 +156,7 @@ class MunicipalityNeedItem extends Component {
 
   setBarangayScore (e) {
     var barangay = e.target.dataset.barangay
-    var scorePos = this.getScorePos(this.state.values, this.state.barangayIndicators[barangay][needs[this.props.need]['prop-col']])
+    var scorePos = this.getScorePos(this.state.values, this.props.barangayIndicators[barangay][needs[this.props.need]['prop-col']])
 
     this.setState({
       scorePos: scorePos,
