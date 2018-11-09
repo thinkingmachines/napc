@@ -163,6 +163,7 @@ class MunicipalityNeedItem extends Component {
     var barangay = e.target.dataset.barangay
     var scorePos = this.getScorePos(this.state.values, this.state.barangayIndicators[barangay][needs[this.props.need]['prop-col']])
 
+
     this.setState({
       scorePos: scorePos,
       selected: barangay
@@ -176,10 +177,16 @@ class MunicipalityNeedItem extends Component {
       scorePos: scorePos,
       selected: ''
     })
+    });
   }
 
-  render () {
-    return (
+  setMunicipalityScore () {
+    var scorePos = this.getScorePos(this.state.values, this.props.score);
+
+    this.setState({
+      scorePos: scorePos,
+      selected: null
+    });
       <li className={this.props.className}>
         <div className='mun-sidebar-header' onClick={this.props.clickMethod.bind(this)}>
           <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality'}>
@@ -304,6 +311,11 @@ export default styled(MunicipalityNeedItem)`
   g.circleGroup:hover text {
     fill: white;
     font-size: 0.7em;
+    font-weight: bold;
+  }
+
+  text.axis-label{
+    font-size: 0.75em;
     font-weight: bold;
   }
 `

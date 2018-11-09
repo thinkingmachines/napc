@@ -1,6 +1,6 @@
 module.exports = {
   use: [
-    '@neutrinojs/standardjs',
+    // '@neutrinojs/standardjs',
     [
       '@neutrinojs/react',
       {
@@ -10,6 +10,9 @@ module.exports = {
           links: [
             '/static/css/style.css'
           ]
+        },
+        minify: {
+          babel: false
         }
       }
     ]

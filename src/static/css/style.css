@@ -11,6 +11,20 @@ body {
   z-index: -1;
 }
 
+#fit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 13vw;
+  margin: 0 0 8vh 6vh;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  text-align: center;
+  color: #fff;
+  background: #464646;
+}
+
 footer{
   position:absolute;
   bottom:0;

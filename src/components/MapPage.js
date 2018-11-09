@@ -26,10 +26,17 @@ class MapPage extends Component {
     })
     initMap(map)
     this.setState({ map: map })
+    document.getElementById('fit').addEventListener('click', function () {
+      map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
+      map.setLayoutProperty('provinces', 'visibility', 'visible')
+      map.setLayoutProperty('municities', 'visibility', 'none')
+      map.setLayoutProperty('barangays', 'visibility', 'none')
+    })
   }
   render () {
     return (
       <Fragment>
+        <button id='fit'>Back to the PH</button>
         <div id='map' />
         <Switch>
           <Route
