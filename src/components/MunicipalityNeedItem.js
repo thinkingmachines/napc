@@ -163,7 +163,6 @@ class MunicipalityNeedItem extends Component {
     var barangay = e.target.dataset.barangay
     var scorePos = this.getScorePos(this.state.values, this.state.barangayIndicators[barangay][needs[this.props.need]['prop-col']])
 
-
     this.setState({
       scorePos: scorePos,
       selected: barangay
@@ -177,16 +176,10 @@ class MunicipalityNeedItem extends Component {
       scorePos: scorePos,
       selected: ''
     })
-    });
   }
 
-  setMunicipalityScore () {
-    var scorePos = this.getScorePos(this.state.values, this.props.score);
-
-    this.setState({
-      scorePos: scorePos,
-      selected: null
-    });
+  render () {
+    return (
       <li className={this.props.className}>
         <div className='mun-sidebar-header' onClick={this.props.clickMethod.bind(this)}>
           <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality'}>

@@ -13,8 +13,7 @@ class MunicipalityNeeds extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      openIndex: -1,
-      barangayIndicators: {}
+      openIndex: -1
     }
   }
 
@@ -45,7 +44,6 @@ class MunicipalityNeeds extends Component {
 }
 
 class MunicipalityPage extends Component {
-
   componentDidMount () {
     const { need } = this.props.match.params
     this.props.map.on('load', this.showIndicator.bind(this, need))
