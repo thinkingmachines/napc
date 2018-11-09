@@ -7,13 +7,31 @@ import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
 import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
+import * as d3 from 'd3'
+
 var tempMun = 'PH157001000'
 
 class MunicipalityNeeds extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      openIndex: -1
+      openIndex: -1,
+      barangayIndicators: null
+    }
+  }
+
+  componentDidMount () {
+    this._asyncLoading = d3.json('../static/data/ind-bgy/' + tempMun + '.json').then(data => {
+      console.log(data)
+      this.setState({
+        barangayIndicators: data
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    if (this._asyncLoading) {
+      this._asyncLoading.cancel()
     }
   }
 
@@ -24,22 +42,26 @@ class MunicipalityNeeds extends Component {
   }
 
   render () {
-    var needKeys = Object.keys(needs)
+    if (this.state.barangayIndicators === null) {
+      return null
+    } else {
+      var needKeys = Object.keys(needs)
 
-    return (
-      <ul className='mun-sidebar-list'>
-        {needKeys.map((need, i) => (
-          <MunicipalityNeedItem
-            key={need}
-            i={i}
-            score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
-            clickMethod={() => this.toggleAccordion(i)}
-            className={this.state.openIndex === i ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
-            need={need}
-            municipality={tempMun} />
-        ))}
-      </ul>
-    )
+      return (
+        <ul className='mun-sidebar-list'>
+          {needKeys.map((need, i) => (
+            <MunicipalityNeedItem
+              key={need}
+              i={i}
+              score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
+              clickMethod={() => this.toggleAccordion(i)}
+              className={this.state.openIndex === i ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
+              need={need}
+              barangayIndicators={this.state.barangayIndicators} />
+          ))}
+        </ul>
+      )
+    }
   }
 }
 

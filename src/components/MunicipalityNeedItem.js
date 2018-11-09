@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { needs, indicatorDescriptions } from '../constants'
 import nationalAverages from '../ind-avg.json'
 
-import * as d3 from 'd3'
-
 class MunicipalityStripPlot extends Component {
   constructor (props) {
     super(props)
@@ -142,20 +140,17 @@ class MunicipalityNeedItem extends Component {
     return (score - chartMin) / maxWidth * 50
   }
 
-  componentWillMount () {
-    d3.json('../static/data/ind-bgy/' + this.props.municipality + '.json').then(data => {
-      var barangayIndicators = data
-      var indicatorList = needs[this.props.need]['indicators']
-      var needName = this.props.need
-      var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
-      var scorePos = this.getScorePos(values, this.props.score)
+  componentDidMount () {
+    var barangayIndicators = this.props.barangayIndicators
+    var indicatorList = needs[this.props.need]['indicators']
+    var needName = this.props.need
+    var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
+    var scorePos = this.getScorePos(values, this.props.score)
 
-      this.setState({
-        scorePos: scorePos,
-        indicatorList: indicatorList,
-        values: values,
-        barangayIndicators: barangayIndicators
-      })
+    this.setState({
+      scorePos: scorePos,
+      indicatorList: indicatorList,
+      values: values
     })
   }
 
@@ -202,7 +197,7 @@ class MunicipalityNeedItem extends Component {
               hoverMethod={(e) => this.setBarangayScore(e)}
               hoverOutMethod={() => this.setMunicipalityScore()}
               selected={this.state.selected}
-              barangayIndicators={this.state.barangayIndicators} />
+              barangayIndicators={this.props.barangayIndicators} />
           ))}
         </div>
       </li>
