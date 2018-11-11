@@ -48,18 +48,7 @@ class MapPage extends Component {
       }
       return -1
     })
-
-    map.on('load', function () {
-      for(var i = 0; i < Array(geojson.features[0]).length; i++) {
-        if(this.props.match.params.munCode === Array(geojson.features[0])[0].properties.Mun_Code) {
-          console.log(Array(geojson.features[0])[0].properties.Mun_Name)
-          const munName = Array(geojson.features[0])[0].properties.Mun_Name
-          this.setState ({ munName: munName })
-        }
-      }
-      return -1
-    })
-
+    
     this.setState({ map: map })
     document.getElementById('fit').addEventListener('click', function () {
       map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })

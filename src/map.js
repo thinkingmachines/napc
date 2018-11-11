@@ -14,7 +14,7 @@ export function initMap (map) {
       'type': 'fill'
     }, 'admin')
 
-    var geojson = map.addSource('barangays', {
+    map.addSource('barangays', {
       'type': 'vector',
       'url': 'mapbox://napc.12hyw5jd'
     })
