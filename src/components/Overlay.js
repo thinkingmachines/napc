@@ -8,7 +8,7 @@ class Overlay extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      'food': [],
+      'function(  ) {}ood': [],
       'water': [],
       'shelter': [],
       'work': [],

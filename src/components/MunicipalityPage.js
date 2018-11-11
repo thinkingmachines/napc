@@ -58,8 +58,6 @@ class MunicipalityPage extends Component {
   showIndicator (need) {
     const indicator = indicators[need]
     const map = this.props.map
-    // const indicator = indicators.find(function (d) { return d.id === need })
-    // console.log('showIndicator', need, indicator)
 
     map.setPaintProperty('municities', 'fill-outline-color', indicator.paint['fill-outline-color'])
     map.setPaintProperty('barangays', 'fill-outline-color', indicator.paint['fill-outline-color'])
@@ -79,7 +77,7 @@ class MunicipalityPage extends Component {
 
     return (
       <Fragment>
-        <OverlayMunicipalityPage need={need} map={map} />
+        <OverlayMunicipalityPage need={need} map={map} munName = {this.props.munName} />
         <SidebarMunicipalityPage need={need}>
           <h3>Basic Needs</h3>
 
