@@ -178,7 +178,7 @@ class MunicipalityNeedItem extends Component {
     return (
       <li className={this.props.className}>
         <div className='mun-sidebar-header' onClick={this.props.clickMethod.bind(this)}>
-          <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality/' + this.props.munCode}>
+          <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality/' + this.props.munCode.substring(2)}>
             <h4>{needs[this.props.need].titles}</h4>
           </NavLink>
           <div className='mun-sidebar-header-chart'>
