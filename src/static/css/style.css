@@ -23,7 +23,7 @@ body {
 
 #fit {
   position: absolute;
-  margin: 0 0 8vh 6vh;
+  margin: 8vh 6vh 8vh 6vh;
   padding: 10px;
   border: none;
   text-align: center;
@@ -42,10 +42,11 @@ body {
 
 @media only screen and (min-width: 700px) {
   #fit {
-    bottom: 0;
-    left: 0;
+    top:0;
+    right: 30vw;
     width: 13vw;
     height: 40px;
+    margin: 20px;
   }
 }
 
