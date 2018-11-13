@@ -1,48 +1,69 @@
 import React, { Component, Fragment } from 'react'
 
-import { indicators } from '../constants'
-import { needs } from '../constants'
-import nationalAverages from '../ind-avg.json';
+import { indicators, needs } from '../constants'
+import municipalityScores from '../ind-mun.json'
 
 import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
 import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
+import * as d3 from 'd3'
+
 class MunicipalityNeeds extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      openIndex: -1
-    };
+      openNeed: null,
+      barangayIndicators: null
+    }
   }
 
-  toggleAccordion (index) {
-    this.setState(
-      {
-        openIndex: this.state.openIndex == index ? -1 : index
-      }
-    )
+  componentDidMount () {
+    var munCode = 'PH' + this.props.munCode
+    this._asyncLoading = d3.json('../static/data/ind-bgy/' + munCode + '.json').then(data => {
+      this.setState({
+        openNeed: this.props.currNeed ? this.props.currNeed : null,
+        barangayIndicators: data,
+        munCode: munCode
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    this._asyncLoading.cancel()
+  }
+
+  toggleAccordion (need) {
+    this.setState({
+      openNeed: this.state.openNeed === need ? null : need
+    })
   }
 
   render () {
-    var needKeys = Object.keys(needs);
+    if (this.state.barangayIndicators === null) {
+      return null
+    } else {
+      var needKeys = Object.keys(needs)
 
-    return (
-      <ul className='mun-sidebar-list'>
-        {needKeys.map((need, i) => (
-          <MunicipalityNeedItem
-            i={i}
-            score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
-            clickMethod={() => this.toggleAccordion(i)}
-            className={ this.state.openIndex == i ? 'mun-sidebar-item active' : 'mun-sidebar-item' }
-            need={need}/>
-        ))}
-      </ul>
-    )
+      return (
+        <ul className='mun-sidebar-list'>
+          {needKeys.map((need, i) => (
+            <MunicipalityNeedItem
+              key={need}
+              score={municipalityScores[this.state.munCode][needs[need]['prop-col']]}
+              clickMethod={() => this.toggleAccordion(need)}
+              className={this.state.openNeed === need ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
+              need={need}
+              barangayIndicators={this.state.barangayIndicators}
+              munCode={this.state.munCode} />
+          ))}
+        </ul>
+      )
+    }
   }
 }
-class MunicipalityPage extends Component {
 
+class MunicipalityPage extends Component {
   componentDidMount () {
     const { need } = this.props.match.params
     this.props.map.on('load', this.showIndicator.bind(this, need))
@@ -72,7 +93,7 @@ class MunicipalityPage extends Component {
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
   }
   render () {
-    const { need } = this.props.match.params
+    const { need, munCode } = this.props.match.params
     const { map } = this.props
 
     return (
@@ -85,7 +106,7 @@ class MunicipalityPage extends Component {
             <div className='mun-sidebar-label'>National Average</div>
           </div>
 
-          <MunicipalityNeeds />
+          <MunicipalityNeeds map={map} currNeed={need} munCode={munCode}/>
         </SidebarMunicipalityPage>
       </Fragment>
     )

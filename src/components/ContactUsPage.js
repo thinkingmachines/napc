@@ -21,6 +21,7 @@ class ContactUsPage extends Component {
           fax: fax.Content,
           email: email.Content,
           location: location.Content,
+          facebook: facebook,
           privacyNotice: privacyNotice.Content
         }
       })
