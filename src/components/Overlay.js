@@ -78,28 +78,37 @@ class Overlay extends Component {
 }
 
 export default styled(Overlay)`
-  position:absolute;
-  top:0;
-  left:0;
   font-family: 'Akrobat';
   font-weight: bold;
   font-size: 2vh;
   color: #464646;
   padding-left: 3vw;
   display: inline-block;
+  top: 0;
+  left: 0;
+  position: absolute;
 
   .information{
-    width: 10vw;
+    width: 25vw;
     background: white;
-    padding: 1.5vw;
+    padding: 4vw;
     opacity:  0.95;
   }
+
   .need-header{
     margin:0;
     margin-bottom:0.75vh;
     font-family: 'Akrobat';
     font-size:2vh;
   }
+
+  @media only screen and (min-width: 700px) {
+    .information{
+      width: 10vw;
+      padding: 1.5vw;
+    }
+  }
+
   .need-text {
     font-family: 'Akrobat';
     font-weight: bold;
