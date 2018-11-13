@@ -6,7 +6,8 @@ class OverlayMunicipalityPage extends Component {
   constructor () {
     super()
     this.state = {
-      provData: {}
+      provData: {},
+      munName: null
     }
     this.componentDidMount = this.componentDidMount.bind(this)
   }
@@ -16,16 +17,6 @@ class OverlayMunicipalityPage extends Component {
     }).join(' ')
   }
   componentDidMount () {
-    this.props.map.on('click', 'municities', (e) => {
-      const { id, layer, properties } = Array(e.features[0])[0]
-      this.setState({
-        provData: {
-          id: id,
-          layer: layer.maxzoom,
-          provName: this.titleCase(properties.Mun_Name)
-        }
-      })
-    })
   }
   render () {
     return (
@@ -35,7 +26,7 @@ class OverlayMunicipalityPage extends Component {
             <div className='municipality-name-container'>
               <div className='municipality-header'>Ito ang Kwento ng</div>
               <div className='municipality-name'>
-                Dumangas
+                {this.props.munName}
               </div>
             </div>
             <div className='municipality-ranking-container'>
