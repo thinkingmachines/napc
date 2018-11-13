@@ -45,7 +45,7 @@ export default styled(OverlayMunicipalityPage)`
 
   .municipality-information {
     width: 100%;
-    height: 35vh;
+    height: auto;
     background: white;
     padding: 20px;
     font-family:'Proxima Nova';
@@ -62,7 +62,7 @@ export default styled(OverlayMunicipalityPage)`
     .municipality-information {
       bottom: 5vh;
       width: 70vw;
-      height: 20vh;
+      height: 25vh;
       padding: 2vw;
     }
   }
