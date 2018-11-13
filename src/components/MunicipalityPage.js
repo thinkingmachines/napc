@@ -9,21 +9,22 @@ import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
 import * as d3 from 'd3'
 
-var tempMun = 'PH157002000'
-
 class MunicipalityNeeds extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      openIndex: -1,
+      openNeed: null,
       barangayIndicators: null
     }
   }
 
   componentDidMount () {
-    this._asyncLoading = d3.json('../static/data/ind-bgy/' + tempMun + '.json').then(data => {
+    var munCode = 'PH' + this.props.munCode
+    this._asyncLoading = d3.json('../static/data/ind-bgy/' + munCode + '.json').then(data => {
       this.setState({
-        barangayIndicators: data
+        openNeed: this.props.currNeed ? this.props.currNeed : null,
+        barangayIndicators: data,
+        munCode: munCode
       })
     })
   }
@@ -32,9 +33,9 @@ class MunicipalityNeeds extends Component {
     this._asyncLoading.cancel()
   }
 
-  toggleAccordion (index) {
+  toggleAccordion (need) {
     this.setState({
-      openIndex: this.state.openIndex === index ? -1 : index
+      openNeed: this.state.openNeed === need ? null : need
     })
   }
 
@@ -49,12 +50,12 @@ class MunicipalityNeeds extends Component {
           {needKeys.map((need, i) => (
             <MunicipalityNeedItem
               key={need}
-              i={i}
-              score={municipalityScores[tempMun][needs[need]['prop-col']]}
-              clickMethod={() => this.toggleAccordion(i)}
-              className={this.state.openIndex === i ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
+              score={municipalityScores[this.state.munCode][needs[need]['prop-col']]}
+              clickMethod={() => this.toggleAccordion(need)}
+              className={this.state.openNeed === need ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
               need={need}
-              barangayIndicators={this.state.barangayIndicators} />
+              barangayIndicators={this.state.barangayIndicators}
+              munCode={this.state.munCode} />
           ))}
         </ul>
       )
@@ -92,7 +93,7 @@ class MunicipalityPage extends Component {
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
   }
   render () {
-    const { need } = this.props.match.params
+    const { need, munCode } = this.props.match.params
     const { map } = this.props
 
     return (
@@ -105,7 +106,7 @@ class MunicipalityPage extends Component {
             <div className='mun-sidebar-label'>National Average</div>
           </div>
 
-          <MunicipalityNeeds map={map} />
+          <MunicipalityNeeds map={map} currNeed={need} munCode={munCode}/>
         </SidebarMunicipalityPage>
       </Fragment>
     )
