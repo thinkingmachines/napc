@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 
 import { indicators, needs } from '../constants'
-import nationalAverages from '../ind-avg.json'
+import municipalityScores from '../ind-mun.json'
 
 import MunicipalityNeedItem from './MunicipalityNeedItem'
 import OverlayMunicipalityPage from './OverlayMunicipalityPage'
@@ -9,7 +9,7 @@ import SidebarMunicipalityPage from './SidebarMunicipalityPage'
 
 import * as d3 from 'd3'
 
-var tempMun = 'PH157001000'
+var tempMun = 'PH157002000'
 
 class MunicipalityNeeds extends Component {
   constructor (props) {
@@ -29,9 +29,7 @@ class MunicipalityNeeds extends Component {
   }
 
   componentWillUnmount () {
-    if (this._asyncLoading) {
-      this._asyncLoading.cancel()
-    }
+    this._asyncLoading.cancel()
   }
 
   toggleAccordion (index) {
@@ -52,7 +50,7 @@ class MunicipalityNeeds extends Component {
             <MunicipalityNeedItem
               key={need}
               i={i}
-              score={nationalAverages[needs[need]['prop-col']] * (Math.random() * 0.5 + 0.75)}
+              score={municipalityScores[tempMun][needs[need]['prop-col']]}
               clickMethod={() => this.toggleAccordion(i)}
               className={this.state.openIndex === i ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
               need={need}

@@ -107,7 +107,7 @@ class MunicipalityScoreChart extends Component {
     var scorePos = this.props.scorePos
     var xValLine = scorePos >= 50 ? '50%' : scorePos + '%'
     var xValMarkerNum = scorePos + '%'
-    var xValMarker = scorePos >= 50 ? scorePos == 50 ? 'calc(' + xValMarkerNum + ' - 1px)' : 'calc(' + xValMarkerNum + ' - 2px)' : xValMarkerNum
+    var xValMarker = scorePos >= 50 ? scorePos === 50 ? 'calc(' + xValMarkerNum + ' - 1px)' : 'calc(' + xValMarkerNum + ' - 2px)' : xValMarkerNum
     var lineWidth = Math.abs(scorePos - 50) + '%'
 
     return (
