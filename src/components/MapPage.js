@@ -8,9 +8,29 @@ import { initMap } from '../map'
 import NeedsPage from './NeedsPage'
 import MunicipalityPage from './MunicipalityPage'
 
+import ReactDOM from 'react-dom'
+import Tooltip from './tooltip'
+
 mapboxgl.accessToken = '***REMOVED***'
 
 class MapPage extends Component {
+  tooltipContainer
+
+  setTooltip(features) {
+    if (features.length) {
+      ReactDOM.render(
+        React.createElement(
+          Tooltip, {
+            features
+          }
+        ),
+        this.tooltipContainer
+      )
+    } else {
+      this.tooltipContainer.innerHTML = ''
+    }
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -21,12 +41,10 @@ class MapPage extends Component {
   }
   componentDidUpdate (prevProps) {
     const need = this.props.match.params.need
-    if (prevProps.match.params.need !== need) {
-      console.log('Do something with need:', need)
-      console.log(this.props.map)
-    }
   }
   componentDidMount () {
+    this.tooltipContainer = document.createElement('div');
+
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/napc/cjmg50kf8lu922snxuu4jbuft',
@@ -34,7 +52,27 @@ class MapPage extends Component {
       minZoom: 3,
       zoom: 5
     })
+
     initMap(map)
+    
+    const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
+      offset: [0, -10]
+    }).setLngLat([0,0]).addTo(map)
+
+    map.on('mousemove', 'provinces', (e) => {
+      const features = map.queryRenderedFeatures(e.point)
+      tooltip.setLngLat(e.lngLat)
+      map.getCanvas().style.cursor = features.length ? 'pointer' : ''
+      this.setTooltip(features)
+    })
+
+    map.on('mousemove', 'municities', (e) => {
+      const features = map.queryRenderedFeatures(e.point)
+      tooltip.setLngLat(e.lngLat)
+      map.getCanvas().style.cursor = features.length ? 'pointer' : ''
+      this.setTooltip(features)
+    })
+
     map.on('click', 'municities', (e) => {
       const { properties } = Array(e.features[0])[0]
       const munCode = properties.Mun_Code
@@ -51,6 +89,7 @@ class MapPage extends Component {
     })
     
     this.setState({ map: map })
+
     document.getElementById('fit').addEventListener('click', function () {
       map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
       map.setLayoutProperty('provinces', 'visibility', 'visible')
