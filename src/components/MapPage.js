@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import styled from 'styled-components'
 
 import mapboxgl from 'mapbox-gl'
 import { initMap } from '../map'
@@ -64,7 +65,7 @@ class MapPage extends Component {
     }
     return (
       <Fragment>
-    <button id='fit'>Back to the PH</button>
+        <button id='fit'>Back to the PH</button>
         <div id='map' />
         <Switch>
           <Route

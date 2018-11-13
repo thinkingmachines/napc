@@ -41,47 +41,68 @@ class OverlayMunicipalityPage extends Component {
   }
 }
 export default styled(OverlayMunicipalityPage)`
-  position:absolute;
-  bottom:5vh;
-  left:0;
-  margin:0;
-   .municipality-information {
-    width:66vw;
-    height:20vh;
+  position: relative;
+
+  .municipality-information {
+    width: 100%;
+    height: 25vh;
     background: white;
-    padding:2vw;
+    padding: 20px;
     font-family:'Proxima Nova';
     font-weight: bold;
+    box-sizing: border-box;
   }
-   .municipality-name-container {
+
+  @media only screen and (min-width: 700px) {
+    position: absolute;
+    bottom: 5vh;
+    left: 0;
+    margin: 0;
+    
+    .municipality-information {
+      bottom: 5vh;
+      width: 70vw;
+      height: 20vh;
+      padding: 2vw;
+    }
+  }
+
+  .municipality-name-container {
     width: calc(100% - 120px);
     display: inline-block;
   }
-   .municipality-header {
+  
+  .municipality-header {
     font-size: 0.7em;
   }
-   .municipality-name {
+  
+  .municipality-name {
     font-size: 1.7em;
     color: ${props => needs[props.need].color};
     font-family:'Akrobat';
   }
-   .municipality-ranking-container {
+  
+  .municipality-ranking-container {
     width: 120px;
     display: inline-block;
     text-align: right;
   }
-   .municipality-ranking {
+  
+  .municipality-ranking {
     font-size: 2.2em;
     font-family:'Akrobat';
   }
-   .municipality-total {
+  
+  .municipality-total {
     font-size: 0.7em
   }
-   .municipality-desc{
+  
+  .municipality-desc{
     font-size: 0.8em;
     font-family:'Proxima Nova Thin';
     margin-bottom: 0;
     margin-top: 2vh;
     text-align: justify;
   }
+
 `
