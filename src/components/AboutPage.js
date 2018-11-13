@@ -13,14 +13,6 @@ class AboutPage extends Component {
     }
     this.componentDidMount = this.componentDidMount.bind(this)
   }
-
-  componentDidUpdate (prevProps) {
-    const need = this.props.match.params.need
-    if (prevProps.match.params.need !== need) {
-      console.log('Do something with need:', need)
-      console.log(this.props.map)
-    }
-  }
   componentDidMount () {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=534002250&single=true&output=csv').then(data => {
       this.setState({ dict: data })
