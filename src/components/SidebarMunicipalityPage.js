@@ -8,20 +8,27 @@ class SidebarMunicipalityPage extends Component {
 }
 
 export default styled(SidebarMunicipalityPage)`
-  box-sizing: border-box;
-  position: absolute;
   background: #f4f4f2;
-  top: 0;
-  right: 0;
-  height: 98vh;
-  width: 30vw;
-  padding: 2.5vw;
+  box-sizing: border-box;
+  padding: 20px 20px calc(5vh + 20px);
+  width: 100%;
+  height: auto;
   font-family: 'Akrobat';
   color: #464646;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
+  position: relative;
+
+  @media only screen and (min-width: 700px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 98vh;
+    width: 30vw;
+    padding: 2.5vw;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+  }
 
   h3 {
     font-family: 'Proxima Nova Semibold';

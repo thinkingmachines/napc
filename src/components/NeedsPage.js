@@ -29,6 +29,12 @@ class NeedsPage extends Component {
         Bayan: this.titleCase(properties.Pro_Name)
       })
     })
+    document.getElementById('fit').addEventListener('click', function () {
+      console.log('back to bayan')
+      this.setState = {
+        Bayan: 'Bayan'
+      }
+    })
   }
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params

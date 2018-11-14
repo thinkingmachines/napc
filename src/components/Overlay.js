@@ -8,7 +8,7 @@ class Overlay extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      'function(  ) {}ood': [],
+      'food': [],
       'water': [],
       'shelter': [],
       'work': [],
@@ -66,8 +66,7 @@ class Overlay extends Component {
               baseMarkProps={{ forceUpdate: true }}
               pieceHoverAnnotation
               tooltipContent={d => <div className='tooltip-content'>
-                <p>{d.Pro_Name}</p>
-                <p>{d.score}</p>
+                <p>{d.Pro_Name}: {Math.round(d.score*100)/100}</p>
               </div>}
             />
           </div>
@@ -78,28 +77,37 @@ class Overlay extends Component {
 }
 
 export default styled(Overlay)`
-  position:absolute;
-  top:0;
-  left:0;
   font-family: 'Akrobat';
   font-weight: bold;
   font-size: 2vh;
   color: #464646;
   padding-left: 3vw;
   display: inline-block;
+  top: 0;
+  left: 0;
+  position: absolute;
 
   .information{
-    width: 10vw;
+    width: 25vw;
     background: white;
-    padding: 1.5vw;
+    padding: 4vw;
     opacity:  0.95;
   }
+
   .need-header{
     margin:0;
     margin-bottom:0.75vh;
     font-family: 'Akrobat';
     font-size:2vh;
   }
+
+  @media only screen and (min-width: 700px) {
+    .information{
+      width: 10vw;
+      padding: 1.5vw;
+    }
+  }
+
   .need-text {
     font-family: 'Akrobat';
     font-weight: bold;
@@ -109,6 +117,7 @@ export default styled(Overlay)`
     margin:0;
     color: ${props => needs[props.need].color};
   }
+
   .need-body{
     font-family: 'Proxima Nova';
     font-size: 1.75vh;
@@ -117,14 +126,17 @@ export default styled(Overlay)`
     color: #999999;
     margin-top:0;
   }
+
   .need-body-p{
     margin-top:1vh;
   }
+
   .horiz-dotted {
     margin-top:1.5vh;
     border-bottom: 1px dashed #999999;
     width: 100%;
   }
+
   .kpi{
     font-size: 4.5vh;
     margin-top:1.5vh;
@@ -139,5 +151,13 @@ export default styled(Overlay)`
     width: 100%;
     height: 8vh;
     border-bottom: 1.5px solid #999999;
+  }
+
+  .tooltip-content {
+    background: white;
+    color: ${props => needs[props.need].color};
+    padding: 2px 10px 2px 10px;
+    z-index: 99;
+    min-width: 120px;
   }
 `

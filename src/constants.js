@@ -6,7 +6,7 @@ export const needs = {
     'select-logo-path': '/static/img/01-food-select.png',
     'unselect-logo-path': '/static/img/01-food-unselect.png',
     'explanation': 'Proportion of farmers with insecure tenure',
-    'kpi': '70%',
+    'kpi': '50.8%',
     'indicators': [],
     'prop-col': 'Food_Prop'
   },
@@ -17,7 +17,7 @@ export const needs = {
     'select-logo-path': '/static/img/06-water-select.png',
     'unselect-logo-path': '/static/img/06-water-unselect.png',
     'explanation': 'Proportion of households without access to improved sources of drinking water',
-    'kpi': '70%',
+    'kpi': '25.6%',
     'indicators': ['water_toilet', 'water_access'],
     'prop-col': 'Water_Prop'
   },
@@ -28,7 +28,7 @@ export const needs = {
     'select-logo-path': '/static/img/02-shelter-select.png',
     'unselect-logo-path': '/static/img/02-shelter-unselect.png',
     'explanation': 'Proportion of households who are informal settlers',
-    'kpi': '70%',
+    'kpi': '3.4%',
     'indicators': ['shelter_electricity', 'shelter_informal_settlers_nhts', 'shelter_makeshift_nhts'],
     'prop-col': 'Shelter_Prop'
   },
@@ -39,7 +39,7 @@ export const needs = {
     'select-logo-path': '/static/img/07-work-select.png',
     'unselect-logo-path': '/static/img/07-work-unselect.png',
     'explanation': 'Unemployment Rate',
-    'kpi': '70%',
+    'kpi': '49.2%',
     'indicators': ['work_unemployment', 'work_farms', 'work_unskilled'],
     'prop-col': 'Work_Prop'
   },
@@ -50,7 +50,7 @@ export const needs = {
     'select-logo-path': '/static/img/03-health-select.png',
     'unselect-logo-path': '/static/img/03-health-unselect.png',
     'explanation': 'Proportion of individuals not attending a health care center',
-    'kpi': '70%',
+    'kpi': '61.9%',
     'indicators': ['health_center_attendance', 'health_programs'],
     'prop-col': 'Health_Prop'
   },
@@ -61,7 +61,7 @@ export const needs = {
     'select-logo-path': '/static/img/08-education-select.png',
     'unselect-logo-path': '/static/img/08-education-unselect.png',
     'explanation': 'Proportion of children 6-16 years old who are not attending school',
-    'kpi': '70%',
+    'kpi': '9.9%',
     'indicators': ['educ_outofschool_all'],
     'prop-col': 'Education_Prop'
   },
@@ -72,7 +72,7 @@ export const needs = {
     'select-logo-path': '/static/img/04-protect-select.png',
     'unselect-logo-path': '/static/img/04-protect-unselect.png',
     'explanation': 'Number/Proportion of individuals with SSS / GSIS',
-    'kpi': '70%',
+    'kpi': '98.1%',
     'indicators': ['sp_philhealth'],
     'prop-col': 'SocialProtection_Prop'
   },
@@ -83,7 +83,7 @@ export const needs = {
     'select-logo-path': '/static/img/09-environment-select.png',
     'unselect-logo-path': '/static/img/09-environment-unselect.png',
     'explanation': 'Combined risk score of various natural disasters',
-    'kpi': '70%',
+    'kpi': '11.2',
     'indicators': [],
     'prop-col': 'Environment_Prop'
   },
@@ -94,7 +94,7 @@ export const needs = {
     'select-logo-path': '/static/img/05-peace-select.png',
     'unselect-logo-path': '/static/img/05-peace-unselect.png',
     'explanation': 'Displacement',
-    'kpi': '70%',
+    'kpi': '9.3%',
     'indicators': ['po_conflict'],
     'prop-col': 'Peace_Prop'
   },
@@ -105,7 +105,7 @@ export const needs = {
     'select-logo-path': '/static/img/10-participation-select.png',
     'unselect-logo-path': '/static/img/10-participation-unselect.png',
     'explanation': 'Attendance rate in the last barangay assembly',
-    'kpi': '70%',
+    'kpi': '92.1%',
     'indicators': [],
     'prop-col': 'Participation_Prop'
   }

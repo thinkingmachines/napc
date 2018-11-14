@@ -12,7 +12,7 @@ export default styled(Sidebar)`
   position:absolute;
   background:#f4f4f2;
   right:0;
-  height :97.25vh;
+  height: 97.25vh;
   width:30vw;
   padding: 2.5vw;
   font-size: 2vh;
@@ -141,10 +141,9 @@ export default styled(Sidebar)`
   }
 
   @media all and (max-width: 700px) {
-    position: absolute;
-    bottom: 5vh;
+    position: relative;
     width: 100%;
-    height:30%;
+    height: 35vh;
 
     h3{
       visibility:hidden;
