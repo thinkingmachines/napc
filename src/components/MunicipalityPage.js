@@ -98,8 +98,8 @@ class MunicipalityPage extends Component {
 
     return (
       <Fragment>
-        <OverlayMunicipalityPage need={need} map={map} munName = {this.props.munName} />
-        <SidebarMunicipalityPage need={need}>
+        <OverlayMunicipalityPage need={need} map={map} munCode = {this.props.match.params.munCode} bbox = {this.props.bbox}/>
+        <SidebarMunicipalityPage need={need} munCode = {this.props.match.params.munCode}>
           <h3>Basic Needs</h3>
 
           <div className='mun-sidebar-label-div'>
