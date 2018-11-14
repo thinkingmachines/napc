@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { needs, indicatorDescriptions } from '../constants'
+import { needs } from '../constants'
+
 import nationalAverages from '../ind-avg.json'
 
 class MunicipalityStripPlot extends Component {
@@ -174,7 +175,30 @@ class MunicipalityNeedItem extends Component {
     })
   }
 
+  getHighestIndicator () {
+    var indicators = this.state.indicatorList
+    var munScores = this.props.munScores
+    var indicatorExplanations = this.props.indicatorExplanations
+    var topIndicator = {
+      explanation: indicatorExplanations[indicators[0]],
+      value: munScores[indicators[0]]
+    }
+
+    for (var i = 1; i < indicators.length; i++) {
+      if (munScores[indicators[i]] > topIndicator['value']) {
+        topIndicator = {
+          explanation: indicatorExplanations[indicators[i]],
+          value: munScores[indicators[i]]
+        }
+      }
+    }
+
+    return topIndicator
+  }
+
   render () {
+    var topIndicator = this.getHighestIndicator()
+
     return (
       <li className={this.props.className}>
         <div className='mun-sidebar-header' onClick={this.props.clickMethod.bind(this)}>
@@ -187,14 +211,14 @@ class MunicipalityNeedItem extends Component {
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            3 out of 10 0-5 year old children in Dumangas are <b>malnourished</b>
+            {Math.round(topIndicator['value'] / 10)} out of 10 {topIndicator['explanation']}
           </div>
           {this.state.indicatorList.map((indicator, i) => (
             <MunicipalityStripPlot
               key={this.props.municipality + '-' + indicator}
               need={this.props.need}
               indicator={indicator}
-              desc={indicatorDescriptions[indicator]}
+              desc={this.props.indicatorDescriptions[indicator]}
               hoverMethod={(e) => this.setBarangayScore(e)}
               hoverOutMethod={() => this.setMunicipalityScore()}
               selected={this.state.selected}
