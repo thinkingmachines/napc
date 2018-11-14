@@ -39,9 +39,11 @@ class MapPage extends Component {
       munName: null
     }
   }
-  componentDidUpdate (prevProps) {
-    const need = this.props.match.params.need
-  }
+
+  // componentDidUpdate (prevProps) {
+  //   const need = this.props.match.params.need
+  // }
+
   componentDidMount () {
     this.tooltipContainer = document.createElement('div');
 
@@ -54,7 +56,7 @@ class MapPage extends Component {
     })
 
     initMap(map)
-    
+
     const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
       offset: [0, -10]
     }).setLngLat([0,0]).addTo(map)
@@ -78,16 +80,16 @@ class MapPage extends Component {
       const munCode = properties.Mun_Code
       this.setState({ munCode: munCode })
       console.log(this.props.match.params.munCode)
-      for(var i = 0; i < Array(e.features[0]).length; i++) {
-        if(this.props.match.params.munCode === Array(e.features[0])[0].properties.Mun_Code) {
+      for (var i = 0; i < Array(e.features[0]).length; i++) {
+        if (this.props.match.params.munCode === Array(e.features[0])[0].properties.Mun_Code) {
           console.log(Array(e.features[0])[0].properties.Mun_Name)
           const munName = Array(e.features[0])[0].properties.Mun_Name
-          this.setState ({ munName: munName })
+          this.setState({ munName: munName })
         }
       }
       return -1
     })
-    
+
     this.setState({ map: map })
 
     document.getElementById('fit').addEventListener('click', function () {
@@ -97,6 +99,7 @@ class MapPage extends Component {
       map.setLayoutProperty('barangays', 'visibility', 'none')
     })
   }
+
   render () {
     if (this.props.match.path === '/map/:need' && this.state.munCode) {
       const { need } = this.props.match.params

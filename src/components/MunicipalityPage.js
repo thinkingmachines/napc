@@ -14,23 +14,42 @@ class MunicipalityNeeds extends Component {
     super(props)
     this.state = {
       openNeed: null,
-      barangayIndicators: null
+      barangayIndicators: null,
+      indicatorDescriptions: null,
+      indicatorExplanations: null,
+      munCode: null
     }
   }
 
   componentDidMount () {
     var munCode = 'PH' + this.props.munCode
-    this._asyncLoading = d3.json('../static/data/ind-bgy/' + munCode + '.json').then(data => {
+    d3.json('../static/data/ind-bgy/' + munCode + '.json').then(data => {
       this.setState({
         openNeed: this.props.currNeed ? this.props.currNeed : null,
         barangayIndicators: data,
         munCode: munCode
       })
     })
-  }
 
-  componentWillUnmount () {
-    this._asyncLoading.cancel()
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=534002250&single=true&output=csv').then(data => {
+      var desc = data.reduce((obj, row) => {
+        obj[row['Indicator Variable']] = row['Indicator_Description']
+        return obj
+      }, {})
+      this.setState({
+        indicatorDescriptions: desc
+      })
+    })
+
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=1693440422&single=true&output=csv').then(data => {
+      var expl = data.reduce((obj, row) => {
+        obj[row['Indicator Variable']] = row['Indicator Explanation Text']
+        return obj
+      }, {})
+      this.setState({
+        indicatorExplanations: expl
+      })
+    })
   }
 
   toggleAccordion (need) {
@@ -40,7 +59,11 @@ class MunicipalityNeeds extends Component {
   }
 
   render () {
-    if (this.state.barangayIndicators === null) {
+    if (
+      this.state.barangayIndicators === null ||
+      this.state.indicatorDescriptions === null ||
+      this.state.indicatorExplanations === null
+    ) {
       return null
     } else {
       var needKeys = Object.keys(needs)
@@ -55,6 +78,9 @@ class MunicipalityNeeds extends Component {
               className={this.state.openNeed === need ? 'mun-sidebar-item active' : 'mun-sidebar-item'}
               need={need}
               barangayIndicators={this.state.barangayIndicators}
+              indicatorDescriptions={this.state.indicatorDescriptions}
+              indicatorExplanations={this.state.indicatorExplanations}
+              munScores={municipalityScores[this.state.munCode]}
               munCode={this.state.munCode} />
           ))}
         </ul>
@@ -98,7 +124,7 @@ class MunicipalityPage extends Component {
 
     return (
       <Fragment>
-        <OverlayMunicipalityPage need={need} map={map} munName = {this.props.munName} />
+        <OverlayMunicipalityPage need={need} map={map} munName={this.props.munName} />
         <SidebarMunicipalityPage need={need}>
           <h3>Basic Needs</h3>
 
@@ -106,7 +132,7 @@ class MunicipalityPage extends Component {
             <div className='mun-sidebar-label'>National Average</div>
           </div>
 
-          <MunicipalityNeeds map={map} currNeed={need} munCode={munCode}/>
+          <MunicipalityNeeds map={map} currNeed={need} munCode={munCode} />
         </SidebarMunicipalityPage>
       </Fragment>
     )

@@ -66,7 +66,7 @@ class Overlay extends Component {
               baseMarkProps={{ forceUpdate: true }}
               pieceHoverAnnotation
               tooltipContent={d => <div className='tooltip-content'>
-                <p>{d.Pro_Name}: {Math.round(d.score*100)/100}</p>
+                <p>{d.Pro_Name}: {Math.round(d.score * 100) / 100}</p>
               </div>}
             />
           </div>
