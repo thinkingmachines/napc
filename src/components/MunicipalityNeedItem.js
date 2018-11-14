@@ -9,7 +9,6 @@ class MunicipalityStripPlot extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      chartData: [],
       max: 0,
       min: 1,
       mid: 0.5
@@ -17,30 +16,13 @@ class MunicipalityStripPlot extends Component {
   }
 
   componentDidMount () {
-    var tempData = []
-    var values = []
-    var barangayIndicators = this.props.barangayIndicators
-    var indicator = this.props.indicator
-
-    for (var code in barangayIndicators) {
-      var barangayName = barangayIndicators[code]['name']
-      var barangayValue = barangayIndicators[code][indicator]
-
-      tempData.push({
-        barangay: code,
-        name: barangayName,
-        value: barangayValue
-      })
-
-      values.push(barangayValue)
-    }
+    var values = this.props.indicatorValues.map(function(ind) { return ind['value'] })
 
     var max = Math.max.apply(Math, values)
     var min = Math.min.apply(Math, values)
     var mid = (max + min) / 2
 
     this.setState({
-      chartData: tempData,
       max: Math.round(max * 100) / 100,
       min: Math.round(min * 100) / 100,
       mid: Math.round(mid * 100) / 100
@@ -66,7 +48,7 @@ class MunicipalityStripPlot extends Component {
             <line x1='10%' x2='10%' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
             <line x1='90%' x2='90%' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
             <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
-            {this.state.chartData.map((chartData, i) => (
+            {this.props.indicatorValues.map((chartData, i) => (
               <g
                 className='circleGroup'
                 key={i}>
@@ -198,6 +180,33 @@ class MunicipalityNeedItem extends Component {
 
   render () {
     var topIndicator = this.getHighestIndicator()
+    var indicatorList = this.state.indicatorList
+    var barangayIndicators = this.props.barangayIndicators
+    var prunedIndicators = {}
+
+    for(var ind in indicatorList) {
+      var indicator = indicatorList[ind]
+      var tempData = []
+
+      for (var code in barangayIndicators) {
+        var barangayName = barangayIndicators[code]['name']
+        var barangayValue = barangayIndicators[code][indicator]
+
+        if (barangayValue != null) {
+          tempData.push({
+            barangay: code,
+            name: barangayName,
+            value: barangayValue
+          })
+        }
+      }
+
+      if (tempData.length > 0) {
+        prunedIndicators[indicator] = tempData
+      }
+    }
+
+    var prunedIndicatorList = Object.keys(prunedIndicators)
 
     return (
       <li className={this.props.className}>
@@ -211,9 +220,13 @@ class MunicipalityNeedItem extends Component {
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            {Math.round(topIndicator['value'] / 10)} out of 10 {topIndicator['explanation']}
+            {
+              topIndicator['value'] == null ?
+              prunedIndicatorList.length == 0 ? 'No data is available for this municipality' : '' :
+              Math.round(topIndicator['value'] / 10) + ' out of 10 ' + topIndicator['explanation']
+            }
           </div>
-          {this.state.indicatorList.map((indicator, i) => (
+          {prunedIndicatorList.map((indicator, i) => (
             <MunicipalityStripPlot
               key={this.props.municipality + '-' + indicator}
               need={this.props.need}
@@ -222,7 +235,7 @@ class MunicipalityNeedItem extends Component {
               hoverMethod={(e) => this.setBarangayScore(e)}
               hoverOutMethod={() => this.setMunicipalityScore()}
               selected={this.state.selected}
-              barangayIndicators={this.props.barangayIndicators} />
+              indicatorValues={prunedIndicators[indicator]} />
           ))}
         </div>
       </li>
