@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { needs } from '../constants'
+import * as d3 from 'd3'
 
 class OverlayMunicipalityPage extends Component {
   constructor () {
     super()
     this.state = {
-      provData: {},
-      munName: null
+      munData: null,
     }
     this.componentDidMount = this.componentDidMount.bind(this)
   }
@@ -17,6 +17,10 @@ class OverlayMunicipalityPage extends Component {
     }).join(' ')
   }
   componentDidMount () {
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=0&single=true&output=csv').then(data => {
+      this.setState({ munData: data })
+    })
+    const munCode = this.props.munCode
   }
   render () {
     return (
@@ -25,9 +29,11 @@ class OverlayMunicipalityPage extends Component {
           <div className='municipality-holder'>
             <div className='municipality-name-container'>
               <div className='municipality-header'>Ito ang Kwento ng</div>
-              <div className='municipality-name'>
-                {this.props.munName}
-              </div>
+              {Object.keys(this.state.munData ? this.state.munData : '').filter(need =>  this.props.munCode === this.state.munData[need].MunCode).map(need => (
+                <div className='municipality-name'>
+                  {this.state.munData[need].Municipality}
+                </div>
+              ))}
             </div>
             <div className='municipality-ranking-container'>
               <div className='mun-rank municipality-ranking'>85</div>

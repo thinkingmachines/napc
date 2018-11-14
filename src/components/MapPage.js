@@ -20,10 +20,6 @@ class MapPage extends Component {
   }
   componentDidUpdate (prevProps) {
     const need = this.props.match.params.need
-    if (prevProps.match.params.need !== need) {
-      console.log('Do something with need:', need)
-      console.log(this.props.map)
-    }
   }
   componentDidMount () {
     const map = new mapboxgl.Map({
@@ -38,15 +34,6 @@ class MapPage extends Component {
       const { properties } = Array(e.features[0])[0]
       const munCode = properties.Mun_Code
       this.setState({ munCode: munCode })
-      console.log(this.props.match.params.munCode)
-      for(var i = 0; i < Array(e.features[0]).length; i++) {
-        if(this.props.match.params.munCode === Array(e.features[0])[0].properties.Mun_Code) {
-          console.log(Array(e.features[0])[0].properties.Mun_Name)
-          const munName = Array(e.features[0])[0].properties.Mun_Name
-          this.setState ({ munName: munName })
-        }
-      }
-      return -1
     })
     
     this.setState({ map: map })
@@ -64,7 +51,7 @@ class MapPage extends Component {
     }
     return (
       <Fragment>
-    <button id='fit'>Back to the PH</button>
+        <button id='fit'>Back to the PH</button>
         <div id='map' />
         <Switch>
           <Route
@@ -73,7 +60,7 @@ class MapPage extends Component {
           />
           <Route
             exact path='/map/:need/municipality/:munCode'
-            render={props => this.state.map && <MunicipalityPage {...props} munName={this.state.munName} map={this.state.map} />}
+            render={props => this.state.map && <MunicipalityPage {...props} map={this.state.map} />}
           />
         </Switch>
       </Fragment>
