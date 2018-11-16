@@ -20,9 +20,13 @@ class OverlayMunicipalityPage extends Component {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=0&single=true&output=csv').then(data => {
       this.setState({ munData: data })
     })
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=660297486&single=true&output=csv').then(ranks => {
+      this.setState({ munRanks: ranks })
+    })
     const munCode = this.props.munCode
   }
   render () {
+    const need = this.props.need
     return (
       <div className={this.props.className}>
         <div className='municipality-information'>
@@ -36,11 +40,20 @@ class OverlayMunicipalityPage extends Component {
               ))}
             </div>
             <div className='municipality-ranking-container'>
-              <div className='mun-rank municipality-ranking'>85</div>
+              {Object.keys(this.state.munRanks ? this.state.munRanks : '').filter(need =>  this.props.munCode === this.state.munRanks[need].Mun_Code).map(need => (
+                <div className='mun-rank municipality-ranking'>
+                  {this.state.munRanks[need][this.props.need]}
+                </div>
+              ))}
+              
               <div className='mun-rank municipality-total'>Out of 1600</div>
             </div>
           </div>
-          <div className='municipality-desc'>Dumangas is a municipality located in the region of Western Visayas in the Philippines. Iloilo occupies a major southeast portion of the Visayan island of Panay</div>
+          {Object.keys(this.state.munData ? this.state.munData : '').filter(need =>  this.props.munCode === this.state.munData[need].MunCode).map(need => (
+            <div className='municipality-desc'>
+              {this.state.munData[need].Description}
+            </div>
+          ))}
         </div>
       </div>
     )

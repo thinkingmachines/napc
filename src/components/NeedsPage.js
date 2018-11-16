@@ -14,9 +14,16 @@ class NeedsPage extends Component {
     }
   }
   titleCase (str) {
-    return str.toLowerCase().split(' ').map(function (word) {
-      return word.replace(word[0], word[0].toUpperCase())
-    }).join(' ')
+    if (str.includes('(') == true) {
+      return str.substring(0, str.indexOf(' (')).toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      }).join(' ')
+    }
+    else {
+      return str.toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      }).join(' ')
+    }
   }
   componentDidMount () {
     const { need } = this.props.match.params
@@ -28,12 +35,6 @@ class NeedsPage extends Component {
         layer: layer.maxzoom,
         Bayan: this.titleCase(properties.Pro_Name)
       })
-    })
-    document.getElementById('fit').addEventListener('click', function () {
-      console.log('back to bayan')
-      this.setState = {
-        Bayan: 'Bayan'
-      }
     })
   }
   componentDidUpdate (prevProps) {
