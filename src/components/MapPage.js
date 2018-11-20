@@ -35,14 +35,24 @@ class MapPage extends Component {
     super(props)
     this.state = {
       map: null,
-      munCode: null, 
-      munName: null
+      bayanClicked: null, 
+      Bayan:'Bayan'
     }
+    this.resetBayan = this.resetBayan.bind(this)
   }
 
-  // componentDidUpdate (prevProps) {
-  //   const need = this.props.match.params.need
-  // }
+  titleCase (str) {
+    if (str.includes('(') == true) {
+      return str.substring(0, str.indexOf(' (')).toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      }).join(' ')
+    }
+    else {
+      return str.toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      }).join(' ')
+    }
+  }
 
   componentDidMount () {
     this.tooltipContainer = document.createElement('div');
@@ -81,6 +91,15 @@ class MapPage extends Component {
       this.setState({ munCode: munCode })
     })
 
+    map.on('click', 'provinces', (e) => {
+      const { id, layer, properties } = Array(e.features[0])[0]
+      this.setState({
+        id: id,
+        layer: layer.maxzoom,
+        Bayan: this.titleCase(properties.Pro_Name)
+      })
+    })
+
     this.setState({ map: map })
 
     document.getElementById('fit').addEventListener('click', function () {
@@ -91,6 +110,10 @@ class MapPage extends Component {
     })
   }
 
+  resetBayan() {
+    this.setState({ Bayan: 'Bayan' })
+  }
+
   render () {
     if (this.props.match.path === '/map/:need' && this.state.munCode) {
       const { need } = this.props.match.params
@@ -98,12 +121,12 @@ class MapPage extends Component {
     }
     return (
       <Fragment>
-        <button id='fit'>Back to the PH</button>
+        <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>
         <div id='map' />
         <Switch>
           <Route
             exact path='/map/:need'
-            render={props => this.state.map && <NeedsPage {...props} map={this.state.map} />}
+            render={props => this.state.map && <NeedsPage {...props} map={this.state.map} Bayan={this.state.Bayan} />}
           />
           <Route
             exact path='/map/:need/municipality/:munCode'
