@@ -6,36 +6,16 @@ import Overlay from './Overlay'
 import Sidebar from './Sidebar'
 
 class NeedsPage extends Component {
-  constructor () {
-    super()
-    this.state = {
-      provData: {},
-      Bayan: 'Bayan'
-    }
+  constructor (props) {
+    super(props)
   }
-  titleCase (str) {
-    return str.toLowerCase().split(' ').map(function (word) {
-      return word.replace(word[0], word[0].toUpperCase())
-    }).join(' ')
-  }
+
   componentDidMount () {
     const { need } = this.props.match.params
+    const bayanClicked = this.props.bayanClicked
     this.props.map.on('load', this.showIndicator.bind(this, need))
-    this.props.map.on('click', 'provinces', (e) => {
-      const { id, layer, properties } = Array(e.features[0])[0]
-      this.setState({
-        id: id,
-        layer: layer.maxzoom,
-        Bayan: this.titleCase(properties.Pro_Name)
-      })
-    })
-    document.getElementById('fit').addEventListener('click', function () {
-      console.log('back to bayan')
-      this.setState = {
-        Bayan: 'Bayan'
-      }
-    })
   }
+
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
@@ -61,14 +41,14 @@ class NeedsPage extends Component {
 
   render () {
     const { need } = this.props.match.params
-    const { map } = this.props
+    const { map } = this.props.map
     return (
       <Fragment>
         <Overlay need={need} map={map} />
         <Sidebar>
           <div className='description'>
             <img className='logo' src={'/static/img/napc-logo.png'} />
-            <div className='header'> Ito ang <br />Kuwento ng {this.state.Bayan} </div>
+            <div className='header'> Ito ang <br />Kuwento ng {this.props.Bayan} </div>
             <div className='divider' />
             <div className='textbody'>
             A comprehensive, barangay-level map on data across the ten basic needs. Click on a category below to see how each province ranks on different needs.
