@@ -36,8 +36,7 @@ class MapPage extends Component {
     this.state = {
       map: null,
       bayanClicked: null, 
-      Bayan:'Bayan',
-      redirectHome: false
+      Bayan:'Bayan'
     }
     this.resetBayan = this.resetBayan.bind(this)
   }
@@ -101,7 +100,11 @@ class MapPage extends Component {
       })
     })
 
-    this.setState({ map: map })
+    const { munCode } = this.props.match.params
+    this.setState({
+      map: map,
+      munCode: munCode
+    })
 
     document.getElementById('fit').addEventListener('click', function () {
       map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
@@ -112,13 +115,18 @@ class MapPage extends Component {
   }
 
   resetBayan() {
-    this.setState({ Bayan: 'Bayan' })
+    this.setState({
+      Bayan: 'Bayan',
+      munCode: null
+    })
   }
 
   render () {
     const { need } = this.props.match.params
     if (this.props.match.path === '/map/:need' && this.state.munCode) {
       return <Redirect to={`/map/${need}/municipality/${this.state.munCode}`} />
+    } else if (this.props.match.path === '/map/:need/municipality/:munCode' && this.state.munCode === null) {
+      return <Redirect to={`/map/${need}`} />
     }
     return (
       <Fragment>
@@ -129,10 +137,9 @@ class MapPage extends Component {
           />
           <Route
             exact path='/map/:need/municipality/:munCode'
-            render={() => <a id='fit' href={ '/map/' + need }>Back to Home</a>}
+            render={() => <button id='fit' onClick={ this.resetBayan }>Back to Home</button>}
           />
         </Switch>
-        <div id='map' />
         <Switch>
           <Route
             exact path='/map/:need'
