@@ -157,32 +157,28 @@ class MunicipalityNeedItem extends Component {
     })
   }
 
-  getHighestIndicator () {
-    var indicators = this.state.indicatorList
-    var munScores = this.props.munScores
-    var indicatorExplanations = this.props.indicatorExplanations
-    var topIndicator = {
-      explanation: indicatorExplanations[indicators[0]],
-      value: munScores[indicators[0]]
-    }
-
-    for (var i = 1; i < indicators.length; i++) {
-      if (munScores[indicators[i]] > topIndicator['value']) {
-        topIndicator = {
-          explanation: indicatorExplanations[indicators[i]],
-          value: munScores[indicators[i]]
-        }
-      }
-    }
-
-    return topIndicator
-  }
-
   render () {
-    var topIndicator = this.getHighestIndicator()
+    var score = this.props.score
+    var topIndicator = this.props.needExplanation
     var indicatorList = this.state.indicatorList
     var barangayIndicators = this.props.barangayIndicators
     var prunedIndicators = {}
+    var explanationText = ''
+
+    if (topIndicator && score) {
+      var scoreRounded = null
+
+      if (topIndicator['type'] === 'Proportion') {
+        scoreRounded = Math.round(score / 10)
+        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded  
+      } else {
+        scoreRounded = Math.round(score)
+        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 100 && score !== 100 ? 99 : scoreRounded
+      }
+
+      explanationText = topIndicator['type'] === 'Proportion' ? scoreRounded + ' out of 10 ' : scoreRounded + ' '
+      explanationText += topIndicator['text']
+    }
 
     for(var ind in indicatorList) {
       var indicator = indicatorList[ind]
@@ -220,11 +216,7 @@ class MunicipalityNeedItem extends Component {
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            {
-              topIndicator['value'] == null ?
-              prunedIndicatorList.length == 0 ? 'No indicator data is available for this municipality' : '' :
-              Math.round(topIndicator['value'] / 10) + ' out of 10 ' + topIndicator['explanation']
-            }
+            { score === null || isNaN(score) ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
           </div>
           {prunedIndicatorList.map((indicator, i) => (
             <MunicipalityStripPlot
