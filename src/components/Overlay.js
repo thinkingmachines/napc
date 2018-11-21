@@ -45,6 +45,20 @@ class Overlay extends Component {
           <p className='need-text'>
             {needs[this.props.need].titles}
           </p>
+          <svg width="100%" height="10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <text text-anchor="start" x="0%" y="10" className='need-body'>0%</text>
+            <text text-anchor="end" x="100%" y="10" className='need-body'>100%</text>
+          </svg>
+          <svg width="100%" height="10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="legendColor" x1="0" x2="1">
+                <stop offset="0%" stop-color="#ededed"/>
+                <stop offset="100%" stop-color={needs[this.props.need].color}/>
+              </linearGradient>
+            </defs>
+            <rect id="rect1" x1="0%" x2="100%" width="100%" height="10"/>
+            <rect x1="0%" x2="100%" width="100%" height="10" fill="url(#legendColor)"/>
+          </svg>
           <p className='need-body'>
             {needs[this.props.need].explanation}
           </p>
@@ -112,7 +126,7 @@ export default styled(Overlay)`
     font-family: 'Akrobat';
     font-weight: bold;
     font-size: 3.5vh;
-    padding: 0 0 10vh 0;
+    padding: 0 0 5vh 0;
     width: 100%;
     margin:0;
     color: ${props => needs[props.need].color};
@@ -122,7 +136,7 @@ export default styled(Overlay)`
     font-family: 'Proxima Nova';
     font-size: 1.75vh;
     font-style: none !important;
-    padding-right: 0;
+    padding: 20px 0 0 0;
     color: #999999;
     margin-top:0;
   }
