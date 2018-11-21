@@ -23,9 +23,9 @@ class MunicipalityStripPlot extends Component {
     var mid = (max + min) / 2
 
     this.setState({
-      max: Math.round(max * 100) / 100,
-      min: Math.round(min * 100) / 100,
-      mid: Math.round(mid * 100) / 100
+      max: max < 1 ? Math.round(max * 100) / 100 : Math.round(max),
+      min: min < 1 ? Math.round(min * 100) / 100 : Math.round(min),
+      mid: mid < 1 ? Math.round(mid * 100) / 100 : Math.round(mid)
     })
   }
 
@@ -222,7 +222,7 @@ class MunicipalityNeedItem extends Component {
           <div className='mun-sidebar-main-desc'>
             {
               topIndicator['value'] == null ?
-              prunedIndicatorList.length == 0 ? 'No data is available for this municipality' : '' :
+              prunedIndicatorList.length == 0 ? 'No indicator data is available for this municipality' : '' :
               Math.round(topIndicator['value'] / 10) + ' out of 10 ' + topIndicator['explanation']
             }
           </div>
