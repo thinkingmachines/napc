@@ -101,20 +101,21 @@ class MapPage extends Component {
     })
 
     const { munCode } = this.props.match.params
+
     this.setState({
       map: map,
       munCode: munCode
     })
-
-    document.getElementById('fit').addEventListener('click', function () {
-      map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
-      map.setLayoutProperty('provinces', 'visibility', 'visible')
-      map.setLayoutProperty('municities', 'visibility', 'none')
-      map.setLayoutProperty('barangays', 'visibility', 'none')
-    })
   }
 
   resetBayan() {
+    var map = this.state.map
+    
+    map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
+    map.setLayoutProperty('provinces', 'visibility', 'visible')
+    map.setLayoutProperty('municities', 'visibility', 'none')
+    map.setLayoutProperty('barangays', 'visibility', 'none')
+
     this.setState({
       Bayan: 'Bayan',
       munCode: null
