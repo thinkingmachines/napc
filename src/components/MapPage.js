@@ -35,7 +35,7 @@ class MapPage extends Component {
     super(props)
     this.state = {
       map: null,
-      bayanClicked: null, 
+      bayanClicked: null,
       Bayan:'Bayan'
     }
     this.resetBayan = this.resetBayan.bind(this)
@@ -122,7 +122,6 @@ class MapPage extends Component {
     return (
       <Fragment>
         <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>
-        <div id='map' />
         <Switch>
           <Route
             exact path='/map/:need'

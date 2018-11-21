@@ -9,7 +9,8 @@ module.exports = {
           baseHref: '/',
           links: [
             '/static/css/style.css'
-          ]
+          ],
+          appMountIds: ['map']
         },
         minify: {
           babel: false
