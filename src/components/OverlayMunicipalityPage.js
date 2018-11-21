@@ -58,7 +58,7 @@ class OverlayMunicipalityPage extends Component {
             </div>
           ))}
           <div className='footnote'>
-            * The total number of municipalities shown is calculated based on the number of municipalities with data available.
+            * The number of municipalities shown is calculated based on the total number of municipalities with data available.
           </div>
         </div>
       </div>
