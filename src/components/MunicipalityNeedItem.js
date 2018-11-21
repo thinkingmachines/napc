@@ -97,7 +97,7 @@ class MunicipalityScoreChart extends Component {
       <svg width='70' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
         <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='0' y2='100%' stroke='#CCC' strokeWidth='1' />
         <rect x={xValLine} y='8.5' width={lineWidth} height='3' fill='#E6E6E6' strokeWidth='0' />
-        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' />
+        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' />        
       </svg>
     )
   }
@@ -211,7 +211,7 @@ class MunicipalityNeedItem extends Component {
             <h4>{needs[this.props.need].titles}</h4>
           </NavLink>
           <div className='mun-sidebar-header-chart'>
-            <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} />
+            <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} score={this.props.score}/>
           </div>
         </div>
         <div className='mun-sidebar-content'>

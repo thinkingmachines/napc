@@ -36,7 +36,8 @@ class MapPage extends Component {
     this.state = {
       map: null,
       bayanClicked: null, 
-      Bayan:'Bayan'
+      Bayan:'Bayan',
+      redirectHome: false
     }
     this.resetBayan = this.resetBayan.bind(this)
   }
@@ -115,13 +116,22 @@ class MapPage extends Component {
   }
 
   render () {
+    const { need } = this.props.match.params
     if (this.props.match.path === '/map/:need' && this.state.munCode) {
-      const { need } = this.props.match.params
       return <Redirect to={`/map/${need}/municipality/${this.state.munCode}`} />
     }
     return (
       <Fragment>
-        <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>
+        <Switch>
+          <Route
+            exact path='/map/:need'
+            render={() => <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>}
+          />
+          <Route
+            exact path='/map/:need/municipality/:munCode'
+            render={() => <a id='fit' href={ '/map/' + need }>Back to Home</a>}
+          />
+        </Switch>
         <div id='map' />
         <Switch>
           <Route
