@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import * as turf from '@turf/turf'
 
 import { indicators, needs } from '../constants'
 import municipalityScores from '../ind-mun.json'
@@ -92,8 +93,21 @@ class MunicipalityNeeds extends Component {
 
 class MunicipalityPage extends Component {
   componentDidMount () {
-    const { need } = this.props.match.params
-    this.props.map.on('load', this.showIndicator.bind(this, need))
+    const { need, munCode } = this.props.match.params
+    const { map } = this.props
+    map.on('load', () => {
+      this.showIndicator(need)
+      map.setLayoutProperty('provinces', 'visibility', 'none')
+      map.setLayoutProperty('municities', 'visibility', 'visible')
+    })
+    map.on('sourcedata', function (e) {
+      if (e.sourceId === 'municities' && e.isSourceLoaded) {
+        const features = map.queryRenderedFeatures({layers: ['municities'],
+          filter: ['==', 'Mun_Code', munCode]})
+        const bbox = turf.bbox(features[0])
+        map.fitBounds(bbox, { padding: 60 })
+      }
+    })
   }
 
   componentDidUpdate (prevProps) {
