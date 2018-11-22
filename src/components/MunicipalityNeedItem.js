@@ -23,9 +23,9 @@ class MunicipalityStripPlot extends Component {
     var mid = (max + min) / 2
 
     this.setState({
-      max: Math.round(max * 100) / 100,
-      min: Math.round(min * 100) / 100,
-      mid: Math.round(mid * 100) / 100
+      max: max < 1 ? Math.round(max * 100) / 100 : Math.round(max),
+      min: min < 1 ? Math.round(min * 100) / 100 : Math.round(min),
+      mid: mid < 1 ? Math.round(mid * 100) / 100 : Math.round(mid)
     })
   }
 
@@ -97,7 +97,7 @@ class MunicipalityScoreChart extends Component {
       <svg width='70' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
         <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='0' y2='100%' stroke='#CCC' strokeWidth='1' />
         <rect x={xValLine} y='8.5' width={lineWidth} height='3' fill='#E6E6E6' strokeWidth='0' />
-        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' />
+        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' />        
       </svg>
     )
   }
@@ -157,32 +157,28 @@ class MunicipalityNeedItem extends Component {
     })
   }
 
-  getHighestIndicator () {
-    var indicators = this.state.indicatorList
-    var munScores = this.props.munScores
-    var indicatorExplanations = this.props.indicatorExplanations
-    var topIndicator = {
-      explanation: indicatorExplanations[indicators[0]],
-      value: munScores[indicators[0]]
-    }
-
-    for (var i = 1; i < indicators.length; i++) {
-      if (munScores[indicators[i]] > topIndicator['value']) {
-        topIndicator = {
-          explanation: indicatorExplanations[indicators[i]],
-          value: munScores[indicators[i]]
-        }
-      }
-    }
-
-    return topIndicator
-  }
-
   render () {
-    var topIndicator = this.getHighestIndicator()
+    var score = this.props.score
+    var topIndicator = this.props.needExplanation
     var indicatorList = this.state.indicatorList
     var barangayIndicators = this.props.barangayIndicators
     var prunedIndicators = {}
+    var explanationText = ''
+
+    if (topIndicator && score) {
+      var scoreRounded = null
+
+      if (topIndicator['type'] === 'Proportion') {
+        scoreRounded = Math.round(score / 10)
+        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded  
+      } else {
+        scoreRounded = Math.round(score)
+        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 100 && score !== 100 ? 99 : scoreRounded
+      }
+
+      explanationText = topIndicator['type'] === 'Proportion' ? scoreRounded + ' out of 10 ' : scoreRounded + ' '
+      explanationText += topIndicator['text']
+    }
 
     for(var ind in indicatorList) {
       var indicator = indicatorList[ind]
@@ -215,16 +211,12 @@ class MunicipalityNeedItem extends Component {
             <h4>{needs[this.props.need].titles}</h4>
           </NavLink>
           <div className='mun-sidebar-header-chart'>
-            <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} />
+            <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} score={this.props.score}/>
           </div>
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            {
-              topIndicator['value'] == null ?
-              prunedIndicatorList.length == 0 ? 'No data is available for this municipality' : '' :
-              Math.round(topIndicator['value'] / 10) + ' out of 10 ' + topIndicator['explanation']
-            }
+            { score === null || isNaN(score) ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
           </div>
           {prunedIndicatorList.map((indicator, i) => (
             <MunicipalityStripPlot

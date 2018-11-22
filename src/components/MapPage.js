@@ -35,7 +35,7 @@ class MapPage extends Component {
     super(props)
     this.state = {
       map: null,
-      bayanClicked: null,
+      bayanClicked: null, 
       Bayan:'Bayan'
     }
     this.resetBayan = this.resetBayan.bind(this)
@@ -100,28 +100,47 @@ class MapPage extends Component {
       })
     })
 
-    this.setState({ map: map })
+    const { munCode } = this.props.match.params
 
-    document.getElementById('fit').addEventListener('click', function () {
-      map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
-      map.setLayoutProperty('provinces', 'visibility', 'visible')
-      map.setLayoutProperty('municities', 'visibility', 'none')
-      map.setLayoutProperty('barangays', 'visibility', 'none')
+    this.setState({
+      map: map,
+      munCode: munCode
     })
   }
 
   resetBayan() {
-    this.setState({ Bayan: 'Bayan' })
+    var map = this.state.map
+    
+    map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
+    map.setLayoutProperty('provinces', 'visibility', 'visible')
+    map.setLayoutProperty('municities', 'visibility', 'none')
+    map.setLayoutProperty('barangays', 'visibility', 'none')
+
+    this.setState({
+      Bayan: 'Bayan',
+      munCode: null
+    })
   }
 
   render () {
+    const { need } = this.props.match.params
     if (this.props.match.path === '/map/:need' && this.state.munCode) {
-      const { need } = this.props.match.params
       return <Redirect to={`/map/${need}/municipality/${this.state.munCode}`} />
+    } else if (this.props.match.path === '/map/:need/municipality/:munCode' && this.state.munCode === null) {
+      return <Redirect to={`/map/${need}`} />
     }
     return (
       <Fragment>
-        <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>
+        <Switch>
+          <Route
+            exact path='/map/:need'
+            render={() => <button id='fit' onClick={ this.resetBayan }>Back to the PH</button>}
+          />
+          <Route
+            exact path='/map/:need/municipality/:munCode'
+            render={() => <button id='fit' onClick={ this.resetBayan }>Back to Home</button>}
+          />
+        </Switch>
         <Switch>
           <Route
             exact path='/map/:need'

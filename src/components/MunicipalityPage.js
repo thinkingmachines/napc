@@ -17,7 +17,7 @@ class MunicipalityNeeds extends Component {
       openNeed: null,
       barangayIndicators: null,
       indicatorDescriptions: null,
-      indicatorExplanations: null,
+      needExplanations: null,
       munCode: null
     }
   }
@@ -42,13 +42,13 @@ class MunicipalityNeeds extends Component {
       })
     })
 
-    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=1693440422&single=true&output=csv').then(data => {
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=1343037281&single=true&output=csv').then(data => {
       var expl = data.reduce((obj, row) => {
-        obj[row['Indicator Variable']] = row['Indicator Explanation Text']
+        obj[row['Need Variable']] = { text : row['Text'], type : row['Type'] }
         return obj
       }, {})
       this.setState({
-        indicatorExplanations: expl
+        needExplanations: expl
       })
     })
   }
@@ -63,11 +63,12 @@ class MunicipalityNeeds extends Component {
     if (
       this.state.barangayIndicators === null ||
       this.state.indicatorDescriptions === null ||
-      this.state.indicatorExplanations === null
+      this.state.needExplanations === null
     ) {
       return null
     } else {
       var needKeys = Object.keys(needs)
+      console.log(this.state.needExplanations)
 
       return (
         <ul className='mun-sidebar-list'>
@@ -80,7 +81,7 @@ class MunicipalityNeeds extends Component {
               need={need}
               barangayIndicators={this.state.barangayIndicators}
               indicatorDescriptions={this.state.indicatorDescriptions}
-              indicatorExplanations={this.state.indicatorExplanations}
+              needExplanation={this.state.needExplanations[need]}
               munScores={municipalityScores[this.state.munCode]}
               munCode={this.state.munCode} />
           ))}
