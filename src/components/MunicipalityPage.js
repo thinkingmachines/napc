@@ -35,6 +35,8 @@ class MunicipalityNeeds extends Component {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=534002250&single=true&output=csv').then(data => {
       var desc = data.reduce((obj, row) => {
         obj[row['Indicator Variable']] = row['Indicator_Description']
+          .replace('Number/Proportion of individuals with SSS / GSIS (up to barangay level)', 'Proportion of individuals without SSS / GSIS (up to barangay level)')
+          .replace('Number/Proportion of households which received PhilHealth, Pantawid, and other Cash Transfers from government/LGU/NGO (up to barangay level)', 'Proportion of households which did not receive PhilHealth, Pantawid, and other Cash Transfers from government/LGU/NGO (up to barangay level)')
         return obj
       }, {})
       this.setState({
@@ -68,7 +70,6 @@ class MunicipalityNeeds extends Component {
       return null
     } else {
       var needKeys = Object.keys(needs)
-      console.log(this.state.needExplanations)
 
       return (
         <ul className='mun-sidebar-list'>
