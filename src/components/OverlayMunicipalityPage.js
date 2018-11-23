@@ -45,8 +45,11 @@ class OverlayMunicipalityPage extends Component {
                   {this.state.munRanks[need][this.props.need]}
                 </div>
               ))}
-              
-              <div className='mun-rank municipality-total'>Out of 1600</div>
+              {Object.keys(this.state.munRanks ? this.state.munRanks : '').filter(need =>  this.state.munRanks[need].Mun_Code === 'Total').map(need => (
+                <div className='mun-rank municipality-total'>
+                  Out of {this.state.munRanks[need][this.props.need]} municipalities *
+                </div>
+              ))}
             </div>
           </div>
           {Object.keys(this.state.munData ? this.state.munData : '').filter(need =>  this.props.munCode === this.state.munData[need].MunCode).map(need => (
@@ -54,6 +57,9 @@ class OverlayMunicipalityPage extends Component {
               {this.state.munData[need].Description}
             </div>
           ))}
+          <div className='footnote'>
+            * The number of municipalities shown is calculated based on the total number of municipalities with data available.
+          </div>
         </div>
       </div>
     )
@@ -117,10 +123,19 @@ export default styled(OverlayMunicipalityPage)`
   }
   
   .municipality-desc{
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-family:'Proxima Nova Thin';
     margin-bottom: 0;
     margin-top: 2vh;
+    text-align: justify;
+  }
+
+  .footnote{
+    font-style:italic;
+    font-size: 0.8em;
+    font-family:'Proxima Nova Thin';
+    margin-bottom: 0;
+    margin-top: 40px;
     text-align: justify;
   }
 
