@@ -28,21 +28,19 @@ class MunicipalityStripPlot extends Component {
           {this.props.desc}
         </div>
         <div className='mun-sidebar-chart'>
-          <svg width='100%' height='48' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='10%' x2='90%' y1='calc(50% - 1.5)' y2='calc(50% - 1.5)' stroke='#CCC' strokeWidth='1' />
-            <line x1='10%' x2='10%' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
-            <line x1='90%' x2='90%' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
+          <svg width='100%' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+            <line x1='10%' x2='90%' y1='calc(50% + 3.5)' y2='calc(50% + 3.5)' stroke='#CCC' strokeWidth='1' />
+            <line x1='10%' x2='10%' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
+            <line x1='90%' x2='90%' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
+            <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
             {this.props.indicatorValues.map((chartData, i) => (
               <g
                 className='circleGroup'
                 key={i}>
                 <circle
                   data-barangay={chartData['barangay']}
-                  onMouseOver={this.props.hoverMethod.bind(this)}
-                  onMouseOut={this.props.hoverOutMethod.bind(this)}
                   cx={((this.calculateDataPosition(chartData['value']) * 0.8 + 0.1) * 100) + '%'}
-                  cy='calc(50% - 1.5px)'
+                  cy='calc(50% + 2.5px)'
                   fill={needs[this.props.need].color}
                   r='5'
                   opacity={this.props.selected === '' || this.props.selected === chartData['barangay'] ? 0.6 : 0.2} />
@@ -60,8 +58,8 @@ class MunicipalityStripPlot extends Component {
                 </text>
               </g>
             ))}
-            <text className='axis-label' x='10%' y='46' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.min + '%'}</text>
-            <text className='axis-label' x='90%' y='46' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.max + '%'}</text>
+            <text className='axis-label' x='10%' y='48' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.min + '%'}</text>
+            <text className='axis-label' x='90%' y='48' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.max + '%'}</text>
           </svg>
         </div>
       </div>
@@ -100,11 +98,17 @@ class MunicipalityNeedItem extends Component {
     }
   }
 
-  getScorePos (values, score) {
-    var max = Math.max.apply(Math, values)
-    var min = Math.min.apply(Math, values)
-    var avg = nationalAverages[needs[this.props.need]['prop-col']]
-    var maxWidth = Math.max(max - avg, avg - min)
+  getScorePos (score) {
+    if (score == "") {
+      return ""
+    }
+
+    var needAverage = nationalAverages[needs[this.props.need]['prop-col']]
+    console.log(needAverage)
+    var max = needAverage['max']
+    var min = needAverage['min']
+    var avg = needAverage['avg']
+    var maxWidth = needAverage['max_width_from_mid']
     var chartMin = avg - maxWidth
     return (score - chartMin) / maxWidth * 50
   }
@@ -116,31 +120,13 @@ class MunicipalityNeedItem extends Component {
     var indicatorList = needs[this.props.need]['indicators']
     var needName = this.props.need
     var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
-    var scorePos = this.getScorePos(values, this.props.score)
+    var scorePos = this.getScorePos(this.props.score)
+    console.log(scorePos)
 
     this.setState({
       scorePos: scorePos,
       indicatorList: indicatorList,
       values: values
-    })
-  }
-
-  setBarangayScore (e) {
-    var barangay = e.target.dataset.barangay
-    var scorePos = this.getScorePos(this.state.values, this.props.barangayIndicators[barangay][needs[this.props.need]['prop-col']])
-
-    this.setState({
-      scorePos: scorePos,
-      selected: barangay
-    })
-  }
-
-  setMunicipalityScore () {
-    var scorePos = this.getScorePos(this.state.values, this.props.score)
-
-    this.setState({
-      scorePos: scorePos,
-      selected: ''
     })
   }
 
@@ -229,8 +215,6 @@ class MunicipalityNeedItem extends Component {
               need={this.props.need}
               indicator={indicator}
               desc={this.props.indicatorDescriptions[indicator]}
-              hoverMethod={(e) => this.setBarangayScore(e)}
-              hoverOutMethod={() => this.setMunicipalityScore()}
               selected={this.state.selected}
               indicatorValues={prunedIndicators[indicator]}
               axisLabels={indicatorAxisLabels[indicator]} />
