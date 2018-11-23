@@ -6,48 +6,33 @@ import { needs } from '../constants'
 import nationalAverages from '../ind-avg.json'
 
 class MunicipalityStripPlot extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      max: 0,
-      min: 1,
-      mid: 0.5
-    }
-  }
-
-  componentDidMount () {
-    var values = this.props.indicatorValues.map(function(ind) { return ind['value'] })
-
-    var max = Math.max.apply(Math, values)
-    var min = Math.min.apply(Math, values)
-    var mid = (max + min) / 2
-
-    this.setState({
-      max: max < 1 ? Math.round(max * 100) / 100 : Math.round(max),
-      min: min < 1 ? Math.round(min * 100) / 100 : Math.round(min),
-      mid: mid < 1 ? Math.round(mid * 100) / 100 : Math.round(mid)
-    })
-  }
-
   calculateDataPosition (value) {
-    if (value) {
-      return (value - this.state.min) / (this.state.max - this.state.min)
+    if (value && this.props.axisLabels) {
+      return (value - this.props.axisLabels.min) / (this.props.axisLabels.max - this.props.axisLabels.min)
     }
     return -1
   }
 
   render () {
+    if (this.props.axisLabels === null) {
+      return null
+    }
+
+    if (this.props.axisLabels.min === this.props.axisLabels.max) {
+      return null
+    }
+
     return (
       <div>
         <div className='mun-sidebar-chart-desc'>
           {this.props.desc}
         </div>
         <div className='mun-sidebar-chart'>
-          <svg width='100%' height='45' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='10%' x2='90%' y1='calc(50% + 8.5)' y2='calc(50% + 8.5)' stroke='#CCC' strokeWidth='1' />
-            <line x1='10%' x2='10%' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
-            <line x1='90%' x2='90%' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='25' y2='calc(100% - 7)' stroke='#CCC' strokeWidth='1' />
+          <svg width='100%' height='48' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+            <line x1='10%' x2='90%' y1='calc(50% - 1.5)' y2='calc(50% - 1.5)' stroke='#CCC' strokeWidth='1' />
+            <line x1='10%' x2='10%' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
+            <line x1='90%' x2='90%' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
+            <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='15' y2='calc(100% - 17)' stroke='#CCC' strokeWidth='1' />
             {this.props.indicatorValues.map((chartData, i) => (
               <g
                 className='circleGroup'
@@ -57,14 +42,14 @@ class MunicipalityStripPlot extends Component {
                   onMouseOver={this.props.hoverMethod.bind(this)}
                   onMouseOut={this.props.hoverOutMethod.bind(this)}
                   cx={((this.calculateDataPosition(chartData['value']) * 0.8 + 0.1) * 100) + '%'}
-                  cy='calc(50% + 8.5px)'
+                  cy='calc(50% - 1.5px)'
                   fill={needs[this.props.need].color}
                   r='5'
                   opacity={this.props.selected === '' || this.props.selected === chartData['barangay'] ? 0.6 : 0.2} />
                 <rect
-                  x='calc(50% - 50px)'
+                  x='calc(50% - 100px)'
                   y='0'
-                  width='100px'
+                  width='200px'
                   height='20px' />
                 <text
                   x='50%'
@@ -75,9 +60,8 @@ class MunicipalityStripPlot extends Component {
                 </text>
               </g>
             ))}
-            <text className='axis-label' x='10%' y='45' textAnchor='middle' alignmentBaseline='baseline'>{this.state.min + ''}</text>
-            <text className='axis-label' x='50%' y='45' textAnchor='middle' alignmentBaseline='baseline'>{this.state.mid + ''}</text>
-            <text className='axis-label' x='90%' y='45' textAnchor='middle' alignmentBaseline='baseline'>{this.state.max + ''}</text>
+            <text className='axis-label' x='10%' y='46' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.min + '%'}</text>
+            <text className='axis-label' x='90%' y='46' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.max + '%'}</text>
           </svg>
         </div>
       </div>
@@ -97,9 +81,10 @@ class MunicipalityScoreChart extends Component {
       <svg width='70' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
         <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='0' y2='100%' stroke='#CCC' strokeWidth='1' />
         <rect x={xValLine} y='8.5' width={lineWidth} height='3' fill='#E6E6E6' strokeWidth='0' />
-        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' />        
+        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' /> :
       </svg>
     )
+    
   }
 }
 
@@ -125,6 +110,8 @@ class MunicipalityNeedItem extends Component {
   }
 
   componentDidMount () {
+    console.log(this.props.need)
+
     var barangayIndicators = this.props.barangayIndicators
     var indicatorList = needs[this.props.need]['indicators']
     var needName = this.props.need
@@ -163,6 +150,7 @@ class MunicipalityNeedItem extends Component {
     var indicatorList = this.state.indicatorList
     var barangayIndicators = this.props.barangayIndicators
     var prunedIndicators = {}
+    var indicatorAxisLabels = {}
     var explanationText = ''
 
     if (topIndicator && score) {
@@ -183,6 +171,7 @@ class MunicipalityNeedItem extends Component {
     for(var ind in indicatorList) {
       var indicator = indicatorList[ind]
       var tempData = []
+      var tempValues = []
 
       for (var code in barangayIndicators) {
         var barangayName = barangayIndicators[code]['name']
@@ -195,10 +184,25 @@ class MunicipalityNeedItem extends Component {
             value: barangayValue
           })
         }
+
+        tempValues.push(barangayValue)
       }
+
+      var max = Math.max.apply(Math, tempValues)
+      var min = Math.min.apply(Math, tempValues)
+
+      var axisLabels = {
+        max: Math.ceil(max),
+        min: Math.floor(min)
+      }
+
+      if (axisLabels.min === axisLabels.max) {
+        tempData = []
+      } 
 
       if (tempData.length > 0) {
         prunedIndicators[indicator] = tempData
+        indicatorAxisLabels[indicator] = axisLabels
       }
     }
 
@@ -211,12 +215,13 @@ class MunicipalityNeedItem extends Component {
             <h4>{needs[this.props.need].titles}</h4>
           </NavLink>
           <div className='mun-sidebar-header-chart'>
-            <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} score={this.props.score}/>
+            {!(this.state.scorePos === null || isNaN(this.state.scorePos) || this.state.scorePos === '') &&
+              <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} score={this.props.score}/>}
           </div>
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            { score === null || isNaN(score) ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
+            { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
           </div>
           {prunedIndicatorList.map((indicator, i) => (
             <MunicipalityStripPlot
@@ -227,7 +232,8 @@ class MunicipalityNeedItem extends Component {
               hoverMethod={(e) => this.setBarangayScore(e)}
               hoverOutMethod={() => this.setMunicipalityScore()}
               selected={this.state.selected}
-              indicatorValues={prunedIndicators[indicator]} />
+              indicatorValues={prunedIndicators[indicator]}
+              axisLabels={indicatorAxisLabels[indicator]} />
           ))}
         </div>
       </li>
@@ -323,7 +329,7 @@ export default styled(MunicipalityNeedItem)`
   }
 
   g.circleGroup:hover rect {
-    fill: #CCC;
+    fill: #BBB;
   }
 
   g.circleGroup:hover text {
