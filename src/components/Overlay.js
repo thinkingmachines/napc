@@ -72,7 +72,7 @@ class Overlay extends Component {
               responsiveHeight
               data={this.state[this.props.need]}
               oAccessor={'Pro_Code'}
-              rAccessor={'score'}
+              rAccessor={d => d.score - (d.score = 0 ? 0 : needs[this.props.need].min)}
               margin={{ top: 0, bottom: 0, left: 0, right: 5 }}
               type={'bar'}
               oPadding={5}
@@ -80,7 +80,7 @@ class Overlay extends Component {
               baseMarkProps={{ forceUpdate: true }}
               pieceHoverAnnotation
               tooltipContent={d => <div className='tooltip-content'>
-                <p>{d.Pro_Name}: {Math.round(d.score * 100) / 100}</p>
+                <p>{d.Pro_Name}: {Math.round(d.score * 100) / 100}{needs[this.props.need].unit}</p>
               </div>}
             />
           </div>
