@@ -72,7 +72,7 @@ class Overlay extends Component {
               responsiveHeight
               data={this.state[this.props.need]}
               oAccessor={'Pro_Code'}
-              rAccessor={d => d.score - (d.score = 0 ? 0 : needs[this.props.need].min)}
+              rAccessor={d => d.score - (d.score > 0 ? needs[this.props.need].min : 0)}
               margin={{ top: 0, bottom: 0, left: 0, right: 5 }}
               type={'bar'}
               oPadding={5}
