@@ -42,13 +42,13 @@ export function initMap (map) {
 
   function zoomOnClick () {
     map.on('click', 'provinces', function (e) {
-      var bbox = turf.bbox(e.features[0])
+      const bbox = turf.bbox(e.features[0])
       map.fitBounds(bbox, { padding: 60 })
       map.setLayoutProperty('provinces', 'visibility', 'none')
       map.setLayoutProperty('municities', 'visibility', 'visible')
     })
     map.on('click', 'municities', function (e) {
-      var bbox = turf.bbox(e.features[0])
+      const bbox = turf.bbox(e.features[0])
       map.fitBounds(bbox, { padding: 80 })
       map.setLayoutProperty('municities', 'visibility', 'none')
       map.setLayoutProperty('barangays', 'visibility', 'visible')

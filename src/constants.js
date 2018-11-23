@@ -8,7 +8,7 @@ export const needs = {
     'explanation': 'Proportion of farmers with insecure tenure',
     'unit': '% of farmers with insecure tenure',
     'kpi': '50.8%',
-    'min': 0,
+    'min': 16,
     'indicators': ['food_tenure', 'food_malnourished'],
     'prop-col': 'food_tenure'
   },
@@ -84,9 +84,9 @@ export const needs = {
     'select-logo-path': '/static/img/04-protect-select.png',
     'unselect-logo-path': '/static/img/04-protect-unselect.png',
     'explanation': 'Number/Proportion of individuals with SSS / GSIS',
-    'unit': '% have SSS / GSIS',
+    'unit': '% have no SSS / GSIS',
     'kpi': '98.1%',
-    'min': 0,
+    'min': 95,
     'indicators': ['sp_sss', 'sp_philhealth'],
     'prop-col': 'sp_sss'
   },
@@ -125,7 +125,7 @@ export const needs = {
     'explanation': 'Attendance rate in the last barangay assembly',
     'unit': '% attendance',
     'kpi': '92.1%',
-    'min': 0,
+    'min': 84,
     'indicators': ['participation_assembly_attendance', 'participation_turnout', 'participation_coop'],
     'prop-col': 'participation_assembly_attendance'
   }

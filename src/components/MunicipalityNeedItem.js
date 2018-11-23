@@ -104,7 +104,6 @@ class MunicipalityNeedItem extends Component {
     }
 
     var needAverage = nationalAverages[needs[this.props.need]['prop-col']]
-    console.log(needAverage)
     var max = needAverage['max']
     var min = needAverage['min']
     var avg = needAverage['avg']
@@ -114,14 +113,11 @@ class MunicipalityNeedItem extends Component {
   }
 
   componentDidMount () {
-    console.log(this.props.need)
-
     var barangayIndicators = this.props.barangayIndicators
     var indicatorList = needs[this.props.need]['indicators']
     var needName = this.props.need
     var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
     var scorePos = this.getScorePos(this.props.score)
-    console.log(scorePos)
 
     this.setState({
       scorePos: scorePos,

@@ -101,14 +101,23 @@ class MunicipalityPage extends Component {
       map.setLayoutProperty('provinces', 'visibility', 'none')
       map.setLayoutProperty('municities', 'visibility', 'visible')
     })
-    map.on('sourcedata', function (e) {
-      if (e.sourceId === 'municities' && e.isSourceLoaded) {
-        const features = map.queryRenderedFeatures({layers: ['municities'],
-          filter: ['==', 'Mun_Code', munCode]})
-        const bbox = turf.bbox(features[0])
-        map.fitBounds(bbox, { padding: 60 })
-      }
-    })
+
+    map.on('sourcedata', this.zoomOnLoad)
+  }
+
+  componentDidUnmount () {
+    const { map } = this.props
+
+    map.off('sourcedata', this.zoomOnLoad)
+  }
+
+  zoomOnLoad (e) {
+    if (e.sourceId === 'municities' && e.isSourceLoaded) {
+      const features = map.queryRenderedFeatures({layers: ['municities'],
+        filter: ['==', 'Mun_Code', munCode]})
+      const bbox = turf.bbox(features[0])
+      map.fitBounds(bbox, { padding: 60 })
+    }
   }
 
   componentDidUpdate (prevProps) {
