@@ -10,7 +10,8 @@ module.exports = {
           links: [
             '/static/css/style.css'
           ],
-          appMountIds: ['map']
+          appMountId: null,
+          appMountIds: ['map', 'root']
         },
         minify: {
           babel: false
