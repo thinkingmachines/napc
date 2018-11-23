@@ -84,7 +84,7 @@ export const needs = {
     'unselect-logo-path': '/static/img/09-environment-unselect.png',
     'explanation': 'Combined risk score of various natural disasters',
     'kpi': '11.2',
-    'indicators': ['he_flood', 'he_volcano', 'he_landslide', 'he_earthquake'],
+    'indicators': ['he_risk'],
     'prop-col': 'he_risk'
   },
 
