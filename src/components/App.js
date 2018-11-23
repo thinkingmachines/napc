@@ -6,6 +6,10 @@ import AboutPage from './AboutPage'
 import ContactUsPage from './ContactUsPage'
 
 class App extends Component {
+  componentDidMount(){
+    document.title = "Talambayan: Tala ng Bayan Laban sa Kahirapan"
+  }
+
   render () {
     return (
       <div className='App'>
