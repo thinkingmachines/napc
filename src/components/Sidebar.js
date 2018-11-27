@@ -143,7 +143,8 @@ export default styled(Sidebar)`
   @media all and (max-width: 700px) {
     position: relative;
     width: 100%;
-    height: 35vh;
+    min-height: 45vh;
+    height: auto;
 
     h3{
       visibility:hidden;
