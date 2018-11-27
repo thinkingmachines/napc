@@ -25,11 +25,35 @@ class ContactUsPage extends Component {
           privacyNotice: privacyNotice.Content
         }
       })
+
+      document.querySelector('#map').style.display = 'none'
     })
   }
+
+
   render () {
     return (
       <div className={this.props.className}>
+        <div className='form'>
+          <p className='body-text form-header'>ACTION CENTER CONTACT FORM</p>
+          <div className='divider' />
+          <br />
+          <div className='form-holder'>
+            <input type='text' className='body-text inputs form-inputs' placeholder='First Name' name='fname' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Last Name' name='lname' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Phone Number' name='phonenum' />
+            <input type='text' className='body-text inputs form-inputs' placeholder='Email' name='email' />
+            <select className='body-text inputs select-inputs' placeholder='Purpose'>
+              <option value='' disabled selected>Purpose</option>
+              <option>Option1</option>
+              <option>Option2</option>
+            </select>
+            <textarea type='text' className='body-text inputs form-msg' placeholder='Write your request here' name='msg' />
+            <br />
+            <a className='body-text send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
+            <p className='body-text privacy-text'>Privacy Notice: {this.state.contactInfo.privacyNotice}</p>
+          </div>
+        </div>
         <div className='sidebar'>
           <div className='contact-holder'>
             <img className='logo' src='/static/img/napc-logo.png' />
@@ -51,26 +75,6 @@ class ContactUsPage extends Component {
             <a href='https://www.facebook.com/NAPC.PH/' target='_blank'><img className='socialmedia-buttons' src={'/static/img/fb-unselect.png'} /></a>
             <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/twitter-unselect.png'} /></a>
             <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/google-unselect.png'} /></a>
-          </div>
-        </div>
-        <div className='form'>
-          <p className='body-text form-header'>ACTION CENTER CONTACT FORM</p>
-          <div className='divider' />
-          <br />
-          <div className='form-holder'>
-            <input type='text' className='body-text inputs form-inputs' placeholder='First Name' name='fname' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Last Name' name='lname' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Phone Number' name='phonenum' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Email' name='email' />
-            <select className='body-text inputs select-inputs' placeholder='Purpose'>
-              <option value='' disabled selected>Purpose</option>
-              <option>Option1</option>
-              <option>Option2</option>
-            </select>
-            <textarea type='text' className='body-text inputs form-msg' placeholder='Write your request here' name='msg' />
-            <br />
-            <a className='body-text send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
-            <p className='body-text privacy-text'>Privacy Notice: {this.state.contactInfo.privacyNotice}</p>
           </div>
         </div>
       </div>
@@ -105,8 +109,8 @@ export default styled(ContactUsPage)`
   h3 {
     font-family: 'Akrobat';
     font-weight: bold;
-    font-size:4.5vh;
-    padding-left:3vw;
+    font-size: 4.5vh;
+    padding-left: 3vw;
     margin-bottom: 0;
   }
 
@@ -117,6 +121,7 @@ export default styled(ContactUsPage)`
     background:#f7f7f5;
     right:0;
     top:0;
+    padding-bottom: 6vh;
   }
 
   .sns-holder{
@@ -220,19 +225,23 @@ export default styled(ContactUsPage)`
 
   .select-inputs{
     width:98%;
+    margin-top: 3vh;
   }
 
   .form-msg{
     font-family: 'Proxima Nova';
     font-weight: lighter;
-    font-size:2.5vh;
+    font-size: 2.5vh;
     background:#f7f7f5;
     border: 1px solid #b7b7b7;
-    width:91%;
-    height:25vh;
-    margin-top:2vw;
-    margin-left:1vw;
-    padding: 2vw;
+    width: 98%;
+    height: 25vh;
+    margin-top: 2vw;
+    margin-left: 1vw;
+    padding: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 50px;
   }
 
   input:-webkit-autofill {
@@ -244,17 +253,15 @@ export default styled(ContactUsPage)`
     font-weight: bold;
     font-size:3vh;
     text-decoration: none;
-    margin-left: 56vw;
+    text-align: right;
+    display: block;
+    padding: 1vh 1vw;
   }
 
   .send-button-img{
-    width:1.5vw;
+    width:1.2vw;
     margin-top:1vw;
     padding-right:0.5vw;
-  }
-
-  .send-button:hover{
-    color:red;
   }
 
   .privacy-text{
@@ -264,7 +271,7 @@ export default styled(ContactUsPage)`
     font-size:2vh;
     margin-left:1vw;
     margin-top:1.5vw;
-    line-height:3vh;
+    line-height: 120%;
   }
 
   .sns-header{
@@ -272,12 +279,21 @@ export default styled(ContactUsPage)`
     margin-top:-7vh;
   }
 
+  .form-inputs,
+  .form-inputs::placeholder,
+  .select-inputs,
+  .select-inputs::placeholder,
+  .form-msg {
+    color: #666;
+  }
+
   @media all and (max-width: 700px) {
     .sidebar{
-      position: absolute;
+      position: relative;
       bottom: 0;
       width: 100%;
-      height:30%
+      height: auto;
+      padding-bottom: 5vh;
     }
     .contact-holder{
       display: flex;
@@ -295,40 +311,55 @@ export default styled(ContactUsPage)`
     }
 
     h3{
-      font-size:2vh;
-      height:2vh;
+      font-size: 2vh;
+      height: auto;
       margin-top:1vh;
       padding-left:3vw;
     }
     .form{
       padding-top:2vw;
-      z-index:-1;
       width:100%;
-      height:70%;
+      height: auto;
+      padding-bottom: 5%;
+      position: relative;
     }
     .form-header{
-      font-size:2vh;
-      padding-top:1.5vh;
-      padding-left:5vw;
+      font-size: 1.6em;
+      padding: 1.5vh 20vw;
+      text-align: center
     }
     .form-holder{
-      padding-left:4vw;
+      padding: 0 5vw;
     }
     .form-msg{
       width:92.5%;
+      font-size: 1em;
+    }
+    .form-inputs,
+    .select-inputs{
+      display: block;
+      width: 88vw;
+      margin: 1vh 1vw;
+      box-sizing: border-box;
+      font-size: 1em;
     }
     .divider{
-      width: 28vh;
-      margin-left:5vw;
+      width: 40vw;
+      margin-left: 30vw;
+    }
+    .send-button-img{
+      width: 10px;
+      margin-top: 1vw;
+      padding-right: 0;
     }
     .send-button{
-      margin-left:80vw;
-      font-size:1.5vh;
+      font-size: 1em;
+      padding: 1vh 1vw;
     }
     .privacy-text{
-      text-align:justify;
-      font-size:1.25vh;
-      line-height:1.875vh;
+      text-align: justify;
+      font-size: 0.7em;
+      margin-top: 5vh;
     }
     .contact-text{
       font-size:1.25vh;
