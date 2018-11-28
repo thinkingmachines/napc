@@ -140,7 +140,7 @@ export default styled(Sidebar)`
     text-decoration:none;
   }
 
-  @media all and (max-width: 700px) {
+  @media all and (max-width: 768px) {
     position: relative;
     width: 100%;
     min-height: 45vh;

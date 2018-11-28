@@ -97,7 +97,7 @@ export default styled(AboutPage)`
   }
 
   .indicator{
-    font-size:3vh;
+    font-size: 1.5em;
     margin:0;
     font-family: 'Akrobat';
   }
@@ -123,7 +123,7 @@ export default styled(AboutPage)`
 
   a{
     text-decoration:none;
-    font-size:3vh;
+    font-size: 1em;
     margin:0;
   }
 
@@ -132,9 +132,7 @@ export default styled(AboutPage)`
     justify-content: flex-start;
     flex-flow: row wrap;
     height: 75vh;
-    padding-top:2vw;
-    padding-left:3vw;
-    width:45vh;
+    padding:2vw 3vw;
   }
 
   .divider{
@@ -173,7 +171,7 @@ export default styled(AboutPage)`
     width:6vh;
     height:6vh;
     position:absolute;
-    right:15vh;
+    right: 3vh;
     margin-top:1.75vw;
   }
 
@@ -226,7 +224,7 @@ export default styled(AboutPage)`
     display: none;
   }
 
-  @media all and (max-width: 700px) {
+  @media all and (max-width: 768px) {
     .sidebar{
       z-index: 1;
       width: 16vw;
@@ -253,9 +251,11 @@ export default styled(AboutPage)`
       font-size: 1.6em;
       margin-top:3.5vw;
     }
+
     .need-logo{
       display: none;
     }
+
     .dict{
       width: 84vw;
       position: relative;
@@ -278,9 +278,11 @@ export default styled(AboutPage)`
       width: auto;
       margin-bottom: 5px;
     }
+
     .ind-holder{
       width: auto;
     }
+
     .ind-title{
       font-size: 1em;
       margin-top: 20px;
@@ -288,6 +290,7 @@ export default styled(AboutPage)`
     .ind-source{
       font-size: 0.8em;
     }
+
     .ind-body{
       font-size: 0.8em;
       line-height: 150%;
@@ -303,9 +306,9 @@ export default styled(AboutPage)`
       display: block;
     }
 
-    img.sidebar-need-logo,
-    img.sidebar-need-logo-select {
+    img.sidebar-need-logo {
       width: 10vw;
+      height: 10vw;
     }
   }
 `

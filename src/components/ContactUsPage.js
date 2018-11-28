@@ -287,7 +287,7 @@ export default styled(ContactUsPage)`
     color: #666;
   }
 
-  @media all and (max-width: 700px) {
+  @media all and (max-width: 768px) {
     .sidebar{
       position: relative;
       bottom: 0;
