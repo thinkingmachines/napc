@@ -6,7 +6,9 @@ export const needs = {
     'select-logo-path': '/static/img/01-food-select.png',
     'unselect-logo-path': '/static/img/01-food-unselect.png',
     'explanation': 'Proportion of farmers with insecure tenure',
+    'unit': '% of farmers with insecure tenure',
     'kpi': '50.8%',
+    'min': 16,
     'indicators': ['food_tenure', 'food_malnourished'],
     'prop-col': 'food_tenure'
   },
@@ -17,7 +19,9 @@ export const needs = {
     'select-logo-path': '/static/img/06-water-select.png',
     'unselect-logo-path': '/static/img/06-water-unselect.png',
     'explanation': 'Proportion of households without access to improved sources of drinking water',
+    'unit': '% of households have no access to improved sources of drinking water',
     'kpi': '25.6%',
+    'min': 0,
     'indicators': ['water_access', 'water_toilet'],
     'prop-col': 'water_access'
   },
@@ -28,7 +32,9 @@ export const needs = {
     'select-logo-path': '/static/img/02-shelter-select.png',
     'unselect-logo-path': '/static/img/02-shelter-unselect.png',
     'explanation': 'Proportion of households who are informal settlers',
+    'unit': '% of households who are informal settlers',
     'kpi': '3.4%',
+    'min': 0,
     'indicators': ['shelter_informal_settlers_nhts', 'shelter_electricity', 'shelter_makeshift_nhts'],
     'prop-col': 'shelter_informal_settlers_nhts'
   },
@@ -39,7 +45,9 @@ export const needs = {
     'select-logo-path': '/static/img/07-work-select.png',
     'unselect-logo-path': '/static/img/07-work-unselect.png',
     'explanation': 'Unemployment Rate',
+    'unit': '%',
     'kpi': '49.2%',
+    'min': 36,
     'indicators': ['work_unemployment', 'work_farms', 'work_unskilled'],
     'prop-col': 'work_unemployment'
   },
@@ -50,7 +58,9 @@ export const needs = {
     'select-logo-path': '/static/img/03-health-select.png',
     'unselect-logo-path': '/static/img/03-health-unselect.png',
     'explanation': 'Proportion of individuals not attending a health care center',
+    'unit': '% of individuals not attending a health care center',
     'kpi': '61.9%',
+    'min': 22,
     'indicators': ['health_center_attendance', 'health_programs'],
     'prop-col': 'health_center_attendance'
   },
@@ -61,7 +71,9 @@ export const needs = {
     'select-logo-path': '/static/img/08-education-select.png',
     'unselect-logo-path': '/static/img/08-education-unselect.png',
     'explanation': 'Proportion of children 6-16 years old who are not attending school',
+    'unit': '% of children not attending school',
     'kpi': '9.9%',
+    'min': 2,
     'indicators': ['educ_outofschool_all'],
     'prop-col': 'educ_outofschool_all'
   },
@@ -72,7 +84,9 @@ export const needs = {
     'select-logo-path': '/static/img/04-protect-select.png',
     'unselect-logo-path': '/static/img/04-protect-unselect.png',
     'explanation': 'Number/Proportion of individuals with SSS / GSIS',
+    'unit': '% have no SSS / GSIS',
     'kpi': '98.1%',
+    'min': 95,
     'indicators': ['sp_sss', 'sp_philhealth'],
     'prop-col': 'sp_sss'
   },
@@ -83,7 +97,9 @@ export const needs = {
     'select-logo-path': '/static/img/09-environment-select.png',
     'unselect-logo-path': '/static/img/09-environment-unselect.png',
     'explanation': 'Combined risk score of various natural disasters',
+    'unit': '',
     'kpi': '11.2',
+    'min': 1,
     'indicators': ['he_risk'],
     'prop-col': 'he_risk'
   },
@@ -94,7 +110,9 @@ export const needs = {
     'select-logo-path': '/static/img/05-peace-select.png',
     'unselect-logo-path': '/static/img/05-peace-unselect.png',
     'explanation': 'Displacement',
+    'unit': '',
     'kpi': '9.3%',
+    'min': 0,
     'indicators': ['po_conflict'],
     'prop-col': 'po_conflict'
   },
@@ -105,7 +123,9 @@ export const needs = {
     'select-logo-path': '/static/img/10-participation-select.png',
     'unselect-logo-path': '/static/img/10-participation-unselect.png',
     'explanation': 'Attendance rate in the last barangay assembly',
+    'unit': '% attendance',
     'kpi': '92.1%',
+    'min': 84,
     'indicators': ['participation_assembly_attendance', 'participation_turnout', 'participation_coop'],
     'prop-col': 'participation_assembly_attendance'
   }
