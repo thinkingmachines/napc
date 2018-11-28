@@ -29,10 +29,10 @@ class MunicipalityStripPlot extends Component {
         </div>
         <div className='mun-sidebar-chart'>
           <svg width='100%' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='10%' x2='90%' y1='calc(50% + 3.5)' y2='calc(50% + 3.5)' stroke='#CCC' strokeWidth='1' />
-            <line x1='10%' x2='10%' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
-            <line x1='90%' x2='90%' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(50% - 0.5)' x2='calc(50% - 0.5)' y1='21' y2='calc(100% - 13)' stroke='#CCC' strokeWidth='1' />
+            <line x1='10%' x2='90%' y1='calc(50% + 3.5px)' y2='calc(50% + 3.5px)' stroke='#CCC' strokeWidth='1' />
+            <line x1='10%' x2='10%' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
+            <line x1='90%' x2='90%' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
+            <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
             {this.props.indicatorValues.map((chartData, i) => (
               <g
                 className='circleGroup'

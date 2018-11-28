@@ -87,8 +87,8 @@ export default styled(OverlayMunicipalityPage)`
     .municipality-information {
       bottom: 5vh;
       width: 70vw;
-      height: 25vh;
-      padding: 2vw;
+      height: 28vh;
+      padding: 1.5vw;
     }
   }
 
@@ -132,10 +132,10 @@ export default styled(OverlayMunicipalityPage)`
 
   .footnote{
     font-style:italic;
-    font-size: 0.8em;
+    font-size: 0.6em;
     font-family:'Proxima Nova Thin';
     margin-bottom: 0;
-    margin-top: 40px;
+    margin-top: 25px;
     text-align: justify;
   }
 
