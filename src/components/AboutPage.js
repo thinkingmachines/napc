@@ -16,6 +16,7 @@ class AboutPage extends Component {
   componentDidMount () {
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=534002250&single=true&output=csv').then(data => {
       this.setState({ dict: data })
+      document.querySelector('#map').style.display = 'none'
     })
   }
   render () {
@@ -26,9 +27,14 @@ class AboutPage extends Component {
           <div className='need-holder'>
             {Object.keys(needs).map(need => (
               <NavLink activeClassName='active' to={'/about/' + need} key={need}>
-                <p className='indicator ind-unselect'>{needs[need].titles}</p>
-                <p className='indicator ind-select'>{needs[need].titles}</p>
-                <div className='divider' />
+                <div className='sidebar-desktop'>
+                  <p className='indicator ind-unselect'>{needs[need].titles}</p>
+                  <p className='indicator ind-select'>{needs[need].titles}</p>
+                  <div className='divider' />
+                </div>
+                <div className='sidebar-mobile'>
+                  <img class='sidebar-need-logo' src={need == this.props.match.params.need ? needs[need]['select-logo-path'] : needs[need]['unselect-logo-path']} />
+                </div>
               </NavLink>
             ))}
           </div>
@@ -212,9 +218,21 @@ export default styled(AboutPage)`
     padding-left:3vh;
   }
 
+  div.sidebar-desktop {
+    display: block;
+  }
+
+  div.sidebar-mobile {
+    display: none;
+  }
+
   @media all and (max-width: 700px) {
     .sidebar{
-      z-index:-1;
+      z-index: 1;
+      width: 16vw;
+      height: 95vh;
+      position: fixed;
+      display: inline-block;
     }
 
     .indicator{
@@ -222,50 +240,72 @@ export default styled(AboutPage)`
     }
 
     .need-holder{
-      width:30%;
-      height:40vh;
+      width: 10vw;
     }
     .divider{
       margin-bottom:0; 
     }
     h3 {
       font-size:1.1vh;
+      display: none;
     }
     .need-title{
-      font-size:2vh;
+      font-size: 1.6em;
       margin-top:3.5vw;
     }
     .need-logo{
-      width:2.75vh;
-      height:2.75vh;
-      right:2vh;
-      margin-top:2vw;
+      display: none;
     }
+    .dict{
+      width: 84vw;
+      position: relative;
+      display: inline-block;
+      left: 16vw;
+      top: 0;
+      min-height: 95vh;
+      padding-bottom: 8vh;
+    }
+
     .def-holder{
-      width:65vw;
+      width:80vw;
     }
     .dict-divider{
-      width:64vw;
+      width:80vw;
     }
     .need-body{
-      font-size:1.1vh;
-      line-height:1.65vh;
-      width:64vw;
+      font-size: 0.8em;
+      line-height: 100%;
+      width: auto;
+      margin-bottom: 5px;
     }
     .ind-holder{
-      width:64vw;
+      width: auto;
     }
     .ind-title{
-      font-size:1.5vh;
+      font-size: 1em;
+      margin-top: 20px;
     }
     .ind-source{
-      font-size:1.1vh;
+      font-size: 0.8em;
     }
     .ind-body{
-      font-size:1.1vh;
-      line-height:1.65vh;
+      font-size: 0.8em;
+      line-height: 150%;
       padding-left:1vh;
       padding-right:1vh;
+    }
+
+    div.sidebar-desktop {
+      display: none;
+    }
+
+    div.sidebar-mobile {
+      display: block;
+    }
+
+    img.sidebar-need-logo,
+    img.sidebar-need-logo-select {
+      width: 10vw;
     }
   }
 `
