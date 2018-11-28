@@ -240,9 +240,11 @@ export default styled(AboutPage)`
     .need-holder{
       width: 10vw;
     }
+
     .divider{
       margin-bottom:0; 
     }
+    
     h3 {
       font-size:1.1vh;
       display: none;
