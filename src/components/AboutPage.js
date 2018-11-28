@@ -231,6 +231,9 @@ export default styled(AboutPage)`
       height: 95vh;
       position: fixed;
       display: inline-block;
+      right: 0;
+      top: 0;
+      left: auto;
     }
 
     .indicator{
@@ -244,7 +247,7 @@ export default styled(AboutPage)`
     .divider{
       margin-bottom:0; 
     }
-    
+
     h3 {
       font-size:1.1vh;
       display: none;
@@ -262,7 +265,7 @@ export default styled(AboutPage)`
       width: 84vw;
       position: relative;
       display: inline-block;
-      left: 16vw;
+      left: 0;
       top: 0;
       min-height: 95vh;
       padding-bottom: 8vh;
