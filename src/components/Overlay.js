@@ -115,7 +115,7 @@ export default styled(Overlay)`
     font-size:2vh;
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 769px) {
     .information{
       width: 10vw;
       padding: 1.5vw;

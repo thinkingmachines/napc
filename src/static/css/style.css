@@ -10,7 +10,7 @@ body {
   top: 0;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   #map {
     position: absolute;
     height: 100%;
@@ -43,7 +43,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   #fit {
     top:0;
     right: 30vw;
@@ -62,7 +62,7 @@ footer{
   z-index: 1;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   footer {
     position: fixed;
     bottom: 0;

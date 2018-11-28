@@ -78,7 +78,7 @@ export default styled(OverlayMunicipalityPage)`
     box-sizing: border-box;
   }
 
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 769px) {
     position: absolute;
     bottom: 5vh;
     left: 0;
