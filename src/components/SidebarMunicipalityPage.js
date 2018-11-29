@@ -17,7 +17,7 @@ export default styled(SidebarMunicipalityPage)`
   color: #464646;
   position: relative;
 
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 769px) {
     position: absolute;
     top: 0;
     right: 0;
