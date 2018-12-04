@@ -98,7 +98,7 @@ export default styled(Overlay)`
   padding-left: 3vw;
   display: inline-block;
   top: 0;
-  left: 0;
+  left: right;
   position: absolute;
 
   .information{

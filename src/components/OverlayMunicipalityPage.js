@@ -81,7 +81,7 @@ export default styled(OverlayMunicipalityPage)`
   @media only screen and (min-width: 769px) {
     position: absolute;
     bottom: 5vh;
-    left: 0;
+    right: 0;
     margin: 0;
     
     .municipality-information {
