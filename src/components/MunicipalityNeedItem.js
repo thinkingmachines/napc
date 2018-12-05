@@ -5,6 +5,86 @@ import { needs } from '../constants'
 
 import nationalAverages from '../ind-avg.json'
 
+class MunicipalityHistogram extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      valueCounts: []
+    }
+  }
+
+  componentDidMount () {
+    var values = this.props.indicatorValues
+    var numOfValues = values.length
+    var sectionCount = 100/this.props.percentRange
+    var valueCounts = new Array(sectionCount).fill(0);
+    var maxValue = 0;
+
+    for (var i = 0; i < numOfValues; i++) {
+      valueCounts[values[i]['value'] === 100 ? sectionCount-1 : parseInt(values[i]['value']/this.props.percentRange)]++
+      console.log(values[i]['value'] + ', ' + parseInt(values[i]['value']/sectionCount))
+    }
+
+    for (var i = 0; i < valueCounts.length; i++) {
+      maxValue = valueCounts[i] > maxValue ? valueCounts[i] : maxValue;
+    }
+
+    this.setState({
+      valueCounts: valueCounts,
+      maxValue: maxValue
+    })
+  }
+
+  computeRectHeight (value, maxRectHeight) {
+    return value/this.state.maxValue * maxRectHeight;
+  }
+
+  render () {
+    var color = needs[this.props.need].color
+
+    return (
+      <div>
+        <div className='mun-sidebar-chart-desc'>
+          {this.props.desc}
+        </div>
+        <div className='mun-sidebar-chart'>
+          <svg width='100%' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+            <line x1='5%' x2='95%' y1='calc(100% - 15px)' y2='calc(100% - 15px)' stroke='#CCC' strokeWidth='1' />
+            <line x1='calc(5% - 1px)' x2='calc(5% - 1px)' y1='calc(100% - 19px)' y2='calc(100% - 11px)' stroke='#CCC' strokeWidth='1' />
+            <line x1='calc(95% + 1px)' x2='calc(95% + 1px)' y1='calc(100% - 19px)' y2='calc(100% - 11px)' stroke='#CCC' strokeWidth='1' />
+            <text className='axis-label' x='5%' y='38' textAnchor='middle' alignmentBaseline='baseline'>{'0%'}</text>
+            <text className='axis-label' x='95%' y='38' textAnchor='middle' alignmentBaseline='baseline'>{'100%'}</text>
+            {this.state.valueCounts.map((val, i) => (
+              <g
+                key={i}
+                className='histGroup'>
+                <rect
+                  key={i}
+                  x={(this.props.percentRange*i*0.9+5) + '%'}
+                  y={'calc(100% - ' + (this.computeRectHeight(val, 25) + 15) + 'px)'}
+                  width={this.props.percentRange + '%'}
+                  height={this.computeRectHeight(val, 25)}
+                  fill={color} />
+                <g
+                  key={i}
+                  className='histTooltip'>
+                  <text
+                    x='50%'
+                    y='34px'
+                    textAnchor='middle'
+                    alignmentBaseline='middle' >
+                    {i*this.props.percentRange}-{(i+1)*this.props.percentRange}% ({val} barangay{val !== 1 ? 's' : ''})
+                  </text>
+                </g>
+              </g>
+            ))}
+          </svg>
+        </div>
+      </div>
+    )
+  }
+}
+
 class MunicipalityStripPlot extends Component {
   calculateDataPosition (value) {
     if (value && this.props.axisLabels) {
@@ -205,15 +285,25 @@ class MunicipalityNeedItem extends Component {
           <div className='mun-sidebar-main-desc'>
             { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
           </div>
+          <b>{ prunedIndicatorList.length > 0 ? 'Barangay Distribution per Indicator' : '' }</b>
           {prunedIndicatorList.map((indicator, i) => (
-            <MunicipalityStripPlot
+            <MunicipalityHistogram
               key={this.props.municipality + '-' + indicator}
               need={this.props.need}
               indicator={indicator}
               desc={this.props.indicatorDescriptions[indicator]}
               selected={this.state.selected}
               indicatorValues={prunedIndicators[indicator]}
-              axisLabels={indicatorAxisLabels[indicator]} />
+              axisLabels={indicatorAxisLabels[indicator]}
+              percentRange='5' />
+            // <MunicipalityStripPlot
+            //   key={this.props.municipality + '-' + indicator}
+            //   need={this.props.need}
+            //   indicator={indicator}
+            //   desc={this.props.indicatorDescriptions[indicator]}
+            //   selected={this.state.selected}
+            //   indicatorValues={prunedIndicators[indicator]}
+            //   axisLabels={indicatorAxisLabels[indicator]} />
           ))}
         </div>
       </li>
@@ -229,6 +319,7 @@ export default styled(MunicipalityNeedItem)`
     padding: 0;
   }
 
+
   div.mun-sidebar-header h4 {
     position: relative;
     padding: 0 0 0 20px;
@@ -237,6 +328,16 @@ export default styled(MunicipalityNeedItem)`
     font-size: 1.1em;
     color: black;
     width: calc(100% - 90px);
+  }
+
+  div.mun-sidebar-main-desc {
+    margin-bottom: 18px;
+  }
+
+  div.mun-sidebar-content b {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    font-family: 'Proxima Nova Semibold';
   }
 
   div.mun-sidebar-header h4:hover,
@@ -257,7 +358,7 @@ export default styled(MunicipalityNeedItem)`
     display: inline-block;
     width: 70px;
     position: relative;
-    top: 5px;
+    top: 6px;
   }
 
   div.mun-sidebar-content {
@@ -286,7 +387,7 @@ export default styled(MunicipalityNeedItem)`
   div.mun-sidebar-chart-desc {
     font-weight: bold;
     width: 70%;
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   div.mun-sidebar-chart{
@@ -294,28 +395,35 @@ export default styled(MunicipalityNeedItem)`
   }
 
   text.axis-label {
-    font-size: 0.75em;
+    font-size: 0.6em;
     font-weight: bold;
   }
 
   g.circleGroup text,
-  g.circleGroup rect {
+  g.circleGroup rect,
+  g.histGroup g.histTooltip text,
+  g.histGroup g.histTooltip rect {
     display: none;
   }
 
   g.circleGroup:hover rect,
-  g.circleGroup:hover text {
+  g.circleGroup:hover text,
+  g.histGroup:hover g.histTooltip rect,
+  g.histGroup:hover g.histTooltip text {
     display: inline-block;
   }
 
-  g.circleGroup:hover rect {
+  g.circleGroup:hover rect,
+  g.histGroup:hover g.histTooltip rect {
     fill: #BBB;
   }
 
-  g.circleGroup:hover text {
-    fill: white;
-    font-size: 0.7em;
+  g.circleGroup:hover text,
+  g.histGroup:hover g.histTooltip text {
+    fill: black;
+    font-size: 0.8em;
     font-weight: bold;
+    font-family: 'Proxima Nova Semibold';
   }
 
   text.axis-label{
