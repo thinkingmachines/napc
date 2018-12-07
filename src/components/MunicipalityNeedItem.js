@@ -22,7 +22,6 @@ class MunicipalityHistogram extends Component {
 
     for (var i = 0; i < numOfValues; i++) {
       valueCounts[values[i]['value'] === 100 ? sectionCount-1 : parseInt(values[i]['value']/this.props.percentRange)]++
-      console.log(values[i]['value'] + ', ' + parseInt(values[i]['value']/sectionCount))
     }
 
     for (var i = 0; i < valueCounts.length; i++) {
@@ -59,14 +58,12 @@ class MunicipalityHistogram extends Component {
                 key={i}
                 className='histGroup'>
                 <rect
-                  key={i}
                   x={(this.props.percentRange*i*0.9+5) + '%'}
                   y={'calc(100% - ' + (this.computeRectHeight(val, 25) + 15) + 'px)'}
                   width={this.props.percentRange + '%'}
                   height={this.computeRectHeight(val, 25)}
                   fill={color} />
                 <g
-                  key={i}
                   className='histTooltip'>
                   <text
                     x='50%'
@@ -78,68 +75,6 @@ class MunicipalityHistogram extends Component {
                 </g>
               </g>
             ))}
-          </svg>
-        </div>
-      </div>
-    )
-  }
-}
-
-class MunicipalityStripPlot extends Component {
-  calculateDataPosition (value) {
-    if (value && this.props.axisLabels) {
-      return (value - this.props.axisLabels.min) / (this.props.axisLabels.max - this.props.axisLabels.min)
-    }
-    return -1
-  }
-
-  render () {
-    if (this.props.axisLabels === null) {
-      return null
-    }
-
-    if (this.props.axisLabels.min === this.props.axisLabels.max) {
-      return null
-    }
-
-    return (
-      <div>
-        <div className='mun-sidebar-chart-desc'>
-          {this.props.desc}
-        </div>
-        <div className='mun-sidebar-chart'>
-          <svg width='100%' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='10%' x2='90%' y1='calc(50% + 3.5px)' y2='calc(50% + 3.5px)' stroke='#CCC' strokeWidth='1' />
-            <line x1='10%' x2='10%' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
-            <line x1='90%' x2='90%' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='21' y2='calc(100% - 13px)' stroke='#CCC' strokeWidth='1' />
-            {this.props.indicatorValues.map((chartData, i) => (
-              <g
-                className='circleGroup'
-                key={i}>
-                <circle
-                  data-barangay={chartData['barangay']}
-                  cx={((this.calculateDataPosition(chartData['value']) * 0.8 + 0.1) * 100) + '%'}
-                  cy='calc(50% + 2.5px)'
-                  fill={needs[this.props.need].color}
-                  r='5'
-                  opacity={this.props.selected === '' || this.props.selected === chartData['barangay'] ? 0.6 : 0.2} />
-                <rect
-                  x='calc(50% - 100px)'
-                  y='0'
-                  width='200px'
-                  height='20px' />
-                <text
-                  x='50%'
-                  y='5'
-                  textAnchor='middle'
-                  alignmentBaseline='hanging' >
-                  {chartData['name']}
-                </text>
-              </g>
-            ))}
-            <text className='axis-label' x='10%' y='48' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.min + '%'}</text>
-            <text className='axis-label' x='90%' y='48' textAnchor='middle' alignmentBaseline='baseline'>{this.props.axisLabels.max + '%'}</text>
           </svg>
         </div>
       </div>
@@ -174,7 +109,8 @@ class MunicipalityNeedItem extends Component {
       selected: '',
       indicatorList: [],
       values: [],
-      barangayIndicators: {}
+      barangayIndicators: {},
+      needAverage: 0
     }
   }
 
@@ -198,36 +134,49 @@ class MunicipalityNeedItem extends Component {
     var needName = this.props.need
     var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
     var scorePos = this.getScorePos(this.props.score)
+    var needAverage = nationalAverages[needs[this.props.need]['prop-col']]['avg']
 
     this.setState({
       scorePos: scorePos,
       indicatorList: indicatorList,
-      values: values
+      values: values,
+      needAverage: needAverage
     })
   }
 
   render () {
     var score = this.props.score
+    var natAvg = this.state.needAverage
     var topIndicator = this.props.needExplanation
     var indicatorList = this.state.indicatorList
     var barangayIndicators = this.props.barangayIndicators
     var prunedIndicators = {}
     var indicatorAxisLabels = {}
-    var explanationText = ''
+    var explanationText1 = ''
+    var explanationText2 = ''
+    var natAvgRounded = ''
 
     if (topIndicator && score) {
       var scoreRounded = null
 
       if (topIndicator['type'] === 'Proportion') {
         scoreRounded = Math.round(score / 10)
-        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded  
+        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded
+        natAvgRounded = Math.round(natAvg / 10)
+        natAvgRounded = natAvgRounded === 0 && natAvg !== 0 ? 1 : natAvgRounded === 10 && natAvg !== 100 ? 9 : natAvgRounded 
       } else {
         scoreRounded = Math.round(score)
         scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 100 && score !== 100 ? 99 : scoreRounded
+        natAvgRounded = Math.round(natAvg)
+        natAvgRounded = natAvgRounded === 0 && natAvg !== 0 ? 1 : natAvgRounded === 100 && natAvg !== 100 ? 99 : natAvgRounded
       }
 
-      explanationText = topIndicator['type'] === 'Proportion' ? scoreRounded + ' out of 10 ' : scoreRounded + ' '
-      explanationText += topIndicator['text']
+      explanationText1 = topIndicator['type'] === 'Proportion' ?
+        + scoreRounded + ' out of 10':
+        scoreRounded
+      explanationText2 = topIndicator['type'] === 'Proportion' ?
+        topIndicator['text_before'] + ' in ' + this.props.munName + ' ' + topIndicator['text_after']:
+        topIndicator['text_before'] + ' for' + this.props.munName
     }
 
     for(var ind in indicatorList) {
@@ -283,7 +232,10 @@ class MunicipalityNeedItem extends Component {
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
-            { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText }
+            <span class='emphasize'>
+              { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? '' : '' : explanationText1 } { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText2 }
+              <div class='small-text'>compared to the national average of {natAvgRounded}{ topIndicator['type'] === 'Proportion' ? ' out of 10 ' : '' }</div>
+            </span>
           </div>
           <b>{ prunedIndicatorList.length > 0 ? 'Barangay Distribution per Indicator' : '' }</b>
           {prunedIndicatorList.map((indicator, i) => (
@@ -331,7 +283,8 @@ export default styled(MunicipalityNeedItem)`
   }
 
   div.mun-sidebar-main-desc {
-    margin-bottom: 18px;
+    margin-bottom: 30px;
+    font-size: 1.2em;
   }
 
   div.mun-sidebar-content b {
@@ -395,7 +348,7 @@ export default styled(MunicipalityNeedItem)`
   }
 
   text.axis-label {
-    font-size: 0.6em;
+    font-size: 0.55em;
     font-weight: bold;
   }
 
@@ -426,8 +379,12 @@ export default styled(MunicipalityNeedItem)`
     font-family: 'Proxima Nova Semibold';
   }
 
-  text.axis-label{
-    font-size: 0.75em;
+  .small-text {
+    font-size: 0.65em
+  }
+
+  .emphasize {
     font-weight: bold;
+    font-family: 'Proxima Nova Semibold';
   }
 `

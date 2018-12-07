@@ -6,9 +6,6 @@ import * as d3 from 'd3'
 class OverlayMunicipalityPage extends Component {
   constructor () {
     super()
-    this.state = {
-      munData: null,
-    }
     this.componentDidMount = this.componentDidMount.bind(this)
   }
   titleCase (str) {
@@ -17,12 +14,6 @@ class OverlayMunicipalityPage extends Component {
     }).join(' ')
   }
   componentDidMount () {
-    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=0&single=true&output=csv').then(data => {
-      this.setState({ munData: data })
-    })
-    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=660297486&single=true&output=csv').then(ranks => {
-      this.setState({ munRanks: ranks })
-    })
     const munCode = this.props.munCode
   }
   render () {
@@ -33,30 +24,23 @@ class OverlayMunicipalityPage extends Component {
           <div className='municipality-holder'>
             <div className='municipality-name-container'>
               <div className='municipality-header'>Ito ang Kwento ng</div>
-              {Object.keys(this.state.munData ? this.state.munData : '').filter(need =>  this.props.munCode === this.state.munData[need].MunCode).map(need => (
-                <div className='municipality-name'>
-                  {this.state.munData[need].Municipality}
-                </div>
-              ))}
+              <div className='municipality-name'>
+                {this.props.munData.Municipality}
+              </div>
             </div>
             <div className='municipality-ranking-container'>
-              {Object.keys(this.state.munRanks ? this.state.munRanks : '').filter(need =>  this.props.munCode === this.state.munRanks[need].Mun_Code).map(need => (
-                <div className='mun-rank municipality-ranking'>
-                  {this.state.munRanks[need][this.props.need]}
-                </div>
-              ))}
-              {Object.keys(this.state.munRanks ? this.state.munRanks : '').filter(need =>  this.state.munRanks[need].Mun_Code === 'Total').map(need => (
-                <div className='mun-rank municipality-total'>
-                  Out of {this.state.munRanks[need][this.props.need]} municipalities *
-                </div>
-              ))}
+              
+              <div className='mun-rank municipality-ranking'>
+                {this.props.munRanks[this.props.need]}
+              </div>
+              <div className='mun-rank municipality-total'>
+                Out of {this.props.munTotalCounts[this.props.need]} municipalities *
+              </div>
             </div>
           </div>
-          {Object.keys(this.state.munData ? this.state.munData : '').filter(need =>  this.props.munCode === this.state.munData[need].MunCode).map(need => (
-            <div className='municipality-desc'>
-              {this.state.munData[need].Description}
-            </div>
-          ))}
+          <div className='municipality-desc'>
+            {this.props.munData.Description}
+          </div>
           <div className='footnote'>
             * The number of municipalities shown is calculated based on the total number of municipalities with data available.
           </div>

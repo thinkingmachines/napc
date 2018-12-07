@@ -46,7 +46,7 @@ class MunicipalityNeeds extends Component {
 
     d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=1343037281&single=true&output=csv').then(data => {
       var expl = data.reduce((obj, row) => {
-        obj[row['Need Variable']] = { text : row['Text'], type : row['Type'] }
+        obj[row['Need Variable']] = { text_before : row['Text Before'], text_after : row['Text After'], type : row['Type'] }
         return obj
       }, {})
       this.setState({
@@ -84,7 +84,8 @@ class MunicipalityNeeds extends Component {
               indicatorDescriptions={this.state.indicatorDescriptions}
               needExplanation={this.state.needExplanations[need]}
               munScores={municipalityScores[this.state.munCode]}
-              munCode={this.state.munCode} />
+              munCode={this.state.munCode}
+              munName={this.props.munName} />
           ))}
         </ul>
       )
@@ -93,7 +94,39 @@ class MunicipalityNeeds extends Component {
 }
 
 class MunicipalityPage extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      munData: null,
+      munRanks: null,
+      munTotalCounts: null
+    }
+  }
+
   componentDidMount () {
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=0&single=true&output=csv').then(data => {
+      Object.keys(data ? data: '').filter(index => this.props.match.params.munCode === data[index].MunCode).map(index => (
+        this.setState({ munData: data[index] })
+      ))
+    })
+
+    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=660297486&single=true&output=csv').then(ranks => {
+      var ranksIndex = 0
+      var totalIndex = 0
+
+      Object.keys(ranks ? ranks : '').filter(index => this.props.match.params.munCode === ranks[index].Mun_Code).map(index => (
+        ranksIndex = index
+      ))
+      Object.keys(ranks ? ranks : '').filter(index => ranks[index].Mun_Code === 'Total').map(index => (
+        totalIndex = index
+      ))
+
+      this.setState({
+        munRanks: ranks[ranksIndex],
+        munTotalCounts: ranks[totalIndex]
+      })
+    })
+
     const { need, munCode } = this.props.match.params
     const { map } = this.props
     map.on('load', () => {
@@ -120,8 +153,6 @@ class MunicipalityPage extends Component {
     map.off('sourcedata', this.zoomOnLoad)
   }
 
-  
-
   componentDidUpdate (prevProps) {
     const { need } = this.props.match.params
     if (prevProps.match.params.need !== need) {
@@ -145,24 +176,54 @@ class MunicipalityPage extends Component {
     map.setPaintProperty('barangays', 'fill-opacity', indicator.paint['fill-opacity']['barangays'])
     map.setPaintProperty('provinces', 'fill-opacity', indicator.paint['fill-opacity']['provinces'])
   }
+
+  capitalizeWords(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  }
+
   render () {
     const { need, munCode } = this.props.match.params
     const { map } = this.props
 
-    return (
-      <Fragment>
-        <OverlayMunicipalityPage need={need} map={map} munCode={this.props.match.params.munCode} bbox = {this.props.bbox}/>
-        <SidebarMunicipalityPage need={need} munCode={this.props.match.params.munCode}>
-          <h3>Basic Needs</h3>
+    if (
+      this.state.munData === null ||
+      this.state.munRanks === null ||
+      this.state.munTotalCounts === null
+    ) {
+      return null
+    } else {
+      return (
+        <Fragment>
+          <OverlayMunicipalityPage
+            need={need}
+            map={map}
+            munCode={this.props.match.params.munCode}
+            munData={this.state.munData}
+            munRanks={this.state.munRanks}
+            munTotalCounts={this.state.munTotalCounts}
+            bbox={this.props.bbox}/>
 
-          <div className='mun-sidebar-label-div'>
-            <div className='mun-sidebar-label'>National Average</div>
-          </div>
+          <SidebarMunicipalityPage
+            need={need}
+            munCode={this.props.match.params.munCode}
+            munData={this.state.munData}
+            munRanks={this.state.munRanks}>
 
-          <MunicipalityNeeds map={map} currNeed={need} munCode={munCode} />
-        </SidebarMunicipalityPage>
-      </Fragment>
-    )
+            <h3>Basic Needs</h3>
+
+            <div className='mun-sidebar-label-div'>
+              <div className='mun-sidebar-label'>National Average</div>
+            </div>
+
+            <MunicipalityNeeds
+              map={map}
+              currNeed={need}
+              munCode={munCode}
+              munName={this.capitalizeWords(this.state.munData['Municipality'])} />
+          </SidebarMunicipalityPage>
+        </Fragment>
+      )
+    }
   }
 }
 
