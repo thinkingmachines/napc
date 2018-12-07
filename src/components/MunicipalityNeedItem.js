@@ -40,6 +40,7 @@ class MunicipalityHistogram extends Component {
 
   render () {
     var color = needs[this.props.need].color
+    console.log(needs)
 
     return (
       <div>
@@ -48,19 +49,17 @@ class MunicipalityHistogram extends Component {
         </div>
         <div className='mun-sidebar-chart'>
           <svg width='100%' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='5%' x2='95%' y1='calc(100% - 15px)' y2='calc(100% - 15px)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(5% - 1px)' x2='calc(5% - 1px)' y1='calc(100% - 19px)' y2='calc(100% - 11px)' stroke='#CCC' strokeWidth='1' />
-            <line x1='calc(95% + 1px)' x2='calc(95% + 1px)' y1='calc(100% - 19px)' y2='calc(100% - 11px)' stroke='#CCC' strokeWidth='1' />
-            <text className='axis-label' x='5%' y='38' textAnchor='middle' alignmentBaseline='baseline'>{'0%'}</text>
-            <text className='axis-label' x='95%' y='38' textAnchor='middle' alignmentBaseline='baseline'>{'100%'}</text>
+            <line x1='calc(20% - 8px)' x2='calc(80% + 8px)' y1='calc(100% - 15px)' y2='calc(100% - 15px)' stroke='#CCC' strokeWidth='1' />
+            <text className='axis-label' x='15%' y='26' textAnchor='end' alignmentBaseline='middle'>Better</text>
+            <text className='axis-label' x='85%' y='26' textAnchor='start' alignmentBaseline='middle'>Worse</text>
             {this.state.valueCounts.map((val, i) => (
               <g
                 key={i}
                 className='histGroup'>
                 <rect
-                  x={(this.props.percentRange*i*0.9+5) + '%'}
+                  x={(this.props.percentRange*i*0.6+20) + '%'}
                   y={'calc(100% - ' + (this.computeRectHeight(val, 25) + 15) + 'px)'}
-                  width={this.props.percentRange + '%'}
+                  width={this.props.percentRange*0.6 + '%'}
                   height={this.computeRectHeight(val, 25)}
                   fill={color} />
                 <g
@@ -357,6 +356,10 @@ export default styled(MunicipalityNeedItem)`
   g.histGroup g.histTooltip text,
   g.histGroup g.histTooltip rect {
     display: none;
+  }
+
+  g.histGroup rect:hover {
+    fill: #777;
   }
 
   g.circleGroup:hover rect,
