@@ -11,7 +11,7 @@ export default styled(Sidebar)`
   box-sizing: border-box;
   position:absolute;
   background:#f4f4f2;
-  right:0;
+  left: 0;
   height: 97.25vh;
   width:30vw;
   padding: 2.5vw;

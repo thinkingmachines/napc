@@ -20,7 +20,7 @@ export default styled(SidebarMunicipalityPage)`
   @media only screen and (min-width: 769px) {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     height: 98vh;
     width: 30vw;
     padding: 2.5vw;
