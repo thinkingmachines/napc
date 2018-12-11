@@ -35,25 +35,46 @@ export function initMap (map) {
       'source-layer': 'final-prov-indicators-3uffl2',
       'type': 'fill'
     }, 'admin')
+
+    map.addSource('outline', {
+      'type': 'vector',
+      'url': 'mapbox://napc.bg5dnk38'
+    })
+    map.addLayer({
+      'id': 'outline',
+      'source': 'outline',
+      'source-layer': 'municipality_outlines-a9rg3m',
+      'type': 'line',
+      "paint": {
+            "line-color": "#000000",
+            "line-opacity": 0.5,
+            "line-width": 1.5
+        }
+    }, 'admin')
+
     map.setLayoutProperty('provinces', 'visibility', 'visible')
     map.setLayoutProperty('municities', 'visibility', 'none')
     map.setLayoutProperty('barangays', 'visibility', 'none')
+    map.setLayoutProperty('outline', 'visibility', 'none')
   })
 
   function zoomOnClick () {
     map.on('click', 'provinces', function (e) {
       const bbox = turf.bbox(e.features[0])
-      map.fitBounds(bbox, { padding: 60 })
+      map.fitBounds(bbox, { padding: 150 })
       map.setLayoutProperty('provinces', 'visibility', 'none')
       map.setLayoutProperty('municities', 'visibility', 'visible')
+      map.setLayoutProperty('outline', 'visibility', 'none')
+
     })
     map.on('click', 'municities', function (e) {
       const bbox = turf.bbox(e.features[0])
-      map.fitBounds(bbox, { padding: 80 })
+      map.fitBounds(bbox, { padding: 200 })
       map.setLayoutProperty('municities', 'visibility', 'none')
       map.setLayoutProperty('barangays', 'visibility', 'visible')
+      map.setLayoutProperty('outline', 'visibility', 'visible')
     })
   }
   map.on('load', zoomOnClick)
-  // map.scrollZoom.disable()
+  map.scrollZoom.disable()
 }

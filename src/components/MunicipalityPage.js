@@ -133,6 +133,8 @@ class MunicipalityPage extends Component {
       this.showIndicator(need)
       map.setLayoutProperty('provinces', 'visibility', 'none')
       map.setLayoutProperty('municities', 'visibility', 'visible')
+      map.setLayoutProperty('barangays', 'visibility', 'visible')
+      map.setLayoutProperty('outline', 'visibility', 'visible')
     })
 
     this.zoomOnLoad = function (e) {
@@ -140,7 +142,7 @@ class MunicipalityPage extends Component {
         const features = map.queryRenderedFeatures({layers: ['municities'],
           filter: ['==', 'Mun_Code', munCode]})
         const bbox = turf.bbox(features[0])
-        map.fitBounds(bbox, { padding: 60 })
+        map.fitBounds(bbox, { padding: 200 })
       }
     }
 

@@ -115,6 +115,7 @@ class MapPage extends Component {
     map.setLayoutProperty('provinces', 'visibility', 'visible')
     map.setLayoutProperty('municities', 'visibility', 'none')
     map.setLayoutProperty('barangays', 'visibility', 'none')
+    map.setLayoutProperty('outline', 'visibility', 'none')
 
     this.setState({
       Bayan: 'Bayan',
