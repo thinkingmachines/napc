@@ -95,10 +95,10 @@ export default styled(Overlay)`
   font-weight: bold;
   font-size: 2vh;
   color: #464646;
-  padding-left: 3vw;
+  padding-left: 1.5vw;
   display: inline-block;
   top: 0;
-  left: right;
+  left: 0;
   position: absolute;
 
   .information{
@@ -116,6 +116,8 @@ export default styled(Overlay)`
   }
 
   @media only screen and (min-width: 769px) {
+    padding-left: 32vw;
+
     .information{
       width: 10vw;
       padding: 1.5vw;

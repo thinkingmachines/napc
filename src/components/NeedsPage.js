@@ -70,6 +70,9 @@ class NeedsPage extends Component {
               </NavLink>
             ))}
           </div>
+          <div className='textbody'>
+            Click on a province
+          </div>
         </Sidebar>
       </Fragment>
     )

@@ -21,6 +21,8 @@ export default styled(Sidebar)`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  display: inline-block;
+  position: relative;
 
   .description{
     display: flex;
