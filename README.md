@@ -1,18 +1,16 @@
-
 # NAPC Poverty Indicators Map
-
 
 This is a web-based interactive map that will be embedded into NAPC’s Talambayan microsite.
 
-## Getting Started
-
-### Installing
+## Development
 
 Install packages
 
 ```
 npm install
 ```
+
+Get `.env` from the 1Password vault and put it in the root directory.
 
 Run site
 

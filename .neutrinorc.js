@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   use: [
     // '@neutrinojs/standardjs',
@@ -17,6 +19,7 @@ module.exports = {
           babel: false
         }
       }
-    ]
+    ],
+    ['@neutrinojs/env', ['MAPBOX_ACCESS_TOKEN']]
   ]
 }

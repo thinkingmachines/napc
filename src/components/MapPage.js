@@ -11,7 +11,7 @@ import MunicipalityPage from './MunicipalityPage'
 import ReactDOM from 'react-dom'
 import Tooltip from './tooltip'
 
-mapboxgl.accessToken = '***REMOVED***'
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN
 
 class MapPage extends Component {
   tooltipContainer
@@ -35,7 +35,7 @@ class MapPage extends Component {
     super(props)
     this.state = {
       map: null,
-      bayanClicked: null, 
+      bayanClicked: null,
       Bayan:'Bayan'
     }
     this.resetBayan = this.resetBayan.bind(this)
@@ -110,7 +110,7 @@ class MapPage extends Component {
 
   resetBayan() {
     var map = this.state.map
-    
+
     map.fitBounds([117.17427453, 5.58100332277, 126.537423944, 18.5052273625], { padding: 60 })
     map.setLayoutProperty('provinces', 'visibility', 'visible')
     map.setLayoutProperty('municities', 'visibility', 'none')
