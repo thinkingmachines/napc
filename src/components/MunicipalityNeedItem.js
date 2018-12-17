@@ -45,7 +45,7 @@ class MunicipalityHistogram extends Component {
     return (
       <div>
         <div className='mun-sidebar-chart-desc'>
-          {this.props.desc}
+          {this.props.desc.split(' (')[0]}
         </div>
         <div className='mun-sidebar-chart'>
           <svg width='100%' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg'>
@@ -89,6 +89,7 @@ class MunicipalityScoreChart extends Component {
     var xValMarker = scorePos >= 50 ? scorePos === 50 ? 'calc(' + xValMarkerNum + ' - 1px)' : 'calc(' + xValMarkerNum + ' - 2px)' : xValMarkerNum
     var lineWidth = Math.abs(scorePos - 50) + '%'
 
+    return null // TEMP
     return (
       <svg width='70' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
         <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='0' y2='100%' stroke='#CCC' strokeWidth='1' />
@@ -247,14 +248,6 @@ class MunicipalityNeedItem extends Component {
               indicatorValues={prunedIndicators[indicator]}
               axisLabels={indicatorAxisLabels[indicator]}
               percentRange='5' />
-            // <MunicipalityStripPlot
-            //   key={this.props.municipality + '-' + indicator}
-            //   need={this.props.need}
-            //   indicator={indicator}
-            //   desc={this.props.indicatorDescriptions[indicator]}
-            //   selected={this.state.selected}
-            //   indicatorValues={prunedIndicators[indicator]}
-            //   axisLabels={indicatorAxisLabels[indicator]} />
           ))}
         </div>
       </li>

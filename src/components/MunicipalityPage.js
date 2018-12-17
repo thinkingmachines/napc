@@ -212,7 +212,7 @@ class MunicipalityPage extends Component {
             <h3>Basic Needs</h3>
 
             <div className='mun-sidebar-label-div'>
-              <div className='mun-sidebar-label'>National Average</div>
+              <div className='mun-sidebar-label'></div>
             </div>
 
             <MunicipalityNeeds
