@@ -6,8 +6,8 @@ import AboutPage from './AboutPage'
 import ContactUsPage from './ContactUsPage'
 
 class App extends Component {
-  componentDidMount(){
-    document.title = "Talambayan: Tala ng Bayan Laban sa Kahirapan"
+  componentDidMount () {
+    document.title = 'Talambayan: Tala ng Bayan Laban sa Kahirapan'
   }
 
   render () {
@@ -23,9 +23,15 @@ class App extends Component {
         </Switch>
         <footer>
           <div className='footer-content-holder'>
-            <a className='footer-text redirect-buttons' href='/map/food'><p>Ito and Kwento ng Bayan 2018</p></a>
-            <a className='footer-text redirect-buttons' href='/contact'><p>Contact Us</p></a>
-            <a className='footer-text redirect-buttons' href='/about/food'><p>About The Data</p></a>
+            <a className='footer-text redirect-buttons' href='/map/food'>
+              <p>Ito and Kwento ng Bayan 2018</p>
+            </a>
+            <a className='footer-text redirect-buttons' href='/contact'>
+              <p>Contact Us</p>
+            </a>
+            <a className='footer-text redirect-buttons' href='/about/food'>
+              <p>About The Data</p>
+            </a>
           </div>
         </footer>
       </div>
