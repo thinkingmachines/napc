@@ -16,16 +16,20 @@ class MunicipalityHistogram extends Component {
   componentDidMount () {
     var values = this.props.indicatorValues
     var numOfValues = values.length
-    var sectionCount = 100/this.props.percentRange
-    var valueCounts = new Array(sectionCount).fill(0);
-    var maxValue = 0;
+    var sectionCount = 100 / this.props.percentRange
+    var valueCounts = new Array(sectionCount).fill(0)
+    var maxValue = 0
 
     for (var i = 0; i < numOfValues; i++) {
-      valueCounts[values[i]['value'] === 100 ? sectionCount-1 : parseInt(values[i]['value']/this.props.percentRange)]++
+      valueCounts[
+        values[i]['value'] === 100
+          ? sectionCount - 1
+          : parseInt(values[i]['value'] / this.props.percentRange)
+      ]++
     }
 
     for (var i = 0; i < valueCounts.length; i++) {
-      maxValue = valueCounts[i] > maxValue ? valueCounts[i] : maxValue;
+      maxValue = valueCounts[i] > maxValue ? valueCounts[i] : maxValue
     }
 
     this.setState({
@@ -35,7 +39,7 @@ class MunicipalityHistogram extends Component {
   }
 
   computeRectHeight (value, maxRectHeight) {
-    return value/this.state.maxValue * maxRectHeight;
+    return value / this.state.maxValue * maxRectHeight
   }
 
   render () {
@@ -48,28 +52,62 @@ class MunicipalityHistogram extends Component {
           {this.props.desc.split(' (')[0]}
         </div>
         <div className='mun-sidebar-chart'>
-          <svg width='100%' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-            <line x1='calc(20% - 8px)' x2='calc(80% + 8px)' y1='calc(100% - 15px)' y2='calc(100% - 15px)' stroke='#CCC' strokeWidth='1' />
-            <text className='axis-label' x='15%' y='26' textAnchor='end' alignmentBaseline='middle'>Better</text>
-            <text className='axis-label' x='85%' y='26' textAnchor='start' alignmentBaseline='middle'>Worse</text>
+          <svg
+            width='100%'
+            height='40'
+            version='1.1'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <line
+              x1='calc(20% - 8px)'
+              x2='calc(80% + 8px)'
+              y1='calc(100% - 15px)'
+              y2='calc(100% - 15px)'
+              stroke='#CCC'
+              strokeWidth='1'
+            />
+            <text
+              className='axis-label'
+              x='15%'
+              y='26'
+              textAnchor='end'
+              alignmentBaseline='middle'
+            >
+              Better
+            </text>
+            <text
+              className='axis-label'
+              x='85%'
+              y='26'
+              textAnchor='start'
+              alignmentBaseline='middle'
+            >
+              Worse
+            </text>
             {this.state.valueCounts.map((val, i) => (
-              <g
-                key={i}
-                className='histGroup'>
+              <g key={i} className='histGroup'>
                 <rect
-                  x={(this.props.percentRange*i*0.6+20) + '%'}
-                  y={'calc(100% - ' + (this.computeRectHeight(val, 25) + 15) + 'px)'}
-                  width={this.props.percentRange*0.6 + '%'}
+                  x={this.props.percentRange * i * 0.6 + 20 + '%'}
+                  y={
+                    'calc(100% - ' +
+                    (this.computeRectHeight(val, 25) + 15) +
+                    'px)'
+                  }
+                  width={this.props.percentRange * 0.6 + '%'}
                   height={this.computeRectHeight(val, 25)}
-                  fill={color} />
-                <g
-                  className='histTooltip'>
+                  fill={color}
+                />
+                <g className='histTooltip'>
                   <text
                     x='50%'
                     y='34px'
                     textAnchor='middle'
-                    alignmentBaseline='middle' >
-                    {i*this.props.percentRange}-{(i+1)*this.props.percentRange}% ({val} barangay{val !== 1 ? 's' : ''})
+                    alignmentBaseline='middle'
+                  >
+                    {i * this.props.percentRange}-{(i + 1) *
+                      this.props.percentRange}% ({val} barangay{val !== 1
+                      ? 's'
+                      : ''})
                   </text>
                 </g>
               </g>
@@ -86,18 +124,49 @@ class MunicipalityScoreChart extends Component {
     var scorePos = this.props.scorePos
     var xValLine = scorePos >= 50 ? '50%' : scorePos + '%'
     var xValMarkerNum = scorePos + '%'
-    var xValMarker = scorePos >= 50 ? scorePos === 50 ? 'calc(' + xValMarkerNum + ' - 1px)' : 'calc(' + xValMarkerNum + ' - 2px)' : xValMarkerNum
+    var xValMarker =
+      scorePos >= 50
+        ? scorePos === 50
+          ? 'calc(' + xValMarkerNum + ' - 1px)'
+          : 'calc(' + xValMarkerNum + ' - 2px)'
+        : xValMarkerNum
     var lineWidth = Math.abs(scorePos - 50) + '%'
 
     return null // TEMP
     return (
-      <svg width='70' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
-        <line x1='calc(50% - 0.5px)' x2='calc(50% - 0.5px)' y1='0' y2='100%' stroke='#CCC' strokeWidth='1' />
-        <rect x={xValLine} y='8.5' width={lineWidth} height='3' fill='#E6E6E6' strokeWidth='0' />
-        <rect x={xValMarker} y='6' width='2' height='8' fill={needs[this.props.need].color} strokeWidth='0' /> :
+      <svg
+        width='70'
+        height='20'
+        version='1.1'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <line
+          x1='calc(50% - 0.5px)'
+          x2='calc(50% - 0.5px)'
+          y1='0'
+          y2='100%'
+          stroke='#CCC'
+          strokeWidth='1'
+        />
+        <rect
+          x={xValLine}
+          y='8.5'
+          width={lineWidth}
+          height='3'
+          fill='#E6E6E6'
+          strokeWidth='0'
+        />
+        <rect
+          x={xValMarker}
+          y='6'
+          width='2'
+          height='8'
+          fill={needs[this.props.need].color}
+          strokeWidth='0'
+        />{' '}
+        :
       </svg>
     )
-    
   }
 }
 
@@ -115,8 +184,8 @@ class MunicipalityNeedItem extends Component {
   }
 
   getScorePos (score) {
-    if (score == "") {
-      return ""
+    if (score == '') {
+      return ''
     }
 
     var needAverage = nationalAverages[needs[this.props.need]['prop-col']]
@@ -132,9 +201,12 @@ class MunicipalityNeedItem extends Component {
     var barangayIndicators = this.props.barangayIndicators
     var indicatorList = needs[this.props.need]['indicators']
     var needName = this.props.need
-    var values = Object.keys(barangayIndicators).map(function (barangay) { return barangayIndicators[barangay][needs[needName]['prop-col']] })
+    var values = Object.keys(barangayIndicators).map(function (barangay) {
+      return barangayIndicators[barangay][needs[needName]['prop-col']]
+    })
     var scorePos = this.getScorePos(this.props.score)
-    var needAverage = nationalAverages[needs[this.props.need]['prop-col']]['avg']
+    var needAverage =
+      nationalAverages[needs[this.props.need]['prop-col']]['avg']
 
     this.setState({
       scorePos: scorePos,
@@ -161,25 +233,43 @@ class MunicipalityNeedItem extends Component {
 
       if (topIndicator['type'] === 'Proportion') {
         scoreRounded = Math.round(score / 10)
-        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded
+        scoreRounded =
+          scoreRounded === 0 && score !== 0
+            ? 1
+            : scoreRounded === 10 && score !== 100 ? 9 : scoreRounded
         natAvgRounded = Math.round(natAvg / 10)
-        natAvgRounded = natAvgRounded === 0 && natAvg !== 0 ? 1 : natAvgRounded === 10 && natAvg !== 100 ? 9 : natAvgRounded 
+        natAvgRounded =
+          natAvgRounded === 0 && natAvg !== 0
+            ? 1
+            : natAvgRounded === 10 && natAvg !== 100 ? 9 : natAvgRounded
       } else {
         scoreRounded = Math.round(score)
-        scoreRounded = scoreRounded === 0 && score !== 0 ? 1 : scoreRounded === 100 && score !== 100 ? 99 : scoreRounded
+        scoreRounded =
+          scoreRounded === 0 && score !== 0
+            ? 1
+            : scoreRounded === 100 && score !== 100 ? 99 : scoreRounded
         natAvgRounded = Math.round(natAvg)
-        natAvgRounded = natAvgRounded === 0 && natAvg !== 0 ? 1 : natAvgRounded === 100 && natAvg !== 100 ? 99 : natAvgRounded
+        natAvgRounded =
+          natAvgRounded === 0 && natAvg !== 0
+            ? 1
+            : natAvgRounded === 100 && natAvg !== 100 ? 99 : natAvgRounded
       }
 
-      explanationText1 = topIndicator['type'] === 'Proportion' ?
-        + scoreRounded + ' out of 10':
-        scoreRounded
-      explanationText2 = topIndicator['type'] === 'Proportion' ?
-        topIndicator['text_before'] + ' in ' + this.props.munName + ' ' + topIndicator['text_after']:
-        topIndicator['text_before'] + ' for' + this.props.munName
+      explanationText1 =
+        topIndicator['type'] === 'Proportion'
+          ? +scoreRounded + ' out of 10'
+          : scoreRounded
+      explanationText2 =
+        topIndicator['type'] === 'Proportion'
+          ? topIndicator['text_before'] +
+            ' in ' +
+            this.props.munName +
+            ' ' +
+            topIndicator['text_after']
+          : topIndicator['text_before'] + ' for' + this.props.munName
     }
 
-    for(var ind in indicatorList) {
+    for (var ind in indicatorList) {
       var indicator = indicatorList[ind]
       var tempData = []
       var tempValues = []
@@ -209,7 +299,7 @@ class MunicipalityNeedItem extends Component {
 
       if (axisLabels.min === axisLabels.max) {
         tempData = []
-      } 
+      }
 
       if (tempData.length > 0) {
         prunedIndicators[indicator] = tempData
@@ -221,23 +311,57 @@ class MunicipalityNeedItem extends Component {
 
     return (
       <li className={this.props.className}>
-        <div className='mun-sidebar-header' onClick={this.props.clickMethod.bind(this)}>
-          <NavLink activeClassName='active' to={'/map/' + this.props.need + '/municipality/' + this.props.munCode.substring(2)}>
+        <div
+          className='mun-sidebar-header'
+          onClick={this.props.clickMethod.bind(this)}
+        >
+          <NavLink
+            activeClassName='active'
+            to={
+              '/map/' +
+              this.props.need +
+              '/municipality/' +
+              this.props.munCode.substring(2)
+            }
+          >
             <h4>{needs[this.props.need].titles}</h4>
           </NavLink>
           <div className='mun-sidebar-header-chart'>
-            {!(this.state.scorePos === null || isNaN(this.state.scorePos) || this.state.scorePos === '') &&
-              <MunicipalityScoreChart need={this.props.need} scorePos={this.state.scorePos} score={this.props.score}/>}
+            {!(
+              this.state.scorePos === null ||
+              isNaN(this.state.scorePos) ||
+              this.state.scorePos === ''
+            ) && (
+              <MunicipalityScoreChart
+                need={this.props.need}
+                scorePos={this.state.scorePos}
+                score={this.props.score}
+              />
+            )}
           </div>
         </div>
         <div className='mun-sidebar-content'>
           <div className='mun-sidebar-main-desc'>
             <span class='emphasize'>
-              { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? '' : '' : explanationText1 } { score === null || isNaN(score) || score === '' ? prunedIndicatorList.length === 0 ? 'No data is available for this municipality' : '' : explanationText2 }
-              <div class='small-text'>compared to the national average of {natAvgRounded}{ topIndicator['type'] === 'Proportion' ? ' out of 10 ' : '' }</div>
+              {score === null || isNaN(score) || score === ''
+                ? prunedIndicatorList.length === 0 ? '' : ''
+                : explanationText1}{' '}
+              {score === null || isNaN(score) || score === ''
+                ? prunedIndicatorList.length === 0
+                  ? 'No data is available for this municipality'
+                  : ''
+                : explanationText2}
+              <div class='small-text'>
+                compared to the national average of {natAvgRounded}
+                {topIndicator['type'] === 'Proportion' ? ' out of 10 ' : ''}
+              </div>
             </span>
           </div>
-          <b>{ prunedIndicatorList.length > 0 ? 'Barangay Distribution per Indicator' : '' }</b>
+          <b>
+            {prunedIndicatorList.length > 0
+              ? 'Barangay Distribution per Indicator'
+              : ''}
+          </b>
           {prunedIndicatorList.map((indicator, i) => (
             <MunicipalityHistogram
               key={this.props.municipality + '-' + indicator}
@@ -247,7 +371,8 @@ class MunicipalityNeedItem extends Component {
               selected={this.state.selected}
               indicatorValues={prunedIndicators[indicator]}
               axisLabels={indicatorAxisLabels[indicator]}
-              percentRange='5' />
+              percentRange='5'
+            />
           ))}
         </div>
       </li>
@@ -259,10 +384,9 @@ export default styled(MunicipalityNeedItem)`
   padding: 0;
 
   div.mun-sidebar-header {
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #ddd;
     padding: 0;
   }
-
 
   div.mun-sidebar-header h4 {
     position: relative;
@@ -325,8 +449,8 @@ export default styled(MunicipalityNeedItem)`
   }
 
   div.mun-sidebar-desc {
-    color: #AAA;
-    margin-top: 10px
+    color: #aaa;
+    margin-top: 10px;
   }
 
   div.mun-sidebar-chart-desc {
@@ -335,7 +459,7 @@ export default styled(MunicipalityNeedItem)`
     margin-top: 12px;
   }
 
-  div.mun-sidebar-chart{
+  div.mun-sidebar-chart {
     margin: 10px 0;
   }
 
@@ -364,7 +488,7 @@ export default styled(MunicipalityNeedItem)`
 
   g.circleGroup:hover rect,
   g.histGroup:hover g.histTooltip rect {
-    fill: #BBB;
+    fill: #bbb;
   }
 
   g.circleGroup:hover text,
@@ -376,7 +500,7 @@ export default styled(MunicipalityNeedItem)`
   }
 
   .small-text {
-    font-size: 0.65em
+    font-size: 0.65em;
   }
 
   .emphasize {

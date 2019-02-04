@@ -9,9 +9,13 @@ class OverlayMunicipalityPage extends Component {
     this.componentDidMount = this.componentDidMount.bind(this)
   }
   titleCase (str) {
-    return str.toLowerCase().split(' ').map(function (word) {
-      return word.replace(word[0], word[0].toUpperCase())
-    }).join(' ')
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      })
+      .join(' ')
   }
   componentDidMount () {
     const munCode = this.props.munCode
@@ -29,12 +33,12 @@ class OverlayMunicipalityPage extends Component {
               </div>
             </div>
             <div className='municipality-ranking-container'>
-              
               <div className='mun-rank municipality-ranking'>
                 {this.props.munRanks[this.props.need]}
               </div>
               <div className='mun-rank municipality-total'>
-                Out of {this.props.munTotalCounts[this.props.need]} municipalities *
+                Out of {this.props.munTotalCounts[this.props.need]}{' '}
+                municipalities *
               </div>
             </div>
           </div>
@@ -42,7 +46,8 @@ class OverlayMunicipalityPage extends Component {
             {this.props.munData.Description}
           </div>
           <div className='footnote'>
-            * The number of municipalities shown is calculated based on the total number of municipalities with data available.
+            * The number of municipalities shown is calculated based on the
+            total number of municipalities with data available.
           </div>
         </div>
       </div>
@@ -57,7 +62,7 @@ export default styled(OverlayMunicipalityPage)`
     height: auto;
     background: white;
     padding: 20px;
-    font-family:'Proxima Nova';
+    font-family: 'Proxima Nova';
     font-weight: bold;
     box-sizing: border-box;
   }
@@ -67,7 +72,7 @@ export default styled(OverlayMunicipalityPage)`
     bottom: 5vh;
     right: 0;
     margin: 0;
-    
+
     .municipality-information {
       bottom: 5vh;
       width: 70vw;
@@ -80,47 +85,46 @@ export default styled(OverlayMunicipalityPage)`
     width: calc(100% - 120px);
     display: inline-block;
   }
-  
+
   .municipality-header {
     font-size: 0.7em;
   }
-  
+
   .municipality-name {
     font-size: 1.7em;
     color: ${props => needs[props.need].color};
-    font-family:'Akrobat';
+    font-family: 'Akrobat';
   }
-  
+
   .municipality-ranking-container {
     width: 120px;
     display: inline-block;
     text-align: right;
   }
-  
+
   .municipality-ranking {
     font-size: 2.2em;
-    font-family:'Akrobat';
+    font-family: 'Akrobat';
   }
-  
+
   .municipality-total {
-    font-size: 0.7em
+    font-size: 0.7em;
   }
-  
-  .municipality-desc{
+
+  .municipality-desc {
     font-size: 0.9em;
-    font-family:'Proxima Nova Thin';
+    font-family: 'Proxima Nova Thin';
     margin-bottom: 0;
     margin-top: 2vh;
     text-align: justify;
   }
 
-  .footnote{
-    font-style:italic;
+  .footnote {
+    font-style: italic;
     font-size: 0.6em;
-    font-family:'Proxima Nova Thin';
+    font-family: 'Proxima Nova Thin';
     margin-bottom: 0;
     margin-top: 25px;
     text-align: justify;
   }
-
 `

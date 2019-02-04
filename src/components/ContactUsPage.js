@@ -13,23 +13,26 @@ class ContactUsPage extends Component {
   }
 
   componentDidMount () {
-    d3.csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=400830878&single=true&output=csv').then(data => {
-      const [ desc, trunklines, fax, email, location, privacyNotice ] = data
-      this.setState({
-        contactInfo: {
-          desc: desc.Content,
-          trunklines: trunklines.Content,
-          fax: fax.Content,
-          email: email.Content,
-          location: location.Content,
-          privacyNotice: privacyNotice.Content
-        }
+    d3
+      .csv(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSQebIhEjhFR3LewIiByv3yfqc2YY0GH-cO5mXjhfYDfJY5Z7vVGvtsVSKN-CjtZhNxe0gOzHN0_bDN/pub?gid=400830878&single=true&output=csv'
+      )
+      .then(data => {
+        const [desc, trunklines, fax, email, location, privacyNotice] = data
+        this.setState({
+          contactInfo: {
+            desc: desc.Content,
+            trunklines: trunklines.Content,
+            fax: fax.Content,
+            email: email.Content,
+            location: location.Content,
+            privacyNotice: privacyNotice.Content
+          }
+        })
+
+        document.querySelector('#map').style.display = 'none'
       })
-
-      document.querySelector('#map').style.display = 'none'
-    })
   }
-
 
   render () {
     return (
@@ -39,42 +42,107 @@ class ContactUsPage extends Component {
           <div className='divider' />
           <br />
           <div className='form-holder'>
-            <input type='text' className='body-text inputs form-inputs' placeholder='First Name' name='fname' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Last Name' name='lname' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Phone Number' name='phonenum' />
-            <input type='text' className='body-text inputs form-inputs' placeholder='Email' name='email' />
-            <select className='body-text inputs select-inputs' placeholder='Purpose'>
-              <option value='' disabled selected>Purpose</option>
+            <input
+              type='text'
+              className='body-text inputs form-inputs'
+              placeholder='First Name'
+              name='fname'
+            />
+            <input
+              type='text'
+              className='body-text inputs form-inputs'
+              placeholder='Last Name'
+              name='lname'
+            />
+            <input
+              type='text'
+              className='body-text inputs form-inputs'
+              placeholder='Phone Number'
+              name='phonenum'
+            />
+            <input
+              type='text'
+              className='body-text inputs form-inputs'
+              placeholder='Email'
+              name='email'
+            />
+            <select
+              className='body-text inputs select-inputs'
+              placeholder='Purpose'
+            >
+              <option value='' disabled selected>
+                Purpose
+              </option>
               <option>Option1</option>
               <option>Option2</option>
             </select>
-            <textarea type='text' className='body-text inputs form-msg' placeholder='Write your request here' name='msg' />
+            <textarea
+              type='text'
+              className='body-text inputs form-msg'
+              placeholder='Write your request here'
+              name='msg'
+            />
             <br />
-            <a className='body-text send-button' href=''><img className='send-button-img' src={'/static/img/send.png'} /> Send</a>
-            <p className='body-text privacy-text'>Privacy Notice: {this.state.contactInfo.privacyNotice}</p>
+            <a className='body-text send-button' href=''>
+              <img className='send-button-img' src={'/static/img/send.png'} />{' '}
+              Send
+            </a>
+            <p className='body-text privacy-text'>
+              Privacy Notice: {this.state.contactInfo.privacyNotice}
+            </p>
           </div>
         </div>
         <div className='sidebar'>
           <div className='contact-holder'>
             <img className='logo' src='/static/img/napc-logo.png' />
             <h3 className='body-text'>Contact Us</h3>
-            <p className='contact-text contact-desc'>{this.state.contactInfo.desc}</p>
+            <p className='contact-text contact-desc'>
+              {this.state.contactInfo.desc}
+            </p>
           </div>
           <br />
           <div className='info-holder'>
-            <p className='contact-text'><b className='contact-headers'>Trunklines: </b>{this.state.contactInfo.trunklines}</p>
-            <p className='contact-text'><b className='contact-headers'>Fax: </b>{this.state.contactInfo.fax}</p>
-            <p className='contact-text'><b className='contact-headers'>Email: </b>{this.state.contactInfo.email}</p>
+            <p className='contact-text'>
+              <b className='contact-headers'>Trunklines: </b>
+              {this.state.contactInfo.trunklines}
+            </p>
+            <p className='contact-text'>
+              <b className='contact-headers'>Fax: </b>
+              {this.state.contactInfo.fax}
+            </p>
+            <p className='contact-text'>
+              <b className='contact-headers'>Email: </b>
+              {this.state.contactInfo.email}
+            </p>
           </div>
           <img className='map' src='/static/img/location.png' />
-          <p className='contact-text contact-location'>{this.state.contactInfo.location}</p>
+          <p className='contact-text contact-location'>
+            {this.state.contactInfo.location}
+          </p>
           <br />
-          <p className='contact-text sns-header'><b className='contact-headers'>Social Media</b></p>
+          <p className='contact-text sns-header'>
+            <b className='contact-headers'>Social Media</b>
+          </p>
           <br />
           <div className='sns-holder'>
-            <a href='https://www.facebook.com/NAPC.PH/' target='_blank'><img className='socialmedia-buttons' src={'/static/img/fb-unselect.png'} /></a>
-            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/twitter-unselect.png'} /></a>
-            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'><img className='socialmedia-buttons' src={'/static/img/google-unselect.png'} /></a>
+            <a href='https://www.facebook.com/NAPC.PH/' target='_blank'>
+              <img
+                className='socialmedia-buttons'
+                src={'/static/img/fb-unselect.png'}
+              />
+            </a>
+            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'>
+              <img
+                className='socialmedia-buttons'
+                src={'/static/img/twitter-unselect.png'}
+              />
+            </a>
+            <a href='https://twitter.com/napc_ph?lang=en' target='_blank'>
+              <img
+                className='socialmedia-buttons'
+                src={'/static/img/google-unselect.png'}
+              />
+            </a>
           </div>
         </div>
       </div>

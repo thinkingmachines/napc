@@ -40,7 +40,7 @@ export default styled(SidebarMunicipalityPage)`
   div.mun-sidebar-label-div {
     text-align: right;
   }
-  
+
   div.mun-sidebar-label {
     font-family: 'Proxima Nova';
     font-size: 0.6em;
@@ -48,7 +48,7 @@ export default styled(SidebarMunicipalityPage)`
     width: 70px;
     display: inline-block;
   }
-  
+
   ul.mun-sidebar-list {
     list-style: none;
     padding: 0;
