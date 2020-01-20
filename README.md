@@ -10,7 +10,7 @@ Install packages
 npm install
 ```
 
-Get `.env` from the 1Password vault and put it in the root directory.
+Get `.env` from the Bitwarden collection and put it in the root directory.
 
 Run site
 
